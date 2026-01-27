@@ -1,79 +1,82 @@
-export default function Home() {
-  const rankings = [
-    {
-      name: "ChatGPT Plus",
-      rank: 1,
-      price: "$20 / month",
-      score: 9.6,
-    },
-    {
-      name: "Claude Pro",
-      rank: 2,
-      price: "$20 / month",
-      score: 9.3,
-    },
-    {
-      name: "Gemini Advanced",
-      rank: 3,
-      price: "$19.99 / month",
-      score: 8.9,
-    },
-  ];
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI 가성비 랭킹</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-  return (
-    <main className="min-h-screen bg-black text-white">
-      {/* 상단 네비 */}
-      <header className="flex items-center justify-between px-8 py-4 border-b border-white/10">
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-full bg-white text-black flex items-center justify-center font-bold">
-            로고
-          </div>
-          <span className="text-xl font-bold">내 웹사이트 이름</span>
-        </div>
+    body {
+      background-color: #000;
+      color: #fff;
+      height: 100vh;
+    }
 
-        <nav className="flex gap-8 text-sm">
-          <span className="text-yellow-400">순위</span>
-          <span className="opacity-50">비교</span>
-          <span className="opacity-50">hot</span>
-          <span className="opacity-50">검색</span>
-        </nav>
-      </header>
+    /* 상단 바 */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 24px 40px;
+      display: flex;
+      justify-content: flex-end;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
 
-      {/* 메인 텍스트 */}
-      <section className="flex h-[60vh] items-center justify-center">
-        <h1 className="text-[8rem] font-black tracking-tight">광고</h1>
-      </section>
+    nav {
+      display: flex;
+      gap: 40px;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
 
-      {/* 순위 */}
-      <section className="px-8 pb-20">
-        <h2 className="text-2xl font-bold mb-6">AI 가성비 순위</h2>
+    nav a {
+      color: #aaa;
+      text-decoration: none;
+      transition: 0.2s;
+    }
 
-        <div className="space-y-4">
-          {rankings.map((ai) => (
-            <div
-              key={ai.rank}
-              className="rounded-xl border border-white/10 bg-zinc-900 p-6"
-            >
-              <div className="flex justify-between items-center">
-                <h3 className="text-xl font-semibold">
-                  #{ai.rank} {ai.name}
-                </h3>
-                <span className="text-yellow-400">
-                  ⭐ {ai.score}
-                </span>
-              </div>
+    nav a:hover {
+      color: #fff;
+    }
 
-              <p className="mt-2 text-zinc-400">
-                가격: {ai.price}
-              </p>
+    /* 메인 중앙 */
+    main {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-              <button className="mt-4 w-full rounded-lg bg-white py-2 text-black hover:bg-zinc-200">
-                상세 보기
-              </button>
-            </div>
-          ))}
-        </div>
-      </section>
-    </main>
-  );
-}
+    h1 {
+      font-size: 160px;
+      font-weight: 900;
+      letter-spacing: -10px;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 상단 메뉴 -->
+  <header>
+    <nav>
+      <a href="#">순위</a>
+      <a href="#">비교</a>
+      <a href="#">검색</a>
+    </nav>
+  </header>
+
+  <!-- 메인 화면 -->
+  <main>
+    <h1>광고</h1>
+  </main>
+
+</body>
+</html>
