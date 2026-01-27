@@ -8,7 +8,6 @@ export default function Home() {
       pros: ["범용성 최고", "GPT-4 사용 가능", "플러그인 & 파일 업로드"],
       bestFor: "대부분의 사람",
       sponsored: true,
-      url: "https://chat.openai.com/",
     },
     {
       rank: 2,
@@ -18,7 +17,6 @@ export default function Home() {
       pros: ["긴 글 처리 최강", "자연스러운 문장", "요약·분석에 강함"],
       bestFor: "문서·리포트 작업",
       sponsored: false,
-      url: "https://claude.ai/",
     },
     {
       rank: 3,
@@ -28,74 +26,89 @@ export default function Home() {
       pros: ["구글 서비스 연동", "검색 기반 답변 강점", "멀티모달 지원"],
       bestFor: "검색·자료조사",
       sponsored: false,
-      url: "https://gemini.google.com/",
     },
   ];
 
   return (
-    <main className="min-h-screen bg-black px-6 py-12 text-white">
-      {/* 제목 */}
-      <h1 className="text-4xl font-bold">AI 구독 서비스 가성비 랭킹</h1>
-      <p className="mt-2 text-zinc-400">
-        가격 대비 성능 기준으로 정리한 TOP AI 서비스
-      </p>
+    <main className="min-h-screen bg-black text-white">
+      {/* HEADER */}
+      <header className="flex items-center justify-between border-b border-white/20 px-6 py-4">
+        <div className="flex items-center gap-3">
+          <div className="h-8 w-8 rounded-full bg-white/20" />
+          <span className="text-lg font-bold">내 웹사이트 이름</span>
+        </div>
 
-      {/* 랭킹 카드 */}
-      <section className="mt-10 grid gap-6 md:grid-cols-2">
-        {rankings.map((item) => (
-          <div
-            key={item.rank}
-            className={`rounded-xl border p-6 ${
-              item.rank === 1
-                ? "border-yellow-500 bg-zinc-900"
-                : "border-white/10 bg-zinc-900"
-            }`}
-          >
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold">
-                #{item.rank} {item.name}
-              </h2>
+        <nav className="flex gap-6 text-sm text-zinc-300">
+          <button className="hover:text-white">순위</button>
+          <button className="hover:text-white">비교</button>
+          <button className="hover:text-white">hot</button>
+          <button className="hover:text-white">검색</button>
+        </nav>
+      </header>
 
-              {item.sponsored && (
-                <span className="rounded bg-yellow-500 px-2 py-1 text-xs font-bold text-black">
-                  가성비 픽
-                </span>
-              )}
-            </div>
-
-            <p className="mt-2 text-zinc-400">
-              총점 {item.score} / 10
-            </p>
-            <p className="mt-1 text-sm">{item.price}</p>
-
-            <p className="mt-2 text-sm text-zinc-300">
-              👍 추천 대상: {item.bestFor}
-            </p>
-
-            <ul className="mt-3 space-y-1 text-sm text-zinc-300">
-              {item.pros.map((pro, i) => (
-                <li key={i}>✔ {pro}</li>
-              ))}
-            </ul>
-
-            {/* 🔥 링크 버튼 */}
-            <a
-              href={item.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 block w-full rounded-lg bg-white py-2 text-center text-black hover:bg-zinc-200"
-            >
-              지금 가격 확인
-            </a>
-          </div>
-        ))}
+      {/* HERO */}
+      <section className="flex h-[70vh] items-center justify-center">
+        <h1 className="text-[12rem] font-black leading-none tracking-tight">
+          광고
+        </h1>
       </section>
 
-      {/* 점수 기준 */}
-      <p className="mt-10 text-xs text-zinc-500">
-        점수 기준: 가격 40% · 기능 30% · 만족도 20% · 지속성 10% <br />
-        일부 링크는 제휴 수익을 포함할 수 있습니다.
-      </p>
+      {/* RANKING */}
+      <section className="px-6 pb-20">
+        <h2 className="text-3xl font-bold">AI 구독 서비스 가성비 랭킹</h2>
+        <p className="mt-2 text-zinc-400">
+          가격 대비 성능 기준으로 정리한 TOP AI 서비스
+        </p>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          {rankings.map((item) => (
+            <div
+              key={item.rank}
+              className={`rounded-xl border p-6 ${
+                item.rank === 1
+                  ? "border-yellow-500 bg-zinc-900"
+                  : "border-white/10 bg-zinc-900"
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <h3 className="text-xl font-semibold">
+                  #{item.rank} {item.name}
+                </h3>
+
+                {item.sponsored && (
+                  <span className="rounded bg-yellow-500 px-2 py-1 text-xs font-bold text-black">
+                    가성비 픽
+                  </span>
+                )}
+              </div>
+
+              <p className="mt-2 text-zinc-400">
+                총점 {item.score} / 10
+              </p>
+              <p className="mt-1 text-sm">{item.price}</p>
+
+              <p className="mt-2 text-sm text-zinc-300">
+                👍 추천 대상: {item.bestFor}
+              </p>
+
+              <ul className="mt-3 space-y-1 text-sm text-zinc-300">
+                {item.pros.map((pro, i) => (
+                  <li key={i}>✔ {pro}</li>
+                ))}
+              </ul>
+
+              <button className="mt-4 w-full rounded-lg bg-white py-2 text-black hover:bg-zinc-200">
+                지금 가격 확인
+              </button>
+            </div>
+          ))}
+        </div>
+
+        <p className="mt-10 text-xs text-zinc-500">
+          점수 기준: 가격 40% · 기능 30% · 만족도 20% · 지속성 10% <br />
+          일부 링크는 제휴 수익을 포함할 수 있습니다.
+        </p>
+      </section>
     </main>
   );
 }
