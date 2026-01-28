@@ -1,263 +1,152 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>VRANK</title>
+  <meta charset="UTF-8" />
+  <title>vRank</title>
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Pretendard, Arial, sans-serif;
-}
-body {
-  background: #0e0e0e;
-  color: white;
-}
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f1115;
+      color: white;
+    }
 
-/* HEADER */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
-  border-bottom: 1px solid #222;
-}
-.logo {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-.logo-icon {
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(135deg,#6cffb1,#3aa0ff);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  color: black;
-  margin-right: 10px;
-}
-.logo-text {
-  font-size: 24px;
-  font-weight: 900;
-}
-nav {
-  display: flex;
-  gap: 40px;
-  font-size: 20px;
-  font-weight: 700;
-}
-nav span {
-  cursor: pointer;
-  opacity: .85;
-}
-nav span:hover { opacity: 1; }
+    /* 상단 바 */
+    header {
+      display: flex;
+      align-items: center;
+      padding: 15px 25px;
+      background: #151822;
+      cursor: pointer;
+    }
 
-/* LAYOUT */
-main { padding: 80px 40px; }
-section { display: none; }
+    .logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #4f46e5, #22d3ee);
+      margin-right: 12px;
+    }
 
-/* HOME */
-#ad {
-  margin: 40px auto;
-  width: 80%;
-  height: 200px;
-  border: 2px dashed #444;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #888;
-  font-size: 20px;
-}
+    .title {
+      font-size: 22px;
+      font-weight: 900;
+    }
 
-/* RANK */
-.ai-card {
-  display: flex;
-  align-items: center;
-  background: #151515;
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  cursor: pointer;
-}
-.ai-card:hover { background:#1b1b1b; }
-.ai-logo {
-  width: 60px;
-  height: 60px;
-  background: #333;
-  border-radius: 12px;
-  margin-right: 20px;
-}
-.ai-info h3 { font-size: 22px; }
-.ai-info p { font-size: 14px; color: #aaa; }
+    /* 버튼 */
+    .menu {
+      padding: 20px;
+    }
 
-/* DETAIL */
-.detail-box {
-  max-width: 900px;
-}
-.detail-box h2 {
-  font-size: 36px;
-  margin-bottom: 10px;
-}
-.detail-box p {
-  color: #aaa;
-  margin-bottom: 8px;
-}
-pre {
-  margin-top: 20px;
-  white-space: pre-wrap;
-  color: #ccc;
-  line-height: 1.7;
-}
-iframe {
-  width: 100%;
-  height: 480px;
-  border-radius: 12px;
-  border: none;
-}
-</style>
+    button {
+      background: #1f2937;
+      border: none;
+      color: white;
+      padding: 12px 18px;
+      margin-right: 10px;
+      border-radius: 10px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #374151;
+    }
+
+    /* 콘텐츠 영역 */
+    .content {
+      padding: 20px;
+    }
+
+    .card {
+      background: #151822;
+      padding: 20px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 360px;
+      border-radius: 12px;
+      border: none;
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
-  <div class="logo" onclick="goHome()">
-    <div class="logo-icon">V</div>
-    <div class="logo-text">VRANK</div>
+  <!-- 로고 / 홈 이동 -->
+  <header onclick="goHome()">
+    <div class="logo"></div>
+    <div class="title">vRank</div>
+  </header>
+
+  <!-- 메뉴 -->
+  <div class="menu">
+    <button onclick="showRank()">🔥 순위</button>
+    <button onclick="showAI()">🤖 AI</button>
+    <button onclick="showReview()">▶ 리뷰</button>
   </div>
-  <nav>
-    <span onclick="showRank()">순위</span>
-    <span onclick="showReview()">리뷰</span>
-    <span onclick="showSearch()">검색</span>
-  </nav>
-</header>
 
-<main>
-
-<section id="home">
-  <h1>AI 가성비 순위 플랫폼</h1>
-  <div id="ad">📢 광고 영역</div>
-</section>
-
-<section id="rank">
-  <h2>AI 가성비 순위</h2>
-
-  <div class="ai-card" onclick="openDetail('chatgpt')">
-    <div class="ai-logo"></div>
-    <div class="ai-info">
-      <h3>ChatGPT Plus</h3>
-      <p>₩29,000 / 가성비 1위</p>
+  <!-- 메인 콘텐츠 -->
+  <div class="content" id="content">
+    <div class="card">
+      <h2>🏠 홈</h2>
+      <p>광고 / 추천 콘텐츠 영역</p>
     </div>
   </div>
 
-  <div class="ai-card" onclick="openDetail('claude')">
-    <div class="ai-logo"></div>
-    <div class="ai-info">
-      <h3>Claude Pro</h3>
-      <p>₩25,000 / 가성비 2위</p>
-    </div>
-  </div>
+  <!-- JS -->
+  <script>
+    const content = document.getElementById("content");
 
-  <div class="ai-card" onclick="openDetail('gemini')">
-    <div class="ai-logo"></div>
-    <div class="ai-info">
-      <h3>Gemini Advanced</h3>
-      <p>₩29,000 / 가성비 3위</p>
-    </div>
-  </div>
-</section>
+    function goHome() {
+      content.innerHTML = `
+        <div class="card">
+          <h2>🏠 홈</h2>
+          <p>광고 / 추천 콘텐츠 영역</p>
+        </div>
+      `;
+    }
 
-<section id="detail">
-  <div class="detail-box">
-    <h2 id="d-name"></h2>
-    <p id="d-price"></p>
-    <p id="d-rank"></p>
-    <p id="d-desc"></p>
-    <pre id="d-detail"></pre>
-  </div>
-</section>
+    function showRank() {
+      content.innerHTML = `
+        <div class="card">
+          <h2>🔥 AI 순위</h2>
+          <ol>
+            <li>ChatGPT</li>
+            <li>Claude</li>
+            <li>Gemini</li>
+          </ol>
+        </div>
+      `;
+    }
 
-<section id="review">
-  <div class="detail-box">
-    <h2>📺 AI 리뷰 영상</h2>
-    <iframe src="https://www.youtube.com/embed/SmLeEUzo0aA" allowfullscreen></iframe>
-  </div>
-</section>
+    function showAI() {
+      content.innerHTML = `
+        <div class="card">
+          <h2>🤖 AI 상세 페이지</h2>
+          <p>
+            이 AI는 텍스트 생성, 요약, 번역에 강점이 있으며<br>
+            가격 대비 성능이 매우 우수합니다.
+          </p>
+        </div>
+      `;
+    }
 
-<section id="search">
-  <h2>🔍 검색</h2>
-  <p style="color:#aaa">검색 기능은 곧 추가됩니다.</p>
-</section>
-
-</main>
-
-<script>
-const aiData = {
-  chatgpt: {
-    name: "ChatGPT Plus",
-    price: "₩29,000 / month",
-    rank: "가성비 1위",
-    desc: "가장 범용적인 AI",
-    detail: "• GPT-4 기반\n• 코딩, 글쓰기, 공부 전부 가능"
-  },
-  claude: {
-    name: "Claude Pro",
-    price: "₩25,000 / month",
-    rank: "가성비 2위",
-    desc: "글쓰기 특화 AI",
-    detail: "• 긴 문서 요약\n• 자연스러운 문장"
-  },
-  gemini: {
-    name: "Gemini Advanced",
-    price: "₩29,000 / month",
-    rank: "가성비 3위",
-    desc: "구글 멀티모달 AI",
-    detail: "• Gmail 연동\n• 이미지 이해"
-  }
-};
-
-function hideAll() {
-  document.querySelectorAll("section").forEach(s => s.style.display = "none");
-}
-
-function goHome() {
-  hideAll();
-  document.getElementById("home").style.display = "block";
-}
-
-function showRank() {
-  hideAll();
-  document.getElementById("rank").style.display = "block";
-}
-
-function showReview() {
-  hideAll();
-  document.getElementById("review").style.display = "block";
-}
-
-function showSearch() {
-  hideAll();
-  document.getElementById("search").style.display = "block";
-}
-
-function openDetail(id) {
-  const ai = aiData[id];
-  hideAll();
-  document.getElementById("detail").style.display = "block";
-
-  document.getElementById("d-name").innerText = ai.name;
-  document.getElementById("d-price").innerText = "가격: " + ai.price;
-  document.getElementById("d-rank").innerText = ai.rank;
-  document.getElementById("d-desc").innerText = ai.desc;
-  document.getElementById("d-detail").innerText = ai.detail;
-}
-
-goHome();
-</script>
+    function showReview() {
+      content.innerHTML = `
+        <div class="card">
+          <h2>▶ AI 리뷰 영상</h2>
+          <iframe 
+            src="https://www.youtube.com/embed/SmLeEUzo0aA"
+            allowfullscreen>
+          </iframe>
+        </div>
+      `;
+    }
+  </script>
 
 </body>
 </html>
