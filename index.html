@@ -153,6 +153,39 @@ iframe {
       <p>₩29,000 / 가성비 1위</p>
     </div>
   </div>
+
+  <div class="ai-card" onclick="openDetail('claude')">
+    <div class="ai-logo"></div>
+    <div class="ai-info">
+      <h3>Claude Pro</h3>
+      <p>₩25,000 / 가성비 2위</p>
+    </div>
+  </div>
+
+  <div class="ai-card" onclick="openDetail('gemini')">
+    <div class="ai-logo"></div>
+    <div class="ai-info">
+      <h3>Gemini Advanced</h3>
+      <p>₩29,000 / 가성비 3위</p>
+    </div>
+  </div>
+
+  <div class="ai-card" onclick="openDetail('perplexity')">
+    <div class="ai-logo"></div>
+    <div class="ai-info">
+      <h3>Perplexity Pro</h3>
+      <p>₩28,000 / 검색 특화</p>
+    </div>
+  </div>
+
+  <div class="ai-card" onclick="openDetail('midjourney')">
+    <div class="ai-logo"></div>
+    <div class="ai-info">
+      <h3>Midjourney</h3>
+      <p>₩30,000 / 이미지 최강</p>
+    </div>
+  </div>
+
 </section>
 
 <section id="detail">
@@ -165,14 +198,10 @@ iframe {
   </div>
 </section>
 
-<!-- 🔥 리뷰 전용 섹션 -->
 <section id="review">
   <div class="detail-box">
     <h2>📺 AI 리뷰 영상</h2>
-    <iframe
-      src="https://www.youtube.com/embed/SmLeEUzo0aA"
-      allowfullscreen>
-    </iframe>
+    <iframe src="https://www.youtube.com/embed/SmLeEUzo0aA" allowfullscreen></iframe>
   </div>
 </section>
 
@@ -184,44 +213,66 @@ const aiData = {
     name: "ChatGPT Plus",
     price: "₩29,000 / month",
     rank: "가성비 1위",
-    desc: "가장 범용적인 AI.",
-    detail: `• GPT-4 기반
-• 코딩, 글쓰기, 공부 전부 가능`
+    desc: "가장 범용적인 AI",
+    detail: "• GPT-4 기반\n• 코딩, 글쓰기, 공부 전부 가능"
+  },
+  claude: {
+    name: "Claude Pro",
+    price: "₩25,000 / month",
+    rank: "가성비 2위",
+    desc: "글쓰기와 문서 요약 특화",
+    detail: "• 긴 문서 처리 강점\n• 자연스러운 문장력"
+  },
+  gemini: {
+    name: "Gemini Advanced",
+    price: "₩29,000 / month",
+    rank: "가성비 3위",
+    desc: "구글 기반 멀티모달 AI",
+    detail: "• Gmail, Docs 연동\n• 이미지 이해 가능"
+  },
+  perplexity: {
+    name: "Perplexity Pro",
+    price: "₩28,000 / month",
+    rank: "검색 특화",
+    desc: "AI 검색 최강자",
+    detail: "• 실시간 웹 검색\n• 출처 제공"
+  },
+  midjourney: {
+    name: "Midjourney",
+    price: "₩30,000 / month",
+    rank: "이미지 1위",
+    desc: "AI 이미지 생성 끝판왕",
+    detail: "• 고퀄 이미지\n• 디자이너 필수"
   }
 };
 
 function hideAll() {
   document.querySelectorAll("section").forEach(s => s.style.display = "none");
 }
-
 function goHome() {
   hideAll();
   document.getElementById("home").style.display = "block";
 }
-
 function showRank() {
   hideAll();
   document.getElementById("rank").style.display = "block";
 }
-
 function showReview() {
   hideAll();
   document.getElementById("review").style.display = "block";
 }
-
 function openDetail(id) {
   const ai = aiData[id];
   hideAll();
   document.getElementById("detail").style.display = "block";
 
-  document.getElementById("d-name").innerText = ai.name;
-  document.getElementById("d-price").innerText = "가격: " + ai.price;
-  document.getElementById("d-rank").innerText = ai.rank;
-  document.getElementById("d-desc").innerText = ai.desc;
-  document.getElementById("d-detail").innerText = ai.detail;
+  d-name.innerText = ai.name;
+  d-price.innerText = "가격: " + ai.price;
+  d-rank.innerText = ai.rank;
+  d-desc.innerText = ai.desc;
+  d-detail.innerText = ai.detail;
 }
 
-// 최초 로딩
 goHome();
 </script>
 
