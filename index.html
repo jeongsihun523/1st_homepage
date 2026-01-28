@@ -75,9 +75,7 @@ section { display: none; }
   cursor: pointer;
   font-weight: 700;
 }
-.category:hover {
-  background: #1d1d1d;
-}
+.category:hover { background: #1d1d1d; }
 
 /* AI LIST */
 .ai-card {
@@ -91,17 +89,14 @@ section { display: none; }
   cursor: pointer;
 }
 
-/* AI LOGO (이니셜) */
+/* AI LOGO (실제 이미지) */
 .ai-logo {
   width: 56px;
   height: 56px;
   border-radius: 12px;
-  background: linear-gradient(135deg,#6cffb1,#3aa0ff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  color: black;
+  object-fit: contain;
+  background: #1a1a1a;
+  padding: 8px;
 }
 
 /* TEXT */
@@ -156,8 +151,9 @@ iframe {
   </div>
 
   <div id="ai-list">
+
     <div class="ai-card" data-category="글쓰기">
-      <div class="ai-logo">GPT</div>
+      <img class="ai-logo" src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg">
       <div class="ai-text">
         <h3>ChatGPT Plus</h3>
         <p>글쓰기 · 프로그래밍 · 범용 AI</p>
@@ -165,7 +161,7 @@ iframe {
     </div>
 
     <div class="ai-card" data-category="글쓰기">
-      <div class="ai-logo">CL</div>
+      <img class="ai-logo" src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Anthropic_logo.svg">
       <div class="ai-text">
         <h3>Claude Pro</h3>
         <p>문서 요약 · 글쓰기 특화</p>
@@ -173,7 +169,7 @@ iframe {
     </div>
 
     <div class="ai-card" data-category="디자인">
-      <div class="ai-logo">MJ</div>
+      <img class="ai-logo" src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Midjourney_Emblem.png">
       <div class="ai-text">
         <h3>Midjourney</h3>
         <p>AI 이미지 생성</p>
@@ -181,7 +177,7 @@ iframe {
     </div>
 
     <div class="ai-card" data-category="비디오">
-      <div class="ai-logo">RW</div>
+      <img class="ai-logo" src="https://upload.wikimedia.org/wikipedia/commons/3/3f/RunwayML_logo.png">
       <div class="ai-text">
         <h3>Runway</h3>
         <p>AI 비디오 생성</p>
@@ -189,7 +185,7 @@ iframe {
     </div>
 
     <div class="ai-card" data-category="개발">
-      <div class="ai-logo">CS</div>
+      <img class="ai-logo" src="https://avatars.githubusercontent.com/u/126759922?s=200&v=4">
       <div class="ai-text">
         <h3>Cursor AI</h3>
         <p>개발 · 코딩 보조</p>
@@ -197,12 +193,13 @@ iframe {
     </div>
 
     <div class="ai-card" data-category="비즈니스">
-      <div class="ai-logo">PX</div>
+      <img class="ai-logo" src="https://upload.wikimedia.org/wikipedia/commons/9/92/Perplexity_AI_logo.svg">
       <div class="ai-text">
         <h3>Perplexity Pro</h3>
         <p>검색 · 리서치 특화</p>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -224,19 +221,19 @@ function hideAll() {
 }
 function goHome() {
   hideAll();
-  document.getElementById("home").style.display = "block";
+  home.style.display = "block";
 }
 function showAI() {
   hideAll();
-  document.getElementById("ai").style.display = "block";
+  ai.style.display = "block";
 }
 function showReview() {
   hideAll();
-  document.getElementById("review").style.display = "block";
+  review.style.display = "block";
 }
 function showSearch() {
   hideAll();
-  document.getElementById("search").style.display = "block";
+  search.style.display = "block";
 }
 function filterAI(category) {
   document.querySelectorAll(".ai-card").forEach(card => {
