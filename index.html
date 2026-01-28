@@ -5,126 +5,56 @@
 <title>VRANK</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Pretendard, Arial, sans-serif;
-}
-
-body {
-  background: #0e0e0e;
-  color: white;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Pretendard,Arial,sans-serif}
+body{background:#0e0e0e;color:#fff}
 
 /* HEADER */
-header {
-  height: 72px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 40px;
-  border-bottom: 1px solid #222;
+header{
+  height:72px;display:flex;justify-content:space-between;align-items:center;
+  padding:0 40px;border-bottom:1px solid #222
 }
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer}
+.logo-icon{
+  width:36px;height:36px;border-radius:8px;
+  background:linear-gradient(135deg,#6cffb1,#3aa0ff);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;color:#000
 }
-
-.logo-icon {
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(135deg,#6cffb1,#3aa0ff);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  color: black;
-}
-
-.logo-text {
-  font-size: 24px;
-  font-weight: 900;
-}
-
-nav {
-  display: flex;
-  gap: 40px;
-}
-
-nav span {
-  font-size: 18px;
-  font-weight: 700;
-  cursor: pointer;
-  opacity: .8;
-}
-nav span:hover { opacity: 1; }
+.logo-text{font-size:24px;font-weight:900}
+nav{display:flex;gap:40px}
+nav span{font-size:18px;font-weight:700;cursor:pointer;opacity:.8}
+nav span:hover{opacity:1}
 
 /* LAYOUT */
-main { padding: 60px 40px; }
-section { display: none; }
+main{padding:60px 40px}
+section{display:none}
 
 /* CATEGORY */
-.category-grid {
-  display: flex;
-  gap: 14px;
-  margin: 30px 0;
-  flex-wrap: wrap;
+.category-grid{
+  display:flex;gap:14px;margin:30px 0;flex-wrap:wrap
 }
-
-.category {
-  background: #151515;
-  padding: 14px 22px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: 700;
+.category{
+  background:#151515;padding:14px 22px;border-radius:12px;
+  cursor:pointer;font-weight:700
 }
-.category:hover { background: #1d1d1d; }
+.category:hover{background:#1d1d1d}
 
 /* AI CARD */
-.ai-card {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background: #151515;
-  padding: 20px;
-  border-radius: 14px;
-  margin-bottom: 14px;
+.ai-card{
+  display:flex;align-items:center;gap:16px;
+  background:#151515;padding:20px;border-radius:14px;
+  margin-bottom:14px
 }
-
-.ai-logo {
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
-  background: #1a1a1a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
+.ai-logo{
+  width:56px;height:56px;border-radius:12px;
+  background:#1a1a1a;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px
 }
-
-.ai-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.ai-text h3 {
-  font-size: 18px;
-  font-weight: 700;
-}
+.ai-text h3{font-size:18px}
 
 /* REVIEW */
-iframe {
-  width: 100%;
-  height: 480px;
-  border-radius: 12px;
-  border: none;
-}
+iframe{width:100%;height:480px;border-radius:12px;border:none}
 </style>
 </head>
 
@@ -135,7 +65,6 @@ iframe {
     <div class="logo-icon">V</div>
     <div class="logo-text">VRANK</div>
   </div>
-
   <nav>
     <span onclick="showAI()">AI</span>
     <span onclick="showReview()">리뷰</span>
@@ -150,55 +79,20 @@ iframe {
 </section>
 
 <section id="ai">
-  <h2>AI 전체 목록</h2>
+  <h2>AI 카테고리</h2>
 
+  <!-- ✅ 카테고리 복구 -->
   <div class="category-grid">
     <div class="category" onclick="filterAI('전체')">전체</div>
+    <div class="category" onclick="filterAI('글쓰기')">✍ 글쓰기/컨텐츠</div>
+    <div class="category" onclick="filterAI('디자인')">🎨 디자인/아트</div>
+    <div class="category" onclick="filterAI('비디오')">🎬 비디오/오디오</div>
+    <div class="category" onclick="filterAI('개발')">💻 개발/프로그래밍</div>
+    <div class="category" onclick="filterAI('비즈니스')">📈 비즈니스/마케팅</div>
+    <div class="category" onclick="filterAI('검색')">🔎 검색/데이터</div>
   </div>
 
-  <div id="ai-list">
-
-    <!-- 자동 리스트 -->
-    <script>
-      const aiNames = [
-        "ChatGPT (챗지피티)", "Suno (수노)", "Gemini (제미나이)", "Ai Studios (에이아이 스튜디오스)",
-        "Midjourney (미드저니)", "Claude (클로드)", "Perplexity Ai (퍼플렉시티 에이아이)",
-        "Wrtn (뤼튼)", "Microsoft Copilot (마이크로소프트 코파일럿)", "Pictory (픽토리)",
-        "Genspark (젠스파크)", "Github Copilot (깃허브 코파일럿)", "ChatPDF (챗피디에프)",
-        "DeepToon (딥툰)", "Sora (소라)", "v0.dev (브이제로닷데브)", "Slid (슬리드)",
-        "Synthesia (신세시아)", "Animated Drawings (에니메이티드 드로잉스)",
-        "Amper Music (앰퍼 뮤직)", "Tabnine (탭나인)", "OpenAI Codex (오픈에이아이 코드엑스)",
-        "Mistral Ai (미스트랄 에이아이)", "Ideogram (이데오그램)", "Pollo Ai (폴로 에이아이)",
-        "Soundraw (사운드로우)", "A. (에이닷)", "Quillbot (퀼봇)",
-        "Beatoven Ai (비토븐 에이아이)", "Leonardo Ai (레오나르도 에이아이)",
-        "Google Whisk (구글 위스크)", "Grok (그록)", "Qshop (큐샵)",
-        "Lilys Ai (릴리스 에이아이)", "Brandmark (브랜드마크)", "Lore Machine (로어 머신)",
-        "Bolt.new (볼트뉴)", "Fliki (플리키)", "Replit (레플릿)",
-        "Dall-E (달리)", "PolyCoder (폴리코더)", "Gentoo (젠투)",
-        "Ploonet (플루닛)", "AutoDraw (오토드로우)", "Amazon Q (아마존 큐)",
-        "Vrew (브루)", "Digital First Ai (디지털 퍼스트 에이아이)",
-        "Vox Factory (복스 팩토리)", "Naver Clova X (네이버 클로바 엑스)",
-        "Idea Ape (아이디어 에이프)", "Zeta Ai (제타 에이아이)",
-        "Kling Ai (클링 에이아이)", "SeaArt Ai (시아트 에이아이)",
-        "Naver Clova Dubbing (네이버 클로바 더빙)",
-        "Immersity Ai (이머시티 에이아이)", "Keewit (키위티)",
-        "CopyAi (카피에이아이)", "Voli (볼리)", "Napkin Ai (냅킨 에이아이)",
-        "Hitpaw (히트포)", "Tootoon (투툰)", "Tooning (투닝)", "FounderPal (파운더펄)"
-      ];
-
-      document.write(
-        aiNames.map(name => `
-          <div class="ai-card" data-category="전체">
-            <div class="ai-logo">🤖</div>
-            <div class="ai-text">
-              <h3>${name}</h3>
-            </div>
-          </div>
-        `).join("")
-      );
-    </script>
-
-  </div>
+  <div id="ai-list"></div>
 </section>
 
 <section id="review">
@@ -208,30 +102,55 @@ iframe {
 
 <section id="search">
   <h2>🔍 검색</h2>
-  <p style="color:#aaa">검색 기능은 곧 추가됩니다.</p>
+  <p style="color:#aaa">검색 기능 준비 중</p>
 </section>
 
 </main>
 
 <script>
-function hideAll() {
-  document.querySelectorAll("section").forEach(s => s.style.display = "none");
+const aiData = [
+  {name:"ChatGPT (챗지피티)",cat:"글쓰기"},
+  {name:"Claude (클로드)",cat:"글쓰기"},
+  {name:"Wrtn (뤼튼)",cat:"글쓰기"},
+  {name:"Quillbot (퀼봇)",cat:"글쓰기"},
+  {name:"Midjourney (미드저니)",cat:"디자인"},
+  {name:"DALL·E (달리)",cat:"디자인"},
+  {name:"Leonardo AI (레오나르도)",cat:"디자인"},
+  {name:"Suno (수노)",cat:"비디오"},
+  {name:"Synthesia (신세시아)",cat:"비디오"},
+  {name:"Vrew (브루)",cat:"비디오"},
+  {name:"GitHub Copilot (깃허브 코파일럿)",cat:"개발"},
+  {name:"Replit (레플릿)",cat:"개발"},
+  {name:"Microsoft Copilot (마이크로소프트 코파일럿)",cat:"개발"},
+  {name:"Perplexity AI (퍼플렉시티)",cat:"검색"},
+  {name:"Gemini (제미나이)",cat:"검색"}
+];
+
+const list = document.getElementById("ai-list");
+
+aiData.forEach(ai=>{
+  list.innerHTML += `
+    <div class="ai-card" data-category="${ai.cat}">
+      <div class="ai-logo">🤖</div>
+      <div class="ai-text"><h3>${ai.name}</h3></div>
+    </div>`;
+});
+
+function hideAll(){
+  document.querySelectorAll("section").forEach(s=>s.style.display="none");
 }
-function showHome() {
-  hideAll(); home.style.display = "block";
+function showHome(){hideAll();home.style.display="block"}
+function showAI(){hideAll();ai.style.display="block"}
+function showReview(){hideAll();review.style.display="block"}
+function showSearch(){hideAll();search.style.display="block"}
+
+function filterAI(cat){
+  document.querySelectorAll(".ai-card").forEach(card=>{
+    card.style.display =
+      cat==="전체"||card.dataset.category===cat?"flex":"none";
+  });
 }
-function showAI() {
-  hideAll(); ai.style.display = "block";
-}
-function showReview() {
-  hideAll(); review.style.display = "block";
-}
-function showSearch() {
-  hideAll(); search.style.display = "block";
-}
-function filterAI() {
-  document.querySelectorAll(".ai-card").forEach(card => card.style.display = "flex");
-}
+
 showHome();
 </script>
 
