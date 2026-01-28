@@ -89,21 +89,33 @@ section { display: none; }
   font-weight: 700;
   cursor: pointer;
 }
-.category:hover {
-  background: #1d1d1d;
-}
+.category:hover { background: #1d1d1d; }
 
 /* AI LIST */
 .ai-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
   background: #151515;
   padding: 20px;
   border-radius: 12px;
   margin-bottom: 16px;
 }
-.ai-card h3 {
+
+/* AI IMAGE */
+.ai-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #333;
+}
+
+/* AI TEXT */
+.ai-text h3 {
   font-size: 20px;
 }
-.ai-card p {
+.ai-text p {
   color: #aaa;
   font-size: 14px;
 }
@@ -139,61 +151,74 @@ iframe {
   <div id="ad">📢 광고 영역</div>
 </section>
 
-<!-- AI -->
 <section id="ai">
   <h2>AI 카테고리</h2>
 
-  <!-- CATEGORY -->
   <div class="category-grid">
     <div class="category" onclick="filterAI('전체')">전체</div>
-    <div class="category" onclick="filterAI('글쓰기')">✍ 글쓰기 / 콘텐츠</div>
-    <div class="category" onclick="filterAI('디자인')">🎨 디자인 / 아트</div>
+    <div class="category" onclick="filterAI('글쓰기')">✍ 글쓰기</div>
+    <div class="category" onclick="filterAI('디자인')">🎨 디자인</div>
     <div class="category" onclick="filterAI('비디오')">🎬 비디오</div>
-    <div class="category" onclick="filterAI('개발')">💻 개발 / 프로그래밍</div>
-    <div class="category" onclick="filterAI('비즈니스')">📈 비즈니스 / 마케팅</div>
+    <div class="category" onclick="filterAI('개발')">💻 개발</div>
+    <div class="category" onclick="filterAI('비즈니스')">📈 비즈니스</div>
   </div>
 
-  <!-- AI LIST -->
   <div id="ai-list">
     <div class="ai-card" data-category="글쓰기">
-      <h3>ChatGPT Plus</h3>
-      <p>글쓰기 · 프로그래밍 · 범용 AI</p>
+      <img class="ai-logo" src="https://logo.clearbit.com/openai.com">
+      <div class="ai-text">
+        <h3>ChatGPT Plus</h3>
+        <p>글쓰기 · 프로그래밍 · 범용 AI</p>
+      </div>
     </div>
 
     <div class="ai-card" data-category="글쓰기">
-      <h3>Claude Pro</h3>
-      <p>글쓰기 · 문서 요약 특화</p>
+      <img class="ai-logo" src="https://logo.clearbit.com/anthropic.com">
+      <div class="ai-text">
+        <h3>Claude Pro</h3>
+        <p>문서 요약 · 글쓰기 특화</p>
+      </div>
     </div>
 
     <div class="ai-card" data-category="디자인">
-      <h3>Midjourney</h3>
-      <p>디자인 · 아트 생성</p>
+      <img class="ai-logo" src="https://logo.clearbit.com/midjourney.com">
+      <div class="ai-text">
+        <h3>Midjourney</h3>
+        <p>AI 이미지 생성</p>
+      </div>
     </div>
 
     <div class="ai-card" data-category="비디오">
-      <h3>Runway</h3>
-      <p>AI 비디오 생성</p>
+      <img class="ai-logo" src="https://logo.clearbit.com/runwayml.com">
+      <div class="ai-text">
+        <h3>Runway</h3>
+        <p>AI 비디오 생성</p>
+      </div>
     </div>
 
     <div class="ai-card" data-category="개발">
-      <h3>Cursor AI</h3>
-      <p>개발 · 코딩 보조</p>
+      <img class="ai-logo" src="https://logo.clearbit.com/cursor.sh">
+      <div class="ai-text">
+        <h3>Cursor AI</h3>
+        <p>개발 · 코딩 보조</p>
+      </div>
     </div>
 
     <div class="ai-card" data-category="비즈니스">
-      <h3>Perplexity Pro</h3>
-      <p>검색 · 리서치 특화</p>
+      <img class="ai-logo" src="https://logo.clearbit.com/perplexity.ai">
+      <div class="ai-text">
+        <h3>Perplexity Pro</h3>
+        <p>검색 · 리서치 특화</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- REVIEW -->
 <section id="review">
   <h2>📺 AI 리뷰 영상</h2>
   <iframe src="https://www.youtube.com/embed/SmLeEUzo0aA" allowfullscreen></iframe>
 </section>
 
-<!-- SEARCH -->
 <section id="search">
   <h2>🔍 검색</h2>
   <p style="color:#aaa">검색 기능은 곧 추가됩니다.</p>
@@ -205,36 +230,30 @@ iframe {
 function hideAll() {
   document.querySelectorAll("section").forEach(s => s.style.display = "none");
 }
-
 function goHome() {
   hideAll();
-  document.getElementById("home").style.display = "block";
+  home.style.display = "block";
 }
-
 function showAI() {
   hideAll();
-  document.getElementById("ai").style.display = "block";
+  ai.style.display = "block";
 }
-
 function showReview() {
   hideAll();
-  document.getElementById("review").style.display = "block";
+  review.style.display = "block";
 }
-
 function showSearch() {
   hideAll();
-  document.getElementById("search").style.display = "block";
+  search.style.display = "block";
 }
-
 function filterAI(category) {
   document.querySelectorAll(".ai-card").forEach(card => {
     card.style.display =
       category === "전체" || card.dataset.category === category
-        ? "block"
+        ? "flex"
         : "none";
   });
 }
-
 goHome();
 </script>
 
