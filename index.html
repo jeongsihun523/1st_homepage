@@ -2,170 +2,60 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>VRANK</title>
+<title>VRANK TEST</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Pretendard,Arial,sans-serif}
-body{background:#0e0e0e;color:#fff}
-
-header{
-  height:72px;display:flex;justify-content:space-between;align-items:center;
-  padding:0 40px;border-bottom:1px solid #222
-}
-.logo{display:flex;gap:10px;cursor:pointer;align-items:center}
-.logo-icon{
-  width:36px;height:36px;border-radius:8px;
-  background:linear-gradient(135deg,#6cffb1,#3aa0ff);
-  display:flex;align-items:center;justify-content:center;
-  font-weight:900;color:#000
-}
-.logo-text{font-size:24px;font-weight:900}
-nav{display:flex;gap:40px}
-nav span{cursor:pointer;font-weight:700;opacity:.8}
-nav span:hover{opacity:1}
-
-main{padding:60px 40px}
-section{display:none}
-
-/* CATEGORY */
-.category-grid{display:flex;gap:14px;margin:30px 0;flex-wrap:wrap}
-.category{
-  background:#151515;padding:12px 20px;border-radius:12px;
-  cursor:pointer;font-weight:700
-}
-
-/* AI CARD */
+body{background:#0e0e0e;color:white;font-family:Arial}
+header{display:flex;gap:40px;padding:20px;border-bottom:1px solid #333}
+span{cursor:pointer}
+section{display:none;padding:40px}
 .ai-card{
-  background:#151515;padding:18px;border-radius:14px;
-  display:flex;gap:16px;align-items:center;
-  margin-bottom:14px;cursor:pointer
+  background:#151515;
+  padding:20px;
+  margin:10px 0;
+  cursor:pointer;
 }
-.ai-card:hover{background:#1d1d1d}
-.ai-logo{
-  width:56px;height:56px;border-radius:12px;
-  background:#1a1a1a;display:flex;align-items:center;justify-content:center
-}
-
-/* DETAIL */
-.back{margin-top:30px;cursor:pointer;font-weight:700}
-
-iframe{width:100%;height:420px;border:none;border-radius:14px}
+.ai-card:hover{background:#1f1f1f}
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo" onclick="showHome()">
-    <div class="logo-icon">V</div>
-    <div class="logo-text">VRANK</div>
-  </div>
-  <nav>
-    <span onclick="showAI()">AI</span>
-    <span onclick="showReview()">리뷰</span>
-    <span onclick="showSearch()">검색</span>
-  </nav>
+  <span onclick="show('home')">HOME</span>
+  <span onclick="show('ai')">AI</span>
+  <span onclick="show('detail')">DETAIL</span>
 </header>
 
-<main>
-
 <section id="home">
-  <h1>AI 가성비 & 비교 플랫폼</h1>
+  <h1>홈</h1>
 </section>
 
 <section id="ai">
-  <h2>AI 카테고리</h2>
-
-  <div class="category-grid">
-    <div class="category" onclick="filterAI('전체')">전체</div>
-    <div class="category" onclick="filterAI('글쓰기')">✍ 글쓰기</div>
-    <div class="category" onclick="filterAI('디자인')">🎨 디자인</div>
-  </div>
-
-  <div id="ai-list"></div>
+  <h1>AI 목록</h1>
+  <div class="ai-card" onclick="openDetail('ChatGPT')">ChatGPT</div>
+  <div class="ai-card" onclick="openDetail('Midjourney')">Midjourney</div>
 </section>
 
 <section id="detail">
-  <h1 id="d-name"></h1>
-  <p id="d-desc" style="color:#aaa;margin:20px 0"></p>
-  <iframe id="d-video" allowfullscreen></iframe>
-  <div class="back" onclick="showAI()">← 목록으로</div>
+  <h1 id="title"></h1>
+  <button onclick="show('ai')">← 뒤로</button>
 </section>
-
-<section id="review">
-  <h2>📺 리뷰</h2>
-  <iframe src="https://www.youtube.com/embed/SmLeEUzo0aA" allowfullscreen></iframe>
-</section>
-
-<section id="search">
-  <h2>🔍 검색</h2>
-  <input placeholder="AI 검색"
-    style="margin-top:20px;padding:12px;width:300px;border-radius:8px;border:none">
-</section>
-
-</main>
 
 <script>
-/* ✅ 섹션 변수 선언 (이게 핵심) */
-const home = document.getElementById("home");
-const ai = document.getElementById("ai");
-const detail = document.getElementById("detail");
-const review = document.getElementById("review");
-const search = document.getElementById("search");
+const sections=document.querySelectorAll("section");
 
-const aiData=[
-  {
-    name:"ChatGPT (챗지피티)",
-    cat:"글쓰기",
-    desc:"대화·글쓰기·코딩까지 가능한 범용 AI",
-    video:"https://www.youtube.com/embed/SmLeEUzo0aA"
-  },
-  {
-    name:"Midjourney (미드저니)",
-    cat:"디자인",
-    desc:"AI 이미지 생성 툴",
-    video:"https://www.youtube.com/embed/SmLeEUzo0aA"
-  }
-];
-
-const list=document.getElementById("ai-list");
-
-function renderAI(){
-  list.innerHTML="";
-  aiData.forEach((aiItem,i)=>{
-    list.innerHTML+=`
-      <div class="ai-card" data-cat="${aiItem.cat}" onclick="openDetail(${i})">
-        <div class="ai-logo">🤖</div>
-        <div>${aiItem.name}</div>
-      </div>`;
-  });
-}
-renderAI();
-
-function openDetail(i){
-  hideAll();
-  detail.style.display="block";
-  d-name.innerText=aiData[i].name;
-  d-desc.innerText=aiData[i].desc;
-  d-video.src=aiData[i].video;
+function show(id){
+  sections.forEach(s=>s.style.display="none");
+  document.getElementById(id).style.display="block";
 }
 
-function filterAI(cat){
-  document.querySelectorAll(".ai-card").forEach(card=>{
-    card.style.display =
-      cat==="전체"||card.dataset.cat===cat?"flex":"none";
-  });
+function openDetail(name){
+  show("detail");
+  document.getElementById("title").innerText=name;
 }
 
-function hideAll(){
-  document.querySelectorAll("section").forEach(s=>s.style.display="none");
-}
-function showHome(){hideAll();home.style.display="block"}
-function showAI(){hideAll();ai.style.display="block"}
-function showReview(){hideAll();review.style.display="block"}
-function showSearch(){hideAll();search.style.display="block"}
-
-showHome();
+show("home");
 </script>
 
 </body>
