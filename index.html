@@ -60,9 +60,10 @@ nav span:hover { opacity: 1; }
 /* LAYOUT */
 main { padding: 80px 40px; }
 section { display: none; }
+.home { display: block; }
 
 /* HOME */
-#ad {
+.ad-box {
   margin: 40px auto;
   width: 80%;
   height: 200px;
@@ -76,8 +77,6 @@ section { display: none; }
 
 /* RANK */
 .ai-card {
-  display: flex;
-  align-items: center;
   background: #151515;
   padding: 20px;
   border-radius: 12px;
@@ -85,43 +84,25 @@ section { display: none; }
   cursor: pointer;
 }
 .ai-card:hover { background:#1b1b1b; }
-.ai-logo {
-  width: 60px;
-  height: 60px;
-  background: #333;
-  border-radius: 12px;
-  margin-right: 20px;
-}
-.ai-info h3 { font-size: 22px; }
-.ai-info p { font-size: 14px; color: #aaa; }
-
-/* DETAIL */
-.detail-box {
-  max-width: 900px;
-}
-.detail-box h2 {
-  font-size: 36px;
-  margin-bottom: 10px;
-}
-.detail-box p {
-  color: #aaa;
-  margin-bottom: 8px;
-}
-pre {
-  margin-top: 20px;
-  white-space: pre-wrap;
-  color: #ccc;
-  line-height: 1.7;
-}
 
 /* REVIEW */
-.review-box {
-  margin-top: 40px;
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+.review-card {
+  background: #151515;
+  border-radius: 14px;
+  padding: 16px;
+}
+.review-card h4 {
+  margin-bottom: 10px;
 }
 iframe {
   width: 100%;
-  height: 480px;
-  border-radius: 12px;
+  height: 200px;
+  border-radius: 10px;
   border: none;
 }
 </style>
@@ -136,57 +117,60 @@ iframe {
   </div>
   <nav>
     <span onclick="showRank()">순위</span>
-    <span>비교</span>
+    <span onclick="showReview()">리뷰</span>
     <span>검색</span>
   </nav>
 </header>
 
 <main>
 
-<section id="home">
+<!-- HOME -->
+<section class="home" id="home">
   <h1>AI 가성비 순위 플랫폼</h1>
-  <div id="ad">📢 광고 영역</div>
+  <div class="ad-box">📢 광고 영역</div>
 </section>
 
+<!-- RANK -->
 <section id="rank">
   <h2>AI 가성비 순위</h2>
 
   <div class="ai-card" onclick="openDetail('chatgpt')">
-    <div class="ai-logo"></div>
-    <div class="ai-info">
-      <h3>ChatGPT Plus</h3>
-      <p>₩29,000 / 가성비 1위</p>
-    </div>
+    <h3>ChatGPT Plus</h3>
+    <p>₩29,000 / 가성비 1위</p>
   </div>
 </section>
 
+<!-- DETAIL -->
 <section id="detail">
-  <div class="detail-box">
-    <h2 id="d-name"></h2>
-    <p id="d-price"></p>
-    <p id="d-rank"></p>
-    <p id="d-desc"></p>
-    <pre id="d-detail"></pre>
+  <h2 id="d-name"></h2>
+  <p id="d-desc"></p>
+</section>
 
-    <div class="review-box">
-      <h3>📺 AI 리뷰 영상</h3>
-      <iframe id="reviewVideo" allowfullscreen></iframe>
-    </div>
-  </div>
+<!-- REVIEW -->
+<section id="review">
+  <h2>AI 리뷰 영상</h2>
+  <div class="review-grid" id="reviewGrid"></div>
 </section>
 
 </main>
 
 <script>
+let currentAI = null;
+
 const aiData = {
   chatgpt: {
     name: "ChatGPT Plus",
-    price: "₩29,000 / month",
-    rank: "가성비 1위",
-    desc: "가장 범용적인 AI.",
-    detail: `• GPT-4 기반
-• 코딩, 글쓰기, 공부 전부 가능`,
-    reviewVideo: "https://www.youtube.com/embed/SmLeEUzo0aA"
+    desc: "가장 범용적인 AI",
+    reviews: [
+      {
+        title: "ChatGPT 솔직 리뷰",
+        video: "https://www.youtube.com/embed/SmLeEUzo0aA"
+      },
+      {
+        title: "ChatGPT 장단점 정리",
+        video: "https://www.youtube.com/embed/SmLeEUzo0aA"
+      }
+    ]
   }
 };
 
@@ -196,28 +180,44 @@ function hideAll() {
 
 function goHome() {
   hideAll();
-  document.getElementById("home").style.display = "block";
+  home.style.display = "block";
 }
 
 function showRank() {
   hideAll();
-  document.getElementById("rank").style.display = "block";
+  rank.style.display = "block";
 }
 
 function openDetail(id) {
-  const ai = aiData[id];
+  currentAI = id;
   hideAll();
-  document.getElementById("detail").style.display = "block";
-
-  document.getElementById("d-name").innerText = ai.name;
-  document.getElementById("d-price").innerText = "가격: " + ai.price;
-  document.getElementById("d-rank").innerText = ai.rank;
-  document.getElementById("d-desc").innerText = ai.desc;
-  document.getElementById("d-detail").innerText = ai.detail;
-  document.getElementById("reviewVideo").src = ai.reviewVideo;
+  detail.style.display = "block";
+  d-name.innerText = aiData[id].name;
+  d-desc.innerText = aiData[id].desc;
 }
 
-// 최초 로딩
+function showReview() {
+  if (!currentAI) {
+    alert("AI를 먼저 선택하세요");
+    return;
+  }
+  hideAll();
+  review.style.display = "block";
+
+  const grid = document.getElementById("reviewGrid");
+  grid.innerHTML = "";
+
+  aiData[currentAI].reviews.forEach(r => {
+    grid.innerHTML += `
+      <div class="review-card">
+        <h4>${r.title}</h4>
+        <iframe src="${r.video}" allowfullscreen></iframe>
+      </div>
+    `;
+  });
+}
+
+// 초기
 goHome();
 </script>
 
