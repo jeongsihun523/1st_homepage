@@ -5,110 +5,39 @@
 <title>VRANK</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Pretendard, Arial, sans-serif;
-}
-body {
-  background: #0e0e0e;
-  color: white;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Pretendard,Arial,sans-serif}
+body{background:#0e0e0e;color:#fff}
 
 /* HEADER */
-header {
-  height: 72px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 40px;
-  border-bottom: 1px solid #222;
-}
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-}
-.logo-icon {
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(135deg,#6cffb1,#3aa0ff);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  color: black;
-}
-.logo-text {
-  font-size: 24px;
-  font-weight: 900;
-}
-nav {
-  display: flex;
-  gap: 40px;
-}
-nav span {
-  font-size: 18px;
-  font-weight: 700;
-  cursor: pointer;
-  opacity: .8;
-}
-nav span:hover { opacity: 1; }
+header{height:72px;display:flex;justify-content:space-between;align-items:center;padding:0 40px;border-bottom:1px solid #222}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#6cffb1,#3aa0ff);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#000}
+.logo-text{font-size:24px;font-weight:900}
+nav{display:flex;gap:40px}
+nav span{font-size:18px;font-weight:700;cursor:pointer;opacity:.8}
+nav span:hover{opacity:1}
 
 /* LAYOUT */
-main { padding: 60px 40px; }
-section { display: none; }
+main{padding:60px 40px}
+section{display:none}
 
 /* CATEGORY */
-.category-grid {
-  display: flex;
-  gap: 14px;
-  margin: 30px 0;
-  flex-wrap: wrap;
-}
-.category {
-  background: #151515;
-  padding: 14px 22px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: 700;
-}
-.category:hover { background: #1d1d1d; }
+.category-grid{display:flex;gap:14px;margin:30px 0;flex-wrap:wrap}
+.category{background:#151515;padding:14px 22px;border-radius:12px;cursor:pointer;font-weight:700}
+.category:hover{background:#1d1d1d}
 
 /* AI LIST */
-.ai-card {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background: #151515;
-  padding: 20px;
-  border-radius: 14px;
-  margin-bottom: 14px;
-}
-.ai-logo {
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
-  background: linear-gradient(135deg,#6cffb1,#3aa0ff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  color: black;
-}
-.ai-text h3 { font-size: 18px; }
-.ai-text p { font-size: 14px; color: #aaa; }
+.ai-card{display:flex;align-items:center;gap:16px;background:#151515;padding:20px;border-radius:14px;margin-bottom:14px;cursor:pointer}
+.ai-logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#6cffb1,#3aa0ff);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000}
+.ai-text h3{font-size:18px}
+.ai-text p{font-size:14px;color:#aaa}
 
-/* REVIEW */
-iframe {
-  width: 100%;
-  height: 480px;
-  border-radius: 12px;
-  border: none;
-}
+/* DETAIL */
+.detail-box{max-width:900px}
+.detail-box h2{font-size:28px;margin-bottom:10px}
+.detail-box p{color:#aaa;margin-bottom:20px;font-size:16px}
+iframe{width:100%;height:480px;border-radius:12px;border:none}
+.back-btn{margin-bottom:20px;display:inline-block;cursor:pointer;color:#6cffb1;font-weight:700}
 </style>
 </head>
 
@@ -139,37 +68,41 @@ iframe {
     <div class="category" onclick="filterAI('전체')">전체</div>
     <div class="category" onclick="filterAI('글쓰기')">✍ 글쓰기</div>
     <div class="category" onclick="filterAI('디자인')">🎨 디자인</div>
-    <div class="category" onclick="filterAI('비디오')">🎬 비디오/오디오</div>
+    <div class="category" onclick="filterAI('비디오')">🎬 비디오</div>
     <div class="category" onclick="filterAI('개발')">💻 개발</div>
     <div class="category" onclick="filterAI('검색')">🔎 검색</div>
   </div>
 
   <div id="ai-list">
+    <div class="ai-card" data-ai="chatgpt" data-category="글쓰기">
+      <div class="ai-logo">AI</div>
+      <div class="ai-text"><h3>ChatGPT (챗지피티)</h3><p>범용 AI</p></div>
+    </div>
 
-    <!-- 글쓰기 -->
-    <div class="ai-card" data-category="글쓰기"><div class="ai-logo">AI</div><div class="ai-text"><h3>ChatGPT (챗지피티)</h3><p>범용 AI</p></div></div>
-    <div class="ai-card" data-category="글쓰기"><div class="ai-logo">AI</div><div class="ai-text"><h3>Claude (클로드)</h3><p>문서 · 글쓰기</p></div></div>
-    <div class="ai-card" data-category="글쓰기"><div class="ai-logo">AI</div><div class="ai-text"><h3>Wrtn (뤼튼)</h3><p>한국형 글쓰기</p></div></div>
-    <div class="ai-card" data-category="글쓰기"><div class="ai-logo">AI</div><div class="ai-text"><h3>QuillBot (퀼봇)</h3><p>문장 교정</p></div></div>
+    <div class="ai-card" data-ai="midjourney" data-category="디자인">
+      <div class="ai-logo">AI</div>
+      <div class="ai-text"><h3>Midjourney (미드저니)</h3><p>이미지 생성</p></div>
+    </div>
 
-    <!-- 디자인 -->
-    <div class="ai-card" data-category="디자인"><div class="ai-logo">AI</div><div class="ai-text"><h3>Midjourney (미드저니)</h3><p>이미지 생성</p></div></div>
-    <div class="ai-card" data-category="디자인"><div class="ai-logo">AI</div><div class="ai-text"><h3>DALL·E (달리)</h3><p>이미지 생성</p></div></div>
-    <div class="ai-card" data-category="디자인"><div class="ai-logo">AI</div><div class="ai-text"><h3>Leonardo AI (레오나르도)</h3><p>아트 생성</p></div></div>
+    <div class="ai-card" data-ai="suno" data-category="비디오">
+      <div class="ai-logo">AI</div>
+      <div class="ai-text"><h3>Suno (수노)</h3><p>AI 음악</p></div>
+    </div>
 
-    <!-- 비디오 / 오디오 -->
-    <div class="ai-card" data-category="비디오"><div class="ai-logo">AI</div><div class="ai-text"><h3>Suno (수노)</h3><p>AI 음악</p></div></div>
-    <div class="ai-card" data-category="비디오"><div class="ai-logo">AI</div><div class="ai-text"><h3>Synthesia (신세시아)</h3><p>AI 영상</p></div></div>
-    <div class="ai-card" data-category="비디오"><div class="ai-logo">AI</div><div class="ai-text"><h3>Vrew (브루)</h3><p>자막 영상</p></div></div>
+    <div class="ai-card" data-ai="perplexity" data-category="검색">
+      <div class="ai-logo">AI</div>
+      <div class="ai-text"><h3>Perplexity AI (퍼플렉시티)</h3><p>리서치 검색</p></div>
+    </div>
+  </div>
+</section>
 
-    <!-- 개발 -->
-    <div class="ai-card" data-category="개발"><div class="ai-logo">AI</div><div class="ai-text"><h3>GitHub Copilot (깃허브 코파일럿)</h3><p>코딩 보조</p></div></div>
-    <div class="ai-card" data-category="개발"><div class="ai-logo">AI</div><div class="ai-text"><h3>Replit (레플릿)</h3><p>웹 개발</p></div></div>
-
-    <!-- 검색 -->
-    <div class="ai-card" data-category="검색"><div class="ai-logo">AI</div><div class="ai-text"><h3>Perplexity AI (퍼플렉시티)</h3><p>리서치 검색</p></div></div>
-    <div class="ai-card" data-category="검색"><div class="ai-logo">AI</div><div class="ai-text"><h3>Gemini (제미나이)</h3><p>Google AI</p></div></div>
-
+<!-- AI DETAIL -->
+<section id="detail">
+  <div class="detail-box">
+    <div class="back-btn" onclick="showAI()">← AI 목록으로</div>
+    <h2 id="detail-title"></h2>
+    <p id="detail-desc"></p>
+    <iframe id="detail-video" allowfullscreen></iframe>
   </div>
 </section>
 
@@ -186,21 +119,50 @@ iframe {
 </main>
 
 <script>
-function hideAll() {
-  document.querySelectorAll("section").forEach(s => s.style.display = "none");
+const aiData = {
+  chatgpt:{
+    title:"ChatGPT (챗지피티)",
+    desc:"OpenAI가 만든 범용 인공지능. 글쓰기, 코딩, 학습에 최적화",
+    video:"https://www.youtube.com/embed/SmLeEUzo0aA"
+  },
+  midjourney:{
+    title:"Midjourney (미드저니)",
+    desc:"텍스트로 고퀄리티 이미지를 생성하는 AI 아트 도구",
+    video:"https://www.youtube.com/embed/MJ_example"
+  },
+  suno:{
+    title:"Suno (수노)",
+    desc:"가사와 멜로디를 자동으로 생성하는 AI 음악 도구",
+    video:"https://www.youtube.com/embed/SUNO_example"
+  },
+  perplexity:{
+    title:"Perplexity AI (퍼플렉시티)",
+    desc:"출처 기반 AI 검색 & 리서치 도구",
+    video:"https://www.youtube.com/embed/PPLX_example"
+  }
+};
+
+function hideAll(){document.querySelectorAll("section").forEach(s=>s.style.display="none")}
+function showHome(){hideAll();home.style.display="block"}
+function showAI(){hideAll();ai.style.display="block"}
+function showReview(){hideAll();review.style.display="block"}
+function showSearch(){hideAll();search.style.display="block"}
+function filterAI(cat){
+  document.querySelectorAll(".ai-card").forEach(c=>{
+    c.style.display = cat==="전체"||c.dataset.category===cat?"flex":"none"
+  })
 }
-function showHome() { hideAll(); home.style.display = "block"; }
-function showAI() { hideAll(); ai.style.display = "block"; }
-function showReview() { hideAll(); review.style.display = "block"; }
-function showSearch() { hideAll(); search.style.display = "block"; }
-function filterAI(category) {
-  document.querySelectorAll(".ai-card").forEach(card => {
-    card.style.display =
-      category === "전체" || card.dataset.category === category
-        ? "flex"
-        : "none";
-  });
-}
+
+document.querySelectorAll(".ai-card").forEach(card=>{
+  card.onclick=()=>{
+    const data=aiData[card.dataset.ai];
+    detailTitle.textContent=data.title;
+    detailDesc.textContent=data.desc;
+    detailVideo.src=data.video;
+    hideAll();detail.style.display="block";
+  }
+})
+
 showHome();
 </script>
 
