@@ -55,10 +55,8 @@ nav span {
 nav span:hover { opacity: 1; }
 
 main { padding: 80px 40px; }
-
 section { display: none; }
-
-.home, .rank { display: block; }
+.home { display: block; }
 
 .ad-box {
   margin: 40px auto;
@@ -116,6 +114,12 @@ section { display: none; }
   margin-bottom: 8px;
   font-size: 16px;
 }
+pre {
+  margin-top: 20px;
+  white-space: pre-wrap;
+  color: #ccc;
+  line-height: 1.7;
+}
 </style>
 </head>
 
@@ -142,10 +146,10 @@ section { display: none; }
 </section>
 
 <!-- 순위 -->
-<section class="rank" id="rank">
+<section id="rank">
   <h2>AI 가성비 순위</h2>
 
-  <div class="ai-card" onclick="openDetail('ChatGPT Plus','월 ₩29,000','가성비 1위','가장 범용적인 AI')">
+  <div class="ai-card" onclick="openDetail('chatgpt')">
     <div class="ai-logo"></div>
     <div class="ai-info">
       <h3>ChatGPT Plus</h3>
@@ -153,7 +157,7 @@ section { display: none; }
     </div>
   </div>
 
-  <div class="ai-card" onclick="openDetail('Claude Pro','월 ₩25,000','가성비 2위','글쓰기 특화 AI')">
+  <div class="ai-card" onclick="openDetail('claude')">
     <div class="ai-logo"></div>
     <div class="ai-info">
       <h3>Claude Pro</h3>
@@ -163,19 +167,60 @@ section { display: none; }
 </section>
 
 <!-- 상세 -->
-<section class="detail" id="detail">
+<section id="detail">
   <div class="detail-box">
     <div class="detail-logo"></div>
     <h2 id="d-name"></h2>
-    <p id="d-desc"></p>
     <p id="d-price"></p>
     <p id="d-rank"></p>
+    <p id="d-desc"></p>
+    <pre id="d-detail"></pre>
   </div>
 </section>
 
 </main>
 
 <script>
+// AI 데이터
+const aiData = {
+  chatgpt: {
+    name: "ChatGPT Plus",
+    price: "₩29,000 / month",
+    rank: "가성비 1위",
+    desc: "가장 범용적인 AI. 거의 모든 작업에 사용 가능.",
+    detail: `• GPT-4 기반
+• 코딩, 글쓰기, 공부 전부 가능
+• 한국어 성능 매우 우수
+
+👍 장점
+- 활용 범위 최강
+- 안정적
+
+👎 단점
+- 가격 존재
+
+🎯 추천 대상
+- 학생, 직장인, 크리에이터`
+  },
+  claude: {
+    name: "Claude Pro",
+    price: "₩25,000 / month",
+    rank: "가성비 2위",
+    desc: "문서 요약과 글쓰기에 특화된 AI.",
+    detail: `• 긴 문서 처리 최강
+• 자연스러운 문장
+
+👍 장점
+- 리포트 작업 최고
+
+👎 단점
+- 코딩은 약함
+
+🎯 추천 대상
+- 기획자, 학생`
+  }
+};
+
 function hideAll() {
   document.querySelectorAll("section").forEach(s => s.style.display = "none");
 }
@@ -190,13 +235,15 @@ function showRank() {
   document.getElementById("rank").style.display = "block";
 }
 
-function openDetail(name, price, rank, desc) {
+function openDetail(id) {
+  const ai = aiData[id];
   hideAll();
   document.getElementById("detail").style.display = "block";
-  document.getElementById("d-name").innerText = name;
-  document.getElementById("d-price").innerText = "가격: " + price;
-  document.getElementById("d-rank").innerText = "가성비: " + rank;
-  document.getElementById("d-desc").innerText = desc;
+  document.getElementById("d-name").innerText = ai.name;
+  document.getElementById("d-price").innerText = "가격: " + ai.price;
+  document.getElementById("d-rank").innerText = ai.rank;
+  document.getElementById("d-desc").innerText = ai.desc;
+  document.getElementById("d-detail").innerText = ai.detail;
 }
 </script>
 
