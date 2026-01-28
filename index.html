@@ -11,24 +11,29 @@
   box-sizing: border-box;
   font-family: Pretendard, Arial, sans-serif;
 }
+
 body {
   background: #0e0e0e;
   color: white;
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 header {
+  height: 72px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
+  padding: 0 40px;
   border-bottom: 1px solid #222;
 }
+
 .logo {
   display: flex;
   align-items: center;
+  gap: 10px;
   cursor: pointer;
 }
+
 .logo-icon {
   width: 36px;
   height: 36px;
@@ -39,35 +44,48 @@ header {
   justify-content: center;
   font-weight: 900;
   color: black;
-  margin-right: 10px;
 }
+
 .logo-text {
   font-size: 24px;
   font-weight: 900;
 }
+
+/* 오른쪽 네비 */
 nav {
   display: flex;
+  align-items: center;
   gap: 40px;
+}
+
+nav span {
   font-size: 18px;
   font-weight: 700;
-}
-nav span {
   cursor: pointer;
   opacity: .8;
 }
-nav span:hover { opacity: 1; }
 
-/* LAYOUT */
-main { padding: 60px 40px; }
-section { display: none; }
+nav span:hover {
+  opacity: 1;
+}
 
-/* CATEGORY */
+/* ===== LAYOUT ===== */
+main {
+  padding: 60px 40px;
+}
+
+section {
+  display: none;
+}
+
+/* ===== CATEGORY ===== */
 .category-grid {
   display: flex;
   gap: 14px;
   margin: 30px 0;
   flex-wrap: wrap;
 }
+
 .category {
   background: #151515;
   padding: 14px 22px;
@@ -75,9 +93,12 @@ section { display: none; }
   cursor: pointer;
   font-weight: 700;
 }
-.category:hover { background: #1d1d1d; }
 
-/* AI LIST */
+.category:hover {
+  background: #1d1d1d;
+}
+
+/* ===== AI LIST ===== */
 .ai-card {
   display: flex;
   align-items: center;
@@ -89,7 +110,6 @@ section { display: none; }
   cursor: pointer;
 }
 
-/* AI LOGO (실제 이미지) */
 .ai-logo {
   width: 56px;
   height: 56px;
@@ -99,16 +119,16 @@ section { display: none; }
   padding: 8px;
 }
 
-/* TEXT */
 .ai-text h3 {
   font-size: 18px;
 }
+
 .ai-text p {
   font-size: 14px;
   color: #aaa;
 }
 
-/* REVIEW */
+/* ===== REVIEW ===== */
 iframe {
   width: 100%;
   height: 480px;
@@ -121,10 +141,11 @@ iframe {
 <body>
 
 <header>
-  <div class="logo" onclick="goHome()">
+  <div class="logo" onclick="showHome()">
     <div class="logo-icon">V</div>
     <div class="logo-text">VRANK</div>
   </div>
+
   <nav>
     <span onclick="showAI()">AI</span>
     <span onclick="showReview()">리뷰</span>
@@ -143,15 +164,14 @@ iframe {
 
   <div class="category-grid">
     <div class="category" onclick="filterAI('전체')">전체</div>
-    <div class="category" onclick="filterAI('글쓰기')">✍ 글쓰기/콘텐츠</div>
-    <div class="category" onclick="filterAI('디자인')">🎨 디자인/아트</div>
-    <div class="category" onclick="filterAI('비디오')">🎬 비디오/오디오</div>
-    <div class="category" onclick="filterAI('개발')">💻 개발/프로그래밍</div>
-    <div class="category" onclick="filterAI('비즈니스')">📈 비즈니스/마케팅</div>
+    <div class="category" onclick="filterAI('글쓰기')">✍ 글쓰기</div>
+    <div class="category" onclick="filterAI('디자인')">🎨 디자인</div>
+    <div class="category" onclick="filterAI('비디오')">🎬 비디오</div>
+    <div class="category" onclick="filterAI('개발')">💻 개발</div>
+    <div class="category" onclick="filterAI('비즈니스')">📈 비즈니스</div>
   </div>
 
   <div id="ai-list">
-
     <div class="ai-card" data-category="글쓰기">
       <img class="ai-logo" src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg">
       <div class="ai-text">
@@ -199,7 +219,6 @@ iframe {
         <p>검색 · 리서치 특화</p>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -219,22 +238,27 @@ iframe {
 function hideAll() {
   document.querySelectorAll("section").forEach(s => s.style.display = "none");
 }
-function goHome() {
+
+function showHome() {
   hideAll();
-  home.style.display = "block";
+  document.getElementById("home").style.display = "block";
 }
+
 function showAI() {
   hideAll();
-  ai.style.display = "block";
+  document.getElementById("ai").style.display = "block";
 }
+
 function showReview() {
   hideAll();
-  review.style.display = "block";
+  document.getElementById("review").style.display = "block";
 }
+
 function showSearch() {
   hideAll();
-  search.style.display = "block";
+  document.getElementById("search").style.display = "block";
 }
+
 function filterAI(category) {
   document.querySelectorAll(".ai-card").forEach(card => {
     card.style.display =
@@ -243,7 +267,8 @@ function filterAI(category) {
         : "none";
   });
 }
-goHome();
+
+showHome();
 </script>
 
 </body>
