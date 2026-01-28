@@ -11,6 +11,7 @@
   box-sizing: border-box;
   font-family: Pretendard, Arial, sans-serif;
 }
+
 body {
   background: #0e0e0e;
   color: white;
@@ -18,17 +19,21 @@ body {
 
 /* HEADER */
 header {
+  height: 72px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
+  padding: 0 40px;
   border-bottom: 1px solid #222;
 }
+
 .logo {
   display: flex;
   align-items: center;
+  gap: 10px;
   cursor: pointer;
 }
+
 .logo-icon {
   width: 36px;
   height: 36px;
@@ -39,19 +44,21 @@ header {
   justify-content: center;
   font-weight: 900;
   color: black;
-  margin-right: 10px;
 }
+
 .logo-text {
   font-size: 24px;
   font-weight: 900;
 }
+
 nav {
   display: flex;
   gap: 40px;
+}
+
+nav span {
   font-size: 18px;
   font-weight: 700;
-}
-nav span {
   cursor: pointer;
   opacity: .8;
 }
@@ -68,6 +75,7 @@ section { display: none; }
   margin: 30px 0;
   flex-wrap: wrap;
 }
+
 .category {
   background: #151515;
   padding: 14px 22px;
@@ -81,37 +89,33 @@ section { display: none; }
 .ai-card {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
   background: #151515;
   padding: 20px;
   border-radius: 14px;
   margin-bottom: 14px;
 }
 
-/* AI LOGO */
 .ai-logo {
   width: 56px;
   height: 56px;
   border-radius: 12px;
-  object-fit: contain;
   background: #1a1a1a;
-  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
 }
 
-/* TEXT ALIGN FIX */
 .ai-text {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
+
 .ai-text h3 {
   font-size: 18px;
   font-weight: 700;
-}
-.ai-text p {
-  font-size: 14px;
-  color: #aaa;
-  margin-top: 4px;
 }
 
 /* REVIEW */
@@ -127,10 +131,11 @@ iframe {
 <body>
 
 <header>
-  <div class="logo" onclick="goHome()">
+  <div class="logo" onclick="showHome()">
     <div class="logo-icon">V</div>
     <div class="logo-text">VRANK</div>
   </div>
+
   <nav>
     <span onclick="showAI()">AI</span>
     <span onclick="showReview()">리뷰</span>
@@ -145,66 +150,53 @@ iframe {
 </section>
 
 <section id="ai">
-  <h2>AI 카테고리</h2>
+  <h2>AI 전체 목록</h2>
 
   <div class="category-grid">
     <div class="category" onclick="filterAI('전체')">전체</div>
-    <div class="category" onclick="filterAI('글쓰기')">✍ 글쓰기</div>
-    <div class="category" onclick="filterAI('디자인')">🎨 디자인</div>
-    <div class="category" onclick="filterAI('비디오')">🎬 비디오</div>
-    <div class="category" onclick="filterAI('개발')">💻 개발</div>
-    <div class="category" onclick="filterAI('비즈니스')">📈 비즈니스</div>
   </div>
 
   <div id="ai-list">
 
-    <div class="ai-card" data-category="글쓰기">
-      <img class="ai-logo" src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg">
-      <div class="ai-text">
-        <h3>ChatGPT Plus – 범용 AI</h3>
-        <p>글쓰기 · 프로그래밍 · 아이디어 생성</p>
-      </div>
-    </div>
+    <!-- 자동 리스트 -->
+    <script>
+      const aiNames = [
+        "ChatGPT (챗지피티)", "Suno (수노)", "Gemini (제미나이)", "Ai Studios (에이아이 스튜디오스)",
+        "Midjourney (미드저니)", "Claude (클로드)", "Perplexity Ai (퍼플렉시티 에이아이)",
+        "Wrtn (뤼튼)", "Microsoft Copilot (마이크로소프트 코파일럿)", "Pictory (픽토리)",
+        "Genspark (젠스파크)", "Github Copilot (깃허브 코파일럿)", "ChatPDF (챗피디에프)",
+        "DeepToon (딥툰)", "Sora (소라)", "v0.dev (브이제로닷데브)", "Slid (슬리드)",
+        "Synthesia (신세시아)", "Animated Drawings (에니메이티드 드로잉스)",
+        "Amper Music (앰퍼 뮤직)", "Tabnine (탭나인)", "OpenAI Codex (오픈에이아이 코드엑스)",
+        "Mistral Ai (미스트랄 에이아이)", "Ideogram (이데오그램)", "Pollo Ai (폴로 에이아이)",
+        "Soundraw (사운드로우)", "A. (에이닷)", "Quillbot (퀼봇)",
+        "Beatoven Ai (비토븐 에이아이)", "Leonardo Ai (레오나르도 에이아이)",
+        "Google Whisk (구글 위스크)", "Grok (그록)", "Qshop (큐샵)",
+        "Lilys Ai (릴리스 에이아이)", "Brandmark (브랜드마크)", "Lore Machine (로어 머신)",
+        "Bolt.new (볼트뉴)", "Fliki (플리키)", "Replit (레플릿)",
+        "Dall-E (달리)", "PolyCoder (폴리코더)", "Gentoo (젠투)",
+        "Ploonet (플루닛)", "AutoDraw (오토드로우)", "Amazon Q (아마존 큐)",
+        "Vrew (브루)", "Digital First Ai (디지털 퍼스트 에이아이)",
+        "Vox Factory (복스 팩토리)", "Naver Clova X (네이버 클로바 엑스)",
+        "Idea Ape (아이디어 에이프)", "Zeta Ai (제타 에이아이)",
+        "Kling Ai (클링 에이아이)", "SeaArt Ai (시아트 에이아이)",
+        "Naver Clova Dubbing (네이버 클로바 더빙)",
+        "Immersity Ai (이머시티 에이아이)", "Keewit (키위티)",
+        "CopyAi (카피에이아이)", "Voli (볼리)", "Napkin Ai (냅킨 에이아이)",
+        "Hitpaw (히트포)", "Tootoon (투툰)", "Tooning (투닝)", "FounderPal (파운더펄)"
+      ];
 
-    <div class="ai-card" data-category="글쓰기">
-      <img class="ai-logo" src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Anthropic_logo.svg">
-      <div class="ai-text">
-        <h3>Claude Pro – 문서 특화</h3>
-        <p>긴 글 · 요약 · 분석</p>
-      </div>
-    </div>
-
-    <div class="ai-card" data-category="디자인">
-      <img class="ai-logo" src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Midjourney_Emblem.png">
-      <div class="ai-text">
-        <h3>Midjourney – 이미지 생성</h3>
-        <p>AI 아트 · 디자인</p>
-      </div>
-    </div>
-
-    <div class="ai-card" data-category="비디오">
-      <img class="ai-logo" src="https://upload.wikimedia.org/wikipedia/commons/3/3f/RunwayML_logo.png">
-      <div class="ai-text">
-        <h3>Runway – 영상 생성</h3>
-        <p>AI 비디오 · 편집</p>
-      </div>
-    </div>
-
-    <div class="ai-card" data-category="개발">
-      <img class="ai-logo" src="https://avatars.githubusercontent.com/u/126759922?s=200&v=4">
-      <div class="ai-text">
-        <h3>Cursor AI – 개발 도우미</h3>
-        <p>AI 코딩 · 생산성</p>
-      </div>
-    </div>
-
-    <div class="ai-card" data-category="비즈니스">
-      <img class="ai-logo" src="https://upload.wikimedia.org/wikipedia/commons/9/92/Perplexity_AI_logo.svg">
-      <div class="ai-text">
-        <h3>Perplexity Pro – 검색 AI</h3>
-        <p>리서치 · 정보 탐색</p>
-      </div>
-    </div>
+      document.write(
+        aiNames.map(name => `
+          <div class="ai-card" data-category="전체">
+            <div class="ai-logo">🤖</div>
+            <div class="ai-text">
+              <h3>${name}</h3>
+            </div>
+          </div>
+        `).join("")
+      );
+    </script>
 
   </div>
 </section>
@@ -225,31 +217,22 @@ iframe {
 function hideAll() {
   document.querySelectorAll("section").forEach(s => s.style.display = "none");
 }
-function goHome() {
-  hideAll();
-  home.style.display = "block";
+function showHome() {
+  hideAll(); home.style.display = "block";
 }
 function showAI() {
-  hideAll();
-  ai.style.display = "block";
+  hideAll(); ai.style.display = "block";
 }
 function showReview() {
-  hideAll();
-  review.style.display = "block";
+  hideAll(); review.style.display = "block";
 }
 function showSearch() {
-  hideAll();
-  search.style.display = "block";
+  hideAll(); search.style.display = "block";
 }
-function filterAI(category) {
-  document.querySelectorAll(".ai-card").forEach(card => {
-    card.style.display =
-      category === "전체" || card.dataset.category === category
-        ? "flex"
-        : "none";
-  });
+function filterAI() {
+  document.querySelectorAll(".ai-card").forEach(card => card.style.display = "flex");
 }
-goHome();
+showHome();
 </script>
 
 </body>
