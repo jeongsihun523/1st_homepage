@@ -48,48 +48,36 @@ header {
 nav {
   display: flex;
   gap: 40px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
 }
 nav span {
   cursor: pointer;
-  opacity: .85;
+  opacity: .8;
 }
 nav span:hover { opacity: 1; }
 
 /* LAYOUT */
-main { padding: 80px 40px; }
+main { padding: 60px 40px; }
 section { display: none; }
-
-/* HOME */
-#ad {
-  margin: 40px auto;
-  width: 80%;
-  height: 200px;
-  border: 2px dashed #444;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #888;
-  font-size: 20px;
-}
 
 /* CATEGORY */
 .category-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-  gap: 20px;
+  display: flex;
+  gap: 14px;
   margin: 30px 0;
+  flex-wrap: wrap;
 }
 .category {
   background: #151515;
-  padding: 22px;
-  border-radius: 14px;
-  text-align: center;
-  font-weight: 700;
+  padding: 14px 22px;
+  border-radius: 12px;
   cursor: pointer;
+  font-weight: 700;
 }
-.category:hover { background: #1d1d1d; }
+.category:hover {
+  background: #1d1d1d;
+}
 
 /* AI LIST */
 .ai-card {
@@ -98,26 +86,31 @@ section { display: none; }
   gap: 16px;
   background: #151515;
   padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 16px;
+  border-radius: 14px;
+  margin-bottom: 14px;
+  cursor: pointer;
 }
 
-/* AI IMAGE */
+/* AI LOGO (이니셜) */
 .ai-logo {
   width: 56px;
   height: 56px;
   border-radius: 12px;
-  object-fit: cover;
-  background: #333;
+  background: linear-gradient(135deg,#6cffb1,#3aa0ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: black;
 }
 
-/* AI TEXT */
+/* TEXT */
 .ai-text h3 {
-  font-size: 20px;
+  font-size: 18px;
 }
 .ai-text p {
-  color: #aaa;
   font-size: 14px;
+  color: #aaa;
 }
 
 /* REVIEW */
@@ -148,7 +141,6 @@ iframe {
 
 <section id="home">
   <h1>AI 가성비 & 카테고리 플랫폼</h1>
-  <div id="ad">📢 광고 영역</div>
 </section>
 
 <section id="ai">
@@ -165,7 +157,7 @@ iframe {
 
   <div id="ai-list">
     <div class="ai-card" data-category="글쓰기">
-      <img class="ai-logo" src="https://logo.clearbit.com/openai.com">
+      <div class="ai-logo">GPT</div>
       <div class="ai-text">
         <h3>ChatGPT Plus</h3>
         <p>글쓰기 · 프로그래밍 · 범용 AI</p>
@@ -173,7 +165,7 @@ iframe {
     </div>
 
     <div class="ai-card" data-category="글쓰기">
-      <img class="ai-logo" src="https://logo.clearbit.com/anthropic.com">
+      <div class="ai-logo">CL</div>
       <div class="ai-text">
         <h3>Claude Pro</h3>
         <p>문서 요약 · 글쓰기 특화</p>
@@ -181,7 +173,7 @@ iframe {
     </div>
 
     <div class="ai-card" data-category="디자인">
-      <img class="ai-logo" src="https://logo.clearbit.com/midjourney.com">
+      <div class="ai-logo">MJ</div>
       <div class="ai-text">
         <h3>Midjourney</h3>
         <p>AI 이미지 생성</p>
@@ -189,7 +181,7 @@ iframe {
     </div>
 
     <div class="ai-card" data-category="비디오">
-      <img class="ai-logo" src="https://logo.clearbit.com/runwayml.com">
+      <div class="ai-logo">RW</div>
       <div class="ai-text">
         <h3>Runway</h3>
         <p>AI 비디오 생성</p>
@@ -197,7 +189,7 @@ iframe {
     </div>
 
     <div class="ai-card" data-category="개발">
-      <img class="ai-logo" src="https://logo.clearbit.com/cursor.sh">
+      <div class="ai-logo">CS</div>
       <div class="ai-text">
         <h3>Cursor AI</h3>
         <p>개발 · 코딩 보조</p>
@@ -205,7 +197,7 @@ iframe {
     </div>
 
     <div class="ai-card" data-category="비즈니스">
-      <img class="ai-logo" src="https://logo.clearbit.com/perplexity.ai">
+      <div class="ai-logo">PX</div>
       <div class="ai-text">
         <h3>Perplexity Pro</h3>
         <p>검색 · 리서치 특화</p>
@@ -232,19 +224,19 @@ function hideAll() {
 }
 function goHome() {
   hideAll();
-  home.style.display = "block";
+  document.getElementById("home").style.display = "block";
 }
 function showAI() {
   hideAll();
-  ai.style.display = "block";
+  document.getElementById("ai").style.display = "block";
 }
 function showReview() {
   hideAll();
-  review.style.display = "block";
+  document.getElementById("review").style.display = "block";
 }
 function showSearch() {
   hideAll();
-  search.style.display = "block";
+  document.getElementById("search").style.display = "block";
 }
 function filterAI(category) {
   document.querySelectorAll(".ai-card").forEach(card => {
