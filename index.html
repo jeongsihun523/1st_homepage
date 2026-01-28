@@ -1,56 +1,56 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>vrank</title>
+  <meta charset="UTF-8" />
+  <title>vrank</title>
 </head>
+<body style="font-family: Arial; margin: 20px;">
 
-<body style="font-family:Arial; padding:20px;">
+  <!-- 상단 로고 -->
+  <div style="display:flex; align-items:center; gap:10px; cursor:pointer;"
+       onclick="goHome()">
+    <div style="width:32px; height:32px; background:black; border-radius:6px;"></div>
+    <div style="font-size:24px; font-weight:900;">vrank</div>
+  </div>
 
-<h1>🔥 vrank AI 순위</h1>
+  <hr>
 
-<!-- 정렬 버튼 -->
-<button onclick="sortByScore()">점수순</button>
-<button onclick="sortByPrice()">가격순</button>
+  <!-- AI 버튼 -->
+  <button onclick="openAI()" style="padding:10px 20px; font-size:16px;">
+    AI 상세 보기
+  </button>
 
-<hr>
+  <!-- AI 상세 페이지 -->
+  <div id="aiPage" style="display:none; margin-top:20px;">
+    <h2>AI 리뷰</h2>
+    <p>이 AI에 대한 실제 리뷰 영상입니다.</p>
 
-<!-- AI 리스트 -->
-<div id="list"></div>
+    <button onclick="showReview()" style="padding:8px 16px;">
+      리뷰 영상 보기
+    </button>
 
-<script>
-  const aiList = [
-    { name: "ChatGPT", score: 95, price: 20 },
-    { name: "Claude", score: 92, price: 18 },
-    { name: "Gemini", score: 88, price: 0 }
-  ];
+    <div id="review" style="margin-top:20px;"></div>
+  </div>
 
-  function render() {
-    const list = document.getElementById("list");
-    list.innerHTML = "";
+  <script>
+    function goHome() {
+      alert("광고 홈 화면으로 이동 (예시)");
+    }
 
-    aiList.forEach((ai, index) => {
-      list.innerHTML += `
-        <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
-          <b>#${index + 1} ${ai.name}</b><br>
-          점수: ${ai.score} / 가격: $${ai.price}
-        </div>
+    function openAI() {
+      document.getElementById("aiPage").style.display = "block";
+    }
+
+    function showReview() {
+      document.getElementById("review").innerHTML = `
+        <iframe width="560" height="315"
+          src="https://www.youtube.com/embed/SmLeEUzo0aA"
+          frameborder="0"
+          allowfullscreen>
+        </iframe>
       `;
-    });
-  }
-
-  function sortByScore() {
-    aiList.sort((a, b) => b.score - a.score);
-    render();
-  }
-
-  function sortByPrice() {
-    aiList.sort((a, b) => a.price - b.price);
-    render();
-  }
-
-  render();
-</script>
+    }
+  </script>
 
 </body>
 </html>
