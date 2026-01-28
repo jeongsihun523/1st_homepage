@@ -2,223 +2,54 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>VRANK</title>
-
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Pretendard, Arial, sans-serif;
-}
-body {
-  background: #0e0e0e;
-  color: white;
-}
-
-/* HEADER */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
-  border-bottom: 1px solid #222;
-}
-.logo {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-.logo-icon {
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(135deg,#6cffb1,#3aa0ff);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  color: black;
-  margin-right: 10px;
-}
-.logo-text {
-  font-size: 24px;
-  font-weight: 900;
-}
-nav {
-  display: flex;
-  gap: 40px;
-  font-size: 20px;
-  font-weight: 700;
-}
-nav span {
-  cursor: pointer;
-  opacity: .85;
-}
-nav span:hover { opacity: 1; }
-
-/* LAYOUT */
-main { padding: 80px 40px; }
-section { display: none; }
-.home { display: block; }
-
-/* HOME */
-.ad-box {
-  margin: 40px auto;
-  width: 80%;
-  height: 200px;
-  border: 2px dashed #444;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #888;
-  font-size: 20px;
-}
-
-/* RANK */
-.ai-card {
-  background: #151515;
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  cursor: pointer;
-}
-.ai-card:hover { background:#1b1b1b; }
-
-/* REVIEW */
-.review-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 20px;
-}
-.review-card {
-  background: #151515;
-  border-radius: 14px;
-  padding: 16px;
-}
-.review-card h4 {
-  margin-bottom: 10px;
-}
-iframe {
-  width: 100%;
-  height: 200px;
-  border-radius: 10px;
-  border: none;
-}
-</style>
+<title>vrank</title>
 </head>
 
-<body>
+<body style="font-family:Arial; padding:20px;">
 
-<header>
-  <div class="logo" onclick="goHome()">
-    <div class="logo-icon">V</div>
-    <div class="logo-text">VRANK</div>
-  </div>
-  <nav>
-    <span onclick="showRank()">순위</span>
-    <span onclick="showReview()">리뷰</span>
-    <span>검색</span>
-  </nav>
-</header>
+<h1>🔥 vrank AI 순위</h1>
 
-<main>
+<!-- 정렬 버튼 -->
+<button onclick="sortByScore()">점수순</button>
+<button onclick="sortByPrice()">가격순</button>
 
-<!-- HOME -->
-<section class="home" id="home">
-  <h1>AI 가성비 순위 플랫폼</h1>
-  <div class="ad-box">📢 광고 영역</div>
-</section>
+<hr>
 
-<!-- RANK -->
-<section id="rank">
-  <h2>AI 가성비 순위</h2>
-
-  <div class="ai-card" onclick="openDetail('chatgpt')">
-    <h3>ChatGPT Plus</h3>
-    <p>₩29,000 / 가성비 1위</p>
-  </div>
-</section>
-
-<!-- DETAIL -->
-<section id="detail">
-  <h2 id="d-name"></h2>
-  <p id="d-desc"></p>
-</section>
-
-<!-- REVIEW -->
-<section id="review">
-  <h2>AI 리뷰 영상</h2>
-  <div class="review-grid" id="reviewGrid"></div>
-</section>
-
-</main>
+<!-- AI 리스트 -->
+<div id="list"></div>
 
 <script>
-let currentAI = null;
+  const aiList = [
+    { name: "ChatGPT", score: 95, price: 20 },
+    { name: "Claude", score: 92, price: 18 },
+    { name: "Gemini", score: 88, price: 0 }
+  ];
 
-const aiData = {
-  chatgpt: {
-    name: "ChatGPT Plus",
-    desc: "가장 범용적인 AI",
-    reviews: [
-      {
-        title: "ChatGPT 솔직 리뷰",
-        video: "https://www.youtube.com/embed/SmLeEUzo0aA"
-      },
-      {
-        title: "ChatGPT 장단점 정리",
-        video: "https://www.youtube.com/embed/SmLeEUzo0aA"
-      }
-    ]
+  function render() {
+    const list = document.getElementById("list");
+    list.innerHTML = "";
+
+    aiList.forEach((ai, index) => {
+      list.innerHTML += `
+        <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+          <b>#${index + 1} ${ai.name}</b><br>
+          점수: ${ai.score} / 가격: $${ai.price}
+        </div>
+      `;
+    });
   }
-};
 
-function hideAll() {
-  document.querySelectorAll("section").forEach(s => s.style.display = "none");
-}
-
-function goHome() {
-  hideAll();
-  home.style.display = "block";
-}
-
-function showRank() {
-  hideAll();
-  rank.style.display = "block";
-}
-
-function openDetail(id) {
-  currentAI = id;
-  hideAll();
-  detail.style.display = "block";
-  d-name.innerText = aiData[id].name;
-  d-desc.innerText = aiData[id].desc;
-}
-
-function showReview() {
-  if (!currentAI) {
-    alert("AI를 먼저 선택하세요");
-    return;
+  function sortByScore() {
+    aiList.sort((a, b) => b.score - a.score);
+    render();
   }
-  hideAll();
-  review.style.display = "block";
 
-  const grid = document.getElementById("reviewGrid");
-  grid.innerHTML = "";
+  function sortByPrice() {
+    aiList.sort((a, b) => a.price - b.price);
+    render();
+  }
 
-  aiData[currentAI].reviews.forEach(r => {
-    grid.innerHTML += `
-      <div class="review-card">
-        <h4>${r.title}</h4>
-        <iframe src="${r.video}" allowfullscreen></iframe>
-      </div>
-    `;
-  });
-}
-
-// 초기
-goHome();
+  render();
 </script>
 
 </body>
