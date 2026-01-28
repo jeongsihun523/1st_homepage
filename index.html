@@ -60,10 +60,9 @@ nav span:hover { opacity: 1; }
 /* LAYOUT */
 main { padding: 80px 40px; }
 section { display: none; }
-.home { display: block; }
 
 /* HOME */
-.ad-box {
+#ad {
   margin: 40px auto;
   width: 80%;
   height: 200px;
@@ -85,6 +84,7 @@ section { display: none; }
   margin-bottom: 20px;
   cursor: pointer;
 }
+.ai-card:hover { background:#1b1b1b; }
 .ai-logo {
   width: 60px;
   height: 60px;
@@ -98,13 +98,6 @@ section { display: none; }
 /* DETAIL */
 .detail-box {
   max-width: 900px;
-}
-.detail-logo {
-  width: 100px;
-  height: 100px;
-  background: #333;
-  border-radius: 20px;
-  margin-bottom: 20px;
 }
 .detail-box h2 {
   font-size: 36px;
@@ -121,12 +114,9 @@ pre {
   line-height: 1.7;
 }
 
-/* REVIEW VIDEO */
+/* REVIEW */
 .review-box {
   margin-top: 40px;
-}
-.review-box h3 {
-  margin-bottom: 12px;
 }
 iframe {
   width: 100%;
@@ -153,9 +143,9 @@ iframe {
 
 <main>
 
-<section class="home" id="home">
+<section id="home">
   <h1>AI 가성비 순위 플랫폼</h1>
-  <div class="ad-box">📢 광고 영역</div>
+  <div id="ad">📢 광고 영역</div>
 </section>
 
 <section id="rank">
@@ -172,14 +162,12 @@ iframe {
 
 <section id="detail">
   <div class="detail-box">
-    <div class="detail-logo"></div>
     <h2 id="d-name"></h2>
     <p id="d-price"></p>
     <p id="d-rank"></p>
     <p id="d-desc"></p>
     <pre id="d-detail"></pre>
 
-    <!-- 리뷰 영상 -->
     <div class="review-box">
       <h3>📺 AI 리뷰 영상</h3>
       <iframe id="reviewVideo" allowfullscreen></iframe>
@@ -205,26 +193,32 @@ const aiData = {
 function hideAll() {
   document.querySelectorAll("section").forEach(s => s.style.display = "none");
 }
+
 function goHome() {
   hideAll();
-  home.style.display = "block";
+  document.getElementById("home").style.display = "block";
 }
+
 function showRank() {
   hideAll();
-  rank.style.display = "block";
+  document.getElementById("rank").style.display = "block";
 }
+
 function openDetail(id) {
   const ai = aiData[id];
   hideAll();
-  detail.style.display = "block";
+  document.getElementById("detail").style.display = "block";
 
-  d-name.innerText = ai.name;
-  d-price.innerText = "가격: " + ai.price;
-  d-rank.innerText = ai.rank;
-  d-desc.innerText = ai.desc;
-  d-detail.innerText = ai.detail;
-  reviewVideo.src = ai.reviewVideo;
+  document.getElementById("d-name").innerText = ai.name;
+  document.getElementById("d-price").innerText = "가격: " + ai.price;
+  document.getElementById("d-rank").innerText = ai.rank;
+  document.getElementById("d-desc").innerText = ai.desc;
+  document.getElementById("d-detail").innerText = ai.detail;
+  document.getElementById("reviewVideo").src = ai.reviewVideo;
 }
+
+// 최초 로딩
+goHome();
 </script>
 
 </body>
