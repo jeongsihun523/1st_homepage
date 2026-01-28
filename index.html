@@ -49,8 +49,7 @@ section{display:none}
 .ai-logo{
   width:56px;height:56px;border-radius:12px;
   background:#1a1a1a;
-  object-fit:contain;
-  padding:8px
+  object-fit:contain;padding:8px
 }
 .ai-text h3{font-size:18px}
 
@@ -67,6 +66,8 @@ section{display:none}
   border-radius:10px;cursor:pointer;font-weight:700
 }
 .back-btn:hover{background:#2a2a2a}
+
+iframe{width:100%;height:480px;border:none;border-radius:12px}
 </style>
 </head>
 
@@ -109,7 +110,7 @@ section{display:none}
   <div class="detail-box">
     <h2 id="detail-name"></h2>
     <div class="cat" id="detail-cat"></div>
-    <p style="color:#aaa">이 AI의 상세 설명 / 가격 / 가성비 점수 영역</p>
+    <p style="color:#aaa">가격 / 가성비 점수 / 설명 들어갈 자리</p>
     <div class="back-btn" onclick="showAI()">← 목록으로</div>
   </div>
 </section>
@@ -156,12 +157,14 @@ function renderAI(){
 
 function openDetail(name,cat){
   hideAll();
-  detail.style.display="block";
-  detail-name.innerText=name;
-  detail-cat.innerText=cat;
+  document.getElementById("detail-name").innerText = name;
+  document.getElementById("detail-cat").innerText = cat;
+  document.getElementById("detail").style.display="block";
 }
 
-function hideAll(){document.querySelectorAll("section").forEach(s=>s.style.display="none")}
+function hideAll(){
+  document.querySelectorAll("section").forEach(s=>s.style.display="none")
+}
 function showHome(){hideAll();home.style.display="block"}
 function showAI(){hideAll();ai.style.display="block"}
 function showReview(){hideAll();review.style.display="block"}
@@ -169,7 +172,7 @@ function showSearch(){hideAll();search.style.display="block"}
 
 function filterAI(cat){
   document.querySelectorAll(".ai-card").forEach(card=>{
-    card.style.display = cat==="전체"||card.dataset.category===cat?"flex":"none";
+    card.style.display = (cat==="전체"||card.dataset.category===cat)?"flex":"none";
   });
 }
 
