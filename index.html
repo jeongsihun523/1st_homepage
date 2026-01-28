@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>vrank</title>
+  <title>vrank · 가성비 순위</title>
   <style>
     * {
       margin: 0;
@@ -14,7 +14,7 @@
     body {
       background-color: #000;
       color: #fff;
-      height: 100vh;
+      min-height: 100vh;
     }
 
     /* 상단 바 */
@@ -28,6 +28,7 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid rgba(255,255,255,0.15);
+      background: #000;
     }
 
     /* 로고 */
@@ -66,50 +67,131 @@
     nav a {
       color: #bbb;
       text-decoration: none;
-      transition: 0.2s ease;
     }
 
-    nav a:hover {
+    nav a.active {
       color: #fff;
     }
 
-    /* 메인 중앙 */
+    /* 콘텐츠 */
     main {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 140px 48px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
     h1 {
-      font-size: 160px;
+      font-size: 42px;
       font-weight: 900;
-      letter-spacing: -10px;
-      opacity: 0.9;
+      margin-bottom: 40px;
+    }
+
+    /* 랭킹 카드 */
+    .card {
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 20px;
+      background: #0b0b0b;
+      transition: 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: #fff;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .rank {
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .score {
+      font-size: 18px;
+      color: #aaa;
+    }
+
+    .name {
+      font-size: 22px;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+
+    .price {
+      margin-top: 6px;
+      color: #ccc;
+      font-size: 15px;
+    }
+
+    .desc {
+      margin-top: 12px;
+      color: #aaa;
+      font-size: 14px;
+      line-height: 1.6;
     }
   </style>
 </head>
 <body>
 
-  <!-- 상단 영역 -->
+  <!-- 상단 -->
   <header>
-    <!-- 왼쪽 로고 -->
     <div class="logo">
       <div class="logo-mark">V</div>
       <div class="logo-name">vrank</div>
     </div>
 
-    <!-- 오른쪽 메뉴 -->
     <nav>
-      <a href="#">순위</a>
+      <a href="ranking.html" class="active">순위</a>
       <a href="#">비교</a>
       <a href="#">검색</a>
     </nav>
   </header>
 
-  <!-- 메인 화면 -->
+  <!-- 메인 -->
   <main>
-    <h1>AD</h1>
+    <h1>AI 가성비 순위</h1>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="rank">#1</div>
+        <div class="score">가성비 점수 9.6</div>
+      </div>
+      <div class="name">ChatGPT Plus</div>
+      <div class="price">$20 / month</div>
+      <div class="desc">
+        범용성 최강. 글쓰기, 코딩, 공부까지 대부분의 사용자에게 가장 안정적인 선택.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="rank">#2</div>
+        <div class="score">가성비 점수 9.3</div>
+      </div>
+      <div class="name">Claude Pro</div>
+      <div class="price">$20 / month</div>
+      <div class="desc">
+        긴 문서 요약과 분석에 특화된 AI. 리포트·기획서 작업에 적합.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="rank">#3</div>
+        <div class="score">가성비 점수 8.9</div>
+      </div>
+      <div class="name">Gemini Advanced</div>
+      <div class="price">$19.99 / month</div>
+      <div class="desc">
+        구글 검색 기반 답변이 강점. 자료 조사와 정보 탐색에 유리.
+      </div>
+    </div>
+
   </main>
 
 </body>
