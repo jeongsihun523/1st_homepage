@@ -95,7 +95,7 @@ section { display: none; }
 .ai-info h3 { font-size: 22px; }
 .ai-info p { font-size: 14px; color: #aaa; }
 
-/* DETAIL & REVIEW */
+/* DETAIL */
 .detail-box {
   max-width: 900px;
 }
@@ -132,7 +132,7 @@ iframe {
   <nav>
     <span onclick="showRank()">순위</span>
     <span onclick="showReview()">리뷰</span>
-    <span>검색</span>
+    <span onclick="showSearch()">검색</span>
   </nav>
 </header>
 
@@ -169,23 +169,6 @@ iframe {
       <p>₩29,000 / 가성비 3위</p>
     </div>
   </div>
-
-  <div class="ai-card" onclick="openDetail('perplexity')">
-    <div class="ai-logo"></div>
-    <div class="ai-info">
-      <h3>Perplexity Pro</h3>
-      <p>₩28,000 / 검색 특화</p>
-    </div>
-  </div>
-
-  <div class="ai-card" onclick="openDetail('midjourney')">
-    <div class="ai-logo"></div>
-    <div class="ai-info">
-      <h3>Midjourney</h3>
-      <p>₩30,000 / 이미지 최강</p>
-    </div>
-  </div>
-
 </section>
 
 <section id="detail">
@@ -205,6 +188,11 @@ iframe {
   </div>
 </section>
 
+<section id="search">
+  <h2>🔍 검색</h2>
+  <p style="color:#aaa">검색 기능은 곧 추가됩니다.</p>
+</section>
+
 </main>
 
 <script>
@@ -220,57 +208,52 @@ const aiData = {
     name: "Claude Pro",
     price: "₩25,000 / month",
     rank: "가성비 2위",
-    desc: "글쓰기와 문서 요약 특화",
-    detail: "• 긴 문서 처리 강점\n• 자연스러운 문장력"
+    desc: "글쓰기 특화 AI",
+    detail: "• 긴 문서 요약\n• 자연스러운 문장"
   },
   gemini: {
     name: "Gemini Advanced",
     price: "₩29,000 / month",
     rank: "가성비 3위",
-    desc: "구글 기반 멀티모달 AI",
-    detail: "• Gmail, Docs 연동\n• 이미지 이해 가능"
-  },
-  perplexity: {
-    name: "Perplexity Pro",
-    price: "₩28,000 / month",
-    rank: "검색 특화",
-    desc: "AI 검색 최강자",
-    detail: "• 실시간 웹 검색\n• 출처 제공"
-  },
-  midjourney: {
-    name: "Midjourney",
-    price: "₩30,000 / month",
-    rank: "이미지 1위",
-    desc: "AI 이미지 생성 끝판왕",
-    detail: "• 고퀄 이미지\n• 디자이너 필수"
+    desc: "구글 멀티모달 AI",
+    detail: "• Gmail 연동\n• 이미지 이해"
   }
 };
 
 function hideAll() {
   document.querySelectorAll("section").forEach(s => s.style.display = "none");
 }
+
 function goHome() {
   hideAll();
   document.getElementById("home").style.display = "block";
 }
+
 function showRank() {
   hideAll();
   document.getElementById("rank").style.display = "block";
 }
+
 function showReview() {
   hideAll();
   document.getElementById("review").style.display = "block";
 }
+
+function showSearch() {
+  hideAll();
+  document.getElementById("search").style.display = "block";
+}
+
 function openDetail(id) {
   const ai = aiData[id];
   hideAll();
   document.getElementById("detail").style.display = "block";
 
-  d-name.innerText = ai.name;
-  d-price.innerText = "가격: " + ai.price;
-  d-rank.innerText = ai.rank;
-  d-desc.innerText = ai.desc;
-  d-detail.innerText = ai.detail;
+  document.getElementById("d-name").innerText = ai.name;
+  document.getElementById("d-price").innerText = "가격: " + ai.price;
+  document.getElementById("d-rank").innerText = ai.rank;
+  document.getElementById("d-desc").innerText = ai.desc;
+  document.getElementById("d-detail").innerText = ai.detail;
 }
 
 goHome();
