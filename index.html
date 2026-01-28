@@ -43,8 +43,9 @@ section{display:none}
 .ai-card{
   display:flex;align-items:center;gap:16px;
   background:#151515;padding:20px;border-radius:14px;
-  margin-bottom:14px
+  margin-bottom:14px;cursor:pointer
 }
+.ai-card:hover{background:#1d1d1d}
 .ai-logo{
   width:56px;height:56px;border-radius:12px;
   background:#1a1a1a;
@@ -53,8 +54,25 @@ section{display:none}
 }
 .ai-text h3{font-size:18px}
 
-/* REVIEW */
-iframe{width:100%;height:480px;border-radius:12px;border:none}
+/* DETAIL */
+.detail-box{
+  max-width:700px;
+  background:#151515;
+  padding:30px;
+  border-radius:16px
+}
+.detail-box h2{font-size:26px;margin-bottom:10px}
+.detail-box .cat{color:#8fd3ff;margin-bottom:20px}
+.back-btn{
+  margin-top:30px;
+  display:inline-block;
+  padding:12px 20px;
+  background:#222;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:700
+}
+.back-btn:hover{background:#2a2a2a}
 </style>
 </head>
 
@@ -81,23 +99,32 @@ iframe{width:100%;height:480px;border-radius:12px;border:none}
 <section id="ai">
   <h2>AI 카테고리</h2>
 
-  <!-- ✅ 카테고리 복구 -->
   <div class="category-grid">
     <div class="category" onclick="filterAI('전체')">전체</div>
-    <div class="category" onclick="filterAI('글쓰기')">✍ 글쓰기/컨텐츠</div>
-    <div class="category" onclick="filterAI('디자인')">🎨 디자인/아트</div>
-    <div class="category" onclick="filterAI('비디오')">🎬 비디오/오디오</div>
-    <div class="category" onclick="filterAI('개발')">💻 개발/프로그래밍</div>
-    <div class="category" onclick="filterAI('비즈니스')">📈 비즈니스/마케팅</div>
-    <div class="category" onclick="filterAI('검색')">🔎 검색/데이터</div>
+    <div class="category" onclick="filterAI('글쓰기')">✍ 글쓰기</div>
+    <div class="category" onclick="filterAI('디자인')">🎨 디자인</div>
+    <div class="category" onclick="filterAI('비디오')">🎬 비디오</div>
+    <div class="category" onclick="filterAI('개발')">💻 개발</div>
+    <div class="category" onclick="filterAI('검색')">🔎 검색</div>
   </div>
 
   <div id="ai-list"></div>
 </section>
 
+<!-- ✅ 상세 페이지 -->
+<section id="detail">
+  <div class="detail-box">
+    <h2 id="detail-name"></h2>
+    <div class="cat" id="detail-cat"></div>
+    <p style="color:#aaa">이 AI에 대한 상세 설명 / 가격 / 가성비 점수 들어갈 자리</p>
+
+    <div class="back-btn" onclick="showAI()">← 목록으로</div>
+  </div>
+</section>
+
 <section id="review">
   <h2>📺 AI 리뷰 영상</h2>
-  <iframe src="https://www.youtube.com/embed/SmLeEUzo0aA" allowfullscreen></iframe>
+  <iframe width="100%" height="480" src="https://www.youtube.com/embed/SmLeEUzo0aA" allowfullscreen></iframe>
 </section>
 
 <section id="search">
@@ -112,29 +139,35 @@ const aiData = [
   {name:"ChatGPT (챗지피티)",cat:"글쓰기"},
   {name:"Claude (클로드)",cat:"글쓰기"},
   {name:"Wrtn (뤼튼)",cat:"글쓰기"},
-  {name:"Quillbot (퀼봇)",cat:"글쓰기"},
   {name:"Midjourney (미드저니)",cat:"디자인"},
   {name:"DALL·E (달리)",cat:"디자인"},
-  {name:"Leonardo AI (레오나르도)",cat:"디자인"},
   {name:"Suno (수노)",cat:"비디오"},
-  {name:"Synthesia (신세시아)",cat:"비디오"},
-  {name:"Vrew (브루)",cat:"비디오"},
   {name:"GitHub Copilot (깃허브 코파일럿)",cat:"개발"},
   {name:"Replit (레플릿)",cat:"개발"},
-  {name:"Microsoft Copilot (마이크로소프트 코파일럿)",cat:"개발"},
   {name:"Perplexity AI (퍼플렉시티)",cat:"검색"},
   {name:"Gemini (제미나이)",cat:"검색"}
 ];
 
 const list = document.getElementById("ai-list");
 
-aiData.forEach(ai=>{
-  list.innerHTML += `
-    <div class="ai-card" data-category="${ai.cat}">
-      <div class="ai-logo">🤖</div>
-      <div class="ai-text"><h3>${ai.name}</h3></div>
-    </div>`;
-});
+function renderAI(){
+  list.innerHTML = "";
+  aiData.forEach(ai=>{
+    list.innerHTML += `
+      <div class="ai-card" data-category="${ai.cat}"
+        onclick="openDetail('${ai.name}','${ai.cat}')">
+        <div class="ai-logo">🤖</div>
+        <div class="ai-text"><h3>${ai.name}</h3></div>
+      </div>`;
+  });
+}
+
+function openDetail(name,cat){
+  hideAll();
+  detail.style.display="block";
+  document.getElementById("detail-name").innerText = name;
+  document.getElementById("detail-cat").innerText = cat;
+}
 
 function hideAll(){
   document.querySelectorAll("section").forEach(s=>s.style.display="none");
@@ -151,6 +184,7 @@ function filterAI(cat){
   });
 }
 
+renderAI();
 showHome();
 </script>
 
