@@ -1,148 +1,131 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <title>VRANK</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Pretendard, Arial, sans-serif;
-    }
+<meta charset="UTF-8">
+<title>VRANK</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Pretendard, Arial, sans-serif;
+}
+body {
+  background: #0e0e0e;
+  color: white;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  border-bottom: 1px solid #222;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg,#6cffb1,#3aa0ff);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: black;
+  margin-right: 10px;
+}
+.logo-text {
+  font-size: 24px;
+  font-weight: 900;
+}
+nav {
+  display: flex;
+  gap: 40px;
+  font-size: 20px;
+  font-weight: 700;
+}
+nav span {
+  cursor: pointer;
+  opacity: .85;
+}
+nav span:hover { opacity: 1; }
 
-    body {
-      background: #0e0e0e;
-      color: white;
-    }
+main { padding: 80px 40px; }
 
-    /* 상단 네비게이션 */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 40px;
-      border-bottom: 1px solid #222;
-    }
+section { display: none; }
 
-    /* 로고 영역 */
-    .logo {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-    }
+.home, .rank { display: block; }
 
-    .logo-icon {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, #6cffb1, #3aa0ff);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      color: black;
-      margin-right: 10px;
-    }
+.ad-box {
+  margin: 40px auto;
+  width: 80%;
+  height: 200px;
+  border: 2px dashed #444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  font-size: 20px;
+}
 
-    .logo-text {
-      font-size: 24px;
-      font-weight: 900;
-      letter-spacing: 1px;
-    }
+.ai-card {
+  display: flex;
+  align-items: center;
+  background: #151515;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.ai-logo {
+  width: 60px;
+  height: 60px;
+  background: #333;
+  border-radius: 12px;
+  margin-right: 20px;
+}
+.ai-info h3 {
+  font-size: 22px;
+}
+.ai-info p {
+  font-size: 14px;
+  color: #aaa;
+}
 
-    /* 오른쪽 메뉴 */
-    nav {
-      display: flex;
-      gap: 40px;
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    nav span {
-      cursor: pointer;
-      opacity: 0.85;
-    }
-
-    nav span:hover {
-      opacity: 1;
-    }
-
-    /* 메인 화면 */
-    main {
-      padding: 80px 40px;
-    }
-
-    .home {
-      display: none;
-      text-align: center;
-    }
-
-    .home h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
-    }
-
-    .ad-box {
-      margin: 40px auto;
-      width: 80%;
-      height: 200px;
-      border: 2px dashed #444;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #888;
-      font-size: 20px;
-    }
-
-    .rank {
-      display: block;
-    }
-
-    .rank h2 {
-      font-size: 36px;
-      margin-bottom: 30px;
-    }
-
-    .ai-card {
-      display: flex;
-      align-items: center;
-      background: #151515;
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      cursor: pointer;
-    }
-
-    .ai-logo {
-      width: 60px;
-      height: 60px;
-      background: #333;
-      border-radius: 12px;
-      margin-right: 20px;
-    }
-
-    .ai-info h3 {
-      font-size: 22px;
-      margin-bottom: 6px;
-    }
-
-    .ai-info p {
-      font-size: 14px;
-      color: #aaa;
-    }
-  </style>
+/* 상세 페이지 */
+.detail-box {
+  max-width: 800px;
+}
+.detail-logo {
+  width: 100px;
+  height: 100px;
+  background: #333;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.detail-box h2 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+.detail-box p {
+  color: #aaa;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+</style>
 </head>
+
 <body>
 
 <header>
-  <!-- 로고 -->
   <div class="logo" onclick="goHome()">
     <div class="logo-icon">V</div>
     <div class="logo-text">VRANK</div>
   </div>
-
-  <!-- 오른쪽 메뉴 -->
   <nav>
     <span onclick="showRank()">순위</span>
     <span>비교</span>
@@ -151,45 +134,70 @@
 </header>
 
 <main>
-  <!-- 홈(광고) 화면 -->
-  <section class="home" id="home">
-    <h1>AI 가성비 순위 플랫폼</h1>
-    <div class="ad-box">📢 광고 영역</div>
-  </section>
 
-  <!-- 순위 화면 -->
-  <section class="rank" id="rank">
-    <h2>AI 가성비 순위</h2>
+<!-- 홈 -->
+<section class="home" id="home">
+  <h1>AI 가성비 순위 플랫폼</h1>
+  <div class="ad-box">📢 광고 영역</div>
+</section>
 
-    <div class="ai-card">
-      <div class="ai-logo"></div>
-      <div class="ai-info">
-        <h3>ChatGPT Plus</h3>
-        <p>₩29,000 / 가성비 1위</p>
-      </div>
+<!-- 순위 -->
+<section class="rank" id="rank">
+  <h2>AI 가성비 순위</h2>
+
+  <div class="ai-card" onclick="openDetail('ChatGPT Plus','월 ₩29,000','가성비 1위','가장 범용적인 AI')">
+    <div class="ai-logo"></div>
+    <div class="ai-info">
+      <h3>ChatGPT Plus</h3>
+      <p>₩29,000 / 가성비 1위</p>
     </div>
+  </div>
 
-    <div class="ai-card">
-      <div class="ai-logo"></div>
-      <div class="ai-info">
-        <h3>Claude Pro</h3>
-        <p>₩25,000 / 가성비 2위</p>
-      </div>
+  <div class="ai-card" onclick="openDetail('Claude Pro','월 ₩25,000','가성비 2위','글쓰기 특화 AI')">
+    <div class="ai-logo"></div>
+    <div class="ai-info">
+      <h3>Claude Pro</h3>
+      <p>₩25,000 / 가성비 2위</p>
     </div>
+  </div>
+</section>
 
-  </section>
+<!-- 상세 -->
+<section class="detail" id="detail">
+  <div class="detail-box">
+    <div class="detail-logo"></div>
+    <h2 id="d-name"></h2>
+    <p id="d-desc"></p>
+    <p id="d-price"></p>
+    <p id="d-rank"></p>
+  </div>
+</section>
+
 </main>
 
 <script>
-  function goHome() {
-    document.getElementById("home").style.display = "block";
-    document.getElementById("rank").style.display = "none";
-  }
+function hideAll() {
+  document.querySelectorAll("section").forEach(s => s.style.display = "none");
+}
 
-  function showRank() {
-    document.getElementById("home").style.display = "none";
-    document.getElementById("rank").style.display = "block";
-  }
+function goHome() {
+  hideAll();
+  document.getElementById("home").style.display = "block";
+}
+
+function showRank() {
+  hideAll();
+  document.getElementById("rank").style.display = "block";
+}
+
+function openDetail(name, price, rank, desc) {
+  hideAll();
+  document.getElementById("detail").style.display = "block";
+  document.getElementById("d-name").innerText = name;
+  document.getElementById("d-price").innerText = "가격: " + price;
+  document.getElementById("d-rank").innerText = "가성비: " + rank;
+  document.getElementById("d-desc").innerText = desc;
+}
 </script>
 
 </body>
