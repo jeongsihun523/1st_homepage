@@ -5,46 +5,129 @@
 <title>VRANK</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Pretendard,Arial,sans-serif}
-body{background:#0e0e0e;color:#fff}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Pretendard, Arial, sans-serif;
+}
+body {
+  background: #0e0e0e;
+  color: white;
+}
 
 /* HEADER */
-header{height:72px;display:flex;justify-content:space-between;align-items:center;padding:0 40px;border-bottom:1px solid #222}
-.logo{display:flex;align-items:center;gap:10px;cursor:pointer}
-.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#6cffb1,#3aa0ff);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#000}
-.logo-text{font-size:24px;font-weight:900}
-nav{display:flex;gap:40px}
-nav span{font-size:18px;font-weight:700;cursor:pointer;opacity:.8}
-nav span:hover{opacity:1}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  border-bottom: 1px solid #222;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg,#6cffb1,#3aa0ff);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: black;
+  margin-right: 10px;
+}
+.logo-text {
+  font-size: 24px;
+  font-weight: 900;
+}
+nav {
+  display: flex;
+  gap: 40px;
+  font-size: 18px;
+  font-weight: 700;
+}
+nav span {
+  cursor: pointer;
+  opacity: .8;
+}
+nav span:hover { opacity: 1; }
 
 /* LAYOUT */
-main{padding:60px 40px}
-section{display:none}
+main { padding: 60px 40px; }
+section { display: none; }
 
 /* CATEGORY */
-.category-grid{display:flex;gap:14px;margin:30px 0;flex-wrap:wrap}
-.category{background:#151515;padding:14px 22px;border-radius:12px;cursor:pointer;font-weight:700}
-.category:hover{background:#1d1d1d}
+.category-grid {
+  display: flex;
+  gap: 14px;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+.category {
+  background: #151515;
+  padding: 14px 22px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.category:hover { background: #1d1d1d; }
 
-/* AI LIST */
-.ai-card{display:flex;align-items:center;gap:16px;background:#151515;padding:20px;border-radius:14px;margin-bottom:14px;cursor:pointer}
-.ai-logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#6cffb1,#3aa0ff);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000}
-.ai-text h3{font-size:18px}
-.ai-text p{font-size:14px;color:#aaa}
+/* AI CARD */
+.ai-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: #151515;
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 14px;
+}
 
-/* DETAIL */
-.detail-box{max-width:900px}
-.detail-box h2{font-size:28px;margin-bottom:10px}
-.detail-box p{color:#aaa;margin-bottom:20px;font-size:16px}
-iframe{width:100%;height:480px;border-radius:12px;border:none}
-.back-btn{margin-bottom:20px;display:inline-block;cursor:pointer;color:#6cffb1;font-weight:700}
+/* AI LOGO */
+.ai-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  object-fit: contain;
+  background: #1a1a1a;
+  padding: 8px;
+}
+
+/* TEXT ALIGN FIX */
+.ai-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.ai-text h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+.ai-text p {
+  font-size: 14px;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+/* REVIEW */
+iframe {
+  width: 100%;
+  height: 480px;
+  border-radius: 12px;
+  border: none;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo" onclick="showHome()">
+  <div class="logo" onclick="goHome()">
     <div class="logo-icon">V</div>
     <div class="logo-text">VRANK</div>
   </div>
@@ -70,39 +153,59 @@ iframe{width:100%;height:480px;border-radius:12px;border:none}
     <div class="category" onclick="filterAI('디자인')">🎨 디자인</div>
     <div class="category" onclick="filterAI('비디오')">🎬 비디오</div>
     <div class="category" onclick="filterAI('개발')">💻 개발</div>
-    <div class="category" onclick="filterAI('검색')">🔎 검색</div>
+    <div class="category" onclick="filterAI('비즈니스')">📈 비즈니스</div>
   </div>
 
   <div id="ai-list">
-    <div class="ai-card" data-ai="chatgpt" data-category="글쓰기">
-      <div class="ai-logo">AI</div>
-      <div class="ai-text"><h3>ChatGPT (챗지피티)</h3><p>범용 AI</p></div>
+
+    <div class="ai-card" data-category="글쓰기">
+      <img class="ai-logo" src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg">
+      <div class="ai-text">
+        <h3>ChatGPT Plus – 범용 AI</h3>
+        <p>글쓰기 · 프로그래밍 · 아이디어 생성</p>
+      </div>
     </div>
 
-    <div class="ai-card" data-ai="midjourney" data-category="디자인">
-      <div class="ai-logo">AI</div>
-      <div class="ai-text"><h3>Midjourney (미드저니)</h3><p>이미지 생성</p></div>
+    <div class="ai-card" data-category="글쓰기">
+      <img class="ai-logo" src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Anthropic_logo.svg">
+      <div class="ai-text">
+        <h3>Claude Pro – 문서 특화</h3>
+        <p>긴 글 · 요약 · 분석</p>
+      </div>
     </div>
 
-    <div class="ai-card" data-ai="suno" data-category="비디오">
-      <div class="ai-logo">AI</div>
-      <div class="ai-text"><h3>Suno (수노)</h3><p>AI 음악</p></div>
+    <div class="ai-card" data-category="디자인">
+      <img class="ai-logo" src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Midjourney_Emblem.png">
+      <div class="ai-text">
+        <h3>Midjourney – 이미지 생성</h3>
+        <p>AI 아트 · 디자인</p>
+      </div>
     </div>
 
-    <div class="ai-card" data-ai="perplexity" data-category="검색">
-      <div class="ai-logo">AI</div>
-      <div class="ai-text"><h3>Perplexity AI (퍼플렉시티)</h3><p>리서치 검색</p></div>
+    <div class="ai-card" data-category="비디오">
+      <img class="ai-logo" src="https://upload.wikimedia.org/wikipedia/commons/3/3f/RunwayML_logo.png">
+      <div class="ai-text">
+        <h3>Runway – 영상 생성</h3>
+        <p>AI 비디오 · 편집</p>
+      </div>
     </div>
-  </div>
-</section>
 
-<!-- AI DETAIL -->
-<section id="detail">
-  <div class="detail-box">
-    <div class="back-btn" onclick="showAI()">← AI 목록으로</div>
-    <h2 id="detail-title"></h2>
-    <p id="detail-desc"></p>
-    <iframe id="detail-video" allowfullscreen></iframe>
+    <div class="ai-card" data-category="개발">
+      <img class="ai-logo" src="https://avatars.githubusercontent.com/u/126759922?s=200&v=4">
+      <div class="ai-text">
+        <h3>Cursor AI – 개발 도우미</h3>
+        <p>AI 코딩 · 생산성</p>
+      </div>
+    </div>
+
+    <div class="ai-card" data-category="비즈니스">
+      <img class="ai-logo" src="https://upload.wikimedia.org/wikipedia/commons/9/92/Perplexity_AI_logo.svg">
+      <div class="ai-text">
+        <h3>Perplexity Pro – 검색 AI</h3>
+        <p>리서치 · 정보 탐색</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -113,57 +216,40 @@ iframe{width:100%;height:480px;border-radius:12px;border:none}
 
 <section id="search">
   <h2>🔍 검색</h2>
-  <p style="color:#aaa">검색 기능 준비 중</p>
+  <p style="color:#aaa">검색 기능은 곧 추가됩니다.</p>
 </section>
 
 </main>
 
 <script>
-const aiData = {
-  chatgpt:{
-    title:"ChatGPT (챗지피티)",
-    desc:"OpenAI가 만든 범용 인공지능. 글쓰기, 코딩, 학습에 최적화",
-    video:"https://www.youtube.com/embed/SmLeEUzo0aA"
-  },
-  midjourney:{
-    title:"Midjourney (미드저니)",
-    desc:"텍스트로 고퀄리티 이미지를 생성하는 AI 아트 도구",
-    video:"https://www.youtube.com/embed/MJ_example"
-  },
-  suno:{
-    title:"Suno (수노)",
-    desc:"가사와 멜로디를 자동으로 생성하는 AI 음악 도구",
-    video:"https://www.youtube.com/embed/SUNO_example"
-  },
-  perplexity:{
-    title:"Perplexity AI (퍼플렉시티)",
-    desc:"출처 기반 AI 검색 & 리서치 도구",
-    video:"https://www.youtube.com/embed/PPLX_example"
-  }
-};
-
-function hideAll(){document.querySelectorAll("section").forEach(s=>s.style.display="none")}
-function showHome(){hideAll();home.style.display="block"}
-function showAI(){hideAll();ai.style.display="block"}
-function showReview(){hideAll();review.style.display="block"}
-function showSearch(){hideAll();search.style.display="block"}
-function filterAI(cat){
-  document.querySelectorAll(".ai-card").forEach(c=>{
-    c.style.display = cat==="전체"||c.dataset.category===cat?"flex":"none"
-  })
+function hideAll() {
+  document.querySelectorAll("section").forEach(s => s.style.display = "none");
 }
-
-document.querySelectorAll(".ai-card").forEach(card=>{
-  card.onclick=()=>{
-    const data=aiData[card.dataset.ai];
-    detailTitle.textContent=data.title;
-    detailDesc.textContent=data.desc;
-    detailVideo.src=data.video;
-    hideAll();detail.style.display="block";
-  }
-})
-
-showHome();
+function goHome() {
+  hideAll();
+  home.style.display = "block";
+}
+function showAI() {
+  hideAll();
+  ai.style.display = "block";
+}
+function showReview() {
+  hideAll();
+  review.style.display = "block";
+}
+function showSearch() {
+  hideAll();
+  search.style.display = "block";
+}
+function filterAI(category) {
+  document.querySelectorAll(".ai-card").forEach(card => {
+    card.style.display =
+      category === "전체" || card.dataset.category === category
+        ? "flex"
+        : "none";
+  });
+}
+goHome();
 </script>
 
 </body>
