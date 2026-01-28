@@ -33,7 +33,6 @@ section{display:none}
   background:#151515;padding:12px 20px;border-radius:12px;
   cursor:pointer;font-weight:700
 }
-.category:hover{background:#1d1d1d}
 
 /* AI CARD */
 .ai-card{
@@ -48,9 +47,7 @@ section{display:none}
 }
 
 /* DETAIL */
-.detail-box{max-width:900px}
-.back{margin-top:30px;cursor:pointer;font-weight:700;opacity:.8}
-.back:hover{opacity:1}
+.back{margin-top:30px;cursor:pointer;font-weight:700}
 
 iframe{width:100%;height:420px;border:none;border-radius:14px}
 </style>
@@ -89,28 +86,33 @@ iframe{width:100%;height:420px;border:none;border-radius:14px}
 </section>
 
 <section id="detail">
-  <div class="detail-box">
-    <h1 id="d-name"></h1>
-    <p id="d-desc" style="color:#aaa;margin:20px 0"></p>
-    <iframe id="d-video" allowfullscreen></iframe>
-    <div class="back" onclick="showAI()">← AI 목록으로</div>
-  </div>
+  <h1 id="d-name"></h1>
+  <p id="d-desc" style="color:#aaa;margin:20px 0"></p>
+  <iframe id="d-video" allowfullscreen></iframe>
+  <div class="back" onclick="showAI()">← 목록으로</div>
 </section>
 
 <section id="review">
-  <h2>📺 AI 리뷰</h2>
+  <h2>📺 리뷰</h2>
   <iframe src="https://www.youtube.com/embed/SmLeEUzo0aA" allowfullscreen></iframe>
 </section>
 
 <section id="search">
   <h2>🔍 검색</h2>
-  <input placeholder="AI 이름 검색"
+  <input placeholder="AI 검색"
     style="margin-top:20px;padding:12px;width:300px;border-radius:8px;border:none">
 </section>
 
 </main>
 
 <script>
+/* ✅ 섹션 변수 선언 (이게 핵심) */
+const home = document.getElementById("home");
+const ai = document.getElementById("ai");
+const detail = document.getElementById("detail");
+const review = document.getElementById("review");
+const search = document.getElementById("search");
+
 const aiData=[
   {
     name:"ChatGPT (챗지피티)",
@@ -121,37 +123,36 @@ const aiData=[
   {
     name:"Midjourney (미드저니)",
     cat:"디자인",
-    desc:"최상급 AI 이미지 생성 도구",
+    desc:"AI 이미지 생성 툴",
     video:"https://www.youtube.com/embed/SmLeEUzo0aA"
   }
 ];
 
 const list=document.getElementById("ai-list");
 
-function renderAI(data){
+function renderAI(){
   list.innerHTML="";
-  data.forEach((ai,i)=>{
+  aiData.forEach((aiItem,i)=>{
     list.innerHTML+=`
-      <div class="ai-card" data-cat="${ai.cat}" onclick="openDetail(${i})">
+      <div class="ai-card" data-cat="${aiItem.cat}" onclick="openDetail(${i})">
         <div class="ai-logo">🤖</div>
-        <div>${ai.name}</div>
+        <div>${aiItem.name}</div>
       </div>`;
   });
 }
-renderAI(aiData);
+renderAI();
 
 function openDetail(i){
-  const ai=aiData[i];
   hideAll();
   detail.style.display="block";
-  d-name.innerText=ai.name;
-  d-desc.innerText=ai.desc;
-  d-video.src=ai.video;
+  d-name.innerText=aiData[i].name;
+  d-desc.innerText=aiData[i].desc;
+  d-video.src=aiData[i].video;
 }
 
 function filterAI(cat){
   document.querySelectorAll(".ai-card").forEach(card=>{
-    card.style.display=
+    card.style.display =
       cat==="전체"||card.dataset.cat===cat?"flex":"none";
   });
 }
