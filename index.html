@@ -16,7 +16,7 @@ body {
   color: white;
 }
 
-/* ===== HEADER ===== */
+/* HEADER */
 header {
   display: flex;
   justify-content: space-between;
@@ -45,7 +45,6 @@ header {
   font-size: 24px;
   font-weight: 900;
 }
-
 nav {
   display: flex;
   gap: 40px;
@@ -58,12 +57,12 @@ nav span {
 }
 nav span:hover { opacity: 1; }
 
-/* ===== LAYOUT ===== */
+/* LAYOUT */
 main { padding: 80px 40px; }
 section { display: none; }
 .home { display: block; }
 
-/* ===== HOME ===== */
+/* HOME */
 .ad-box {
   margin: 40px auto;
   width: 80%;
@@ -76,7 +75,7 @@ section { display: none; }
   font-size: 20px;
 }
 
-/* ===== RANK ===== */
+/* RANK */
 .ai-card {
   display: flex;
   align-items: center;
@@ -85,10 +84,6 @@ section { display: none; }
   border-radius: 12px;
   margin-bottom: 20px;
   cursor: pointer;
-  transition: .2s;
-}
-.ai-card:hover {
-  background: #1b1b1b;
 }
 .ai-logo {
   width: 60px;
@@ -96,26 +91,13 @@ section { display: none; }
   background: #333;
   border-radius: 12px;
   margin-right: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
-.ai-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-.ai-info h3 {
-  font-size: 22px;
-}
-.ai-info p {
-  font-size: 14px;
-  color: #aaa;
-}
+.ai-info h3 { font-size: 22px; }
+.ai-info p { font-size: 14px; color: #aaa; }
 
-/* ===== DETAIL ===== */
+/* DETAIL */
 .detail-box {
-  max-width: 800px;
+  max-width: 900px;
 }
 .detail-logo {
   width: 100px;
@@ -124,11 +106,6 @@ section { display: none; }
   border-radius: 20px;
   margin-bottom: 20px;
 }
-.detail-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
 .detail-box h2 {
   font-size: 36px;
   margin-bottom: 10px;
@@ -136,13 +113,26 @@ section { display: none; }
 .detail-box p {
   color: #aaa;
   margin-bottom: 8px;
-  font-size: 16px;
 }
 pre {
   margin-top: 20px;
   white-space: pre-wrap;
   color: #ccc;
   line-height: 1.7;
+}
+
+/* REVIEW VIDEO */
+.review-box {
+  margin-top: 40px;
+}
+.review-box h3 {
+  margin-bottom: 12px;
+}
+iframe {
+  width: 100%;
+  height: 480px;
+  border-radius: 12px;
+  border: none;
 }
 </style>
 </head>
@@ -163,38 +153,23 @@ pre {
 
 <main>
 
-<!-- HOME -->
 <section class="home" id="home">
   <h1>AI 가성비 순위 플랫폼</h1>
   <div class="ad-box">📢 광고 영역</div>
 </section>
 
-<!-- RANK -->
 <section id="rank">
   <h2>AI 가성비 순위</h2>
 
   <div class="ai-card" onclick="openDetail('chatgpt')">
-    <div class="ai-logo">
-      <img src="images/chatgpt.png" alt="ChatGPT">
-    </div>
+    <div class="ai-logo"></div>
     <div class="ai-info">
       <h3>ChatGPT Plus</h3>
       <p>₩29,000 / 가성비 1위</p>
     </div>
   </div>
-
-  <div class="ai-card" onclick="openDetail('claude')">
-    <div class="ai-logo">
-      <img src="images/claude.png" alt="Claude">
-    </div>
-    <div class="ai-info">
-      <h3>Claude Pro</h3>
-      <p>₩25,000 / 가성비 2위</p>
-    </div>
-  </div>
 </section>
 
-<!-- DETAIL -->
 <section id="detail">
   <div class="detail-box">
     <div class="detail-logo"></div>
@@ -203,6 +178,12 @@ pre {
     <p id="d-rank"></p>
     <p id="d-desc"></p>
     <pre id="d-detail"></pre>
+
+    <!-- 리뷰 영상 -->
+    <div class="review-box">
+      <h3>📺 AI 리뷰 영상</h3>
+      <iframe id="reviewVideo" allowfullscreen></iframe>
+    </div>
   </div>
 </section>
 
@@ -212,28 +193,12 @@ pre {
 const aiData = {
   chatgpt: {
     name: "ChatGPT Plus",
-    logo: "images/chatgpt.png",
     price: "₩29,000 / month",
     rank: "가성비 1위",
-    desc: "가장 범용적인 AI. 거의 모든 작업에 사용 가능.",
+    desc: "가장 범용적인 AI.",
     detail: `• GPT-4 기반
-• 코딩, 글쓰기, 공부 전부 가능
-• 한국어 성능 매우 우수
-
-🎯 추천 대상
-- 학생, 직장인, 크리에이터`
-  },
-  claude: {
-    name: "Claude Pro",
-    logo: "images/claude.png",
-    price: "₩25,000 / month",
-    rank: "가성비 2위",
-    desc: "문서 요약과 글쓰기에 특화된 AI.",
-    detail: `• 긴 문서 처리 최강
-• 자연스러운 문장
-
-🎯 추천 대상
-- 기획자, 학생`
+• 코딩, 글쓰기, 공부 전부 가능`,
+    reviewVideo: "https://www.youtube.com/embed/SmLeEUzo0aA"
   }
 };
 
@@ -242,25 +207,23 @@ function hideAll() {
 }
 function goHome() {
   hideAll();
-  document.getElementById("home").style.display = "block";
+  home.style.display = "block";
 }
 function showRank() {
   hideAll();
-  document.getElementById("rank").style.display = "block";
+  rank.style.display = "block";
 }
 function openDetail(id) {
   const ai = aiData[id];
   hideAll();
-  document.getElementById("detail").style.display = "block";
+  detail.style.display = "block";
 
-  document.querySelector(".detail-logo").innerHTML =
-    `<img src="${ai.logo}" alt="${ai.name}">`;
-
-  document.getElementById("d-name").innerText = ai.name;
-  document.getElementById("d-price").innerText = "가격: " + ai.price;
-  document.getElementById("d-rank").innerText = ai.rank;
-  document.getElementById("d-desc").innerText = ai.desc;
-  document.getElementById("d-detail").innerText = ai.detail;
+  d-name.innerText = ai.name;
+  d-price.innerText = "가격: " + ai.price;
+  d-rank.innerText = ai.rank;
+  d-desc.innerText = ai.desc;
+  d-detail.innerText = ai.detail;
+  reviewVideo.src = ai.reviewVideo;
 }
 </script>
 
