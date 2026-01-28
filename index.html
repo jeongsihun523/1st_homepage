@@ -7,8 +7,6 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Pretendard,Arial,sans-serif}
 body{background:#0e0e0e;color:#fff}
-
-/* HEADER */
 header{
   height:72px;display:flex;justify-content:space-between;align-items:center;
   padding:0 40px;border-bottom:1px solid #222
@@ -25,21 +23,10 @@ nav{display:flex;gap:40px}
 nav span{font-size:18px;font-weight:700;cursor:pointer;opacity:.8}
 nav span:hover{opacity:1}
 
-/* LAYOUT */
 main{padding:60px 40px}
 section{display:none}
 
-/* CATEGORY */
-.category-grid{
-  display:flex;gap:14px;margin:30px 0;flex-wrap:wrap
-}
-.category{
-  background:#151515;padding:14px 22px;border-radius:12px;
-  cursor:pointer;font-weight:700
-}
-.category:hover{background:#1d1d1d}
-
-/* AI CARD */
+/* AI LIST */
 .ai-card{
   display:flex;align-items:center;gap:16px;
   background:#151515;padding:20px;border-radius:14px;
@@ -52,27 +39,26 @@ section{display:none}
   display:flex;align-items:center;justify-content:center;
   font-size:22px
 }
-.ai-text h3{font-size:18px}
 
 /* DETAIL */
-.detail-box{
-  max-width:700px;
-  background:#151515;
-  padding:30px;
-  border-radius:16px
+.detail-wrap{max-width:900px}
+.detail-header{display:flex;gap:20px;align-items:center}
+.detail-img{
+  width:96px;height:96px;border-radius:20px;
+  background:#1a1a1a;display:flex;align-items:center;justify-content:center;
+  font-size:36px
 }
-.detail-box h2{font-size:26px;margin-bottom:10px}
-.detail-box .cat{color:#8fd3ff;margin-bottom:20px}
-.back-btn{
-  margin-top:30px;
-  display:inline-block;
-  padding:12px 20px;
-  background:#222;
-  border-radius:10px;
-  cursor:pointer;
-  font-weight:700
+.detail-title h1{font-size:30px}
+.badge{color:#7dd3ff;margin-top:6px}
+.price{margin:20px 0;font-size:20px}
+.box{
+  background:#151515;padding:20px;border-radius:14px;margin-bottom:14px
 }
-.back-btn:hover{background:#2a2a2a}
+ul{margin-left:20px;color:#ccc}
+iframe{width:100%;height:420px;border-radius:14px;border:none}
+
+.back{margin-top:30px;cursor:pointer;font-weight:700;opacity:.8}
+.back:hover{opacity:1}
 </style>
 </head>
 
@@ -86,105 +72,111 @@ section{display:none}
   <nav>
     <span onclick="showAI()">AI</span>
     <span onclick="showReview()">리뷰</span>
-    <span onclick="showSearch()">검색</span>
   </nav>
 </header>
 
 <main>
 
 <section id="home">
-  <h1>AI 가성비 & 카테고리 플랫폼</h1>
+  <h1>AI 가성비 & 비교 플랫폼</h1>
 </section>
 
 <section id="ai">
-  <h2>AI 카테고리</h2>
-
-  <div class="category-grid">
-    <div class="category" onclick="filterAI('전체')">전체</div>
-    <div class="category" onclick="filterAI('글쓰기')">✍ 글쓰기</div>
-    <div class="category" onclick="filterAI('디자인')">🎨 디자인</div>
-    <div class="category" onclick="filterAI('비디오')">🎬 비디오</div>
-    <div class="category" onclick="filterAI('개발')">💻 개발</div>
-    <div class="category" onclick="filterAI('검색')">🔎 검색</div>
-  </div>
-
+  <h2>AI 목록</h2>
   <div id="ai-list"></div>
 </section>
 
-<!-- ✅ 상세 페이지 -->
 <section id="detail">
-  <div class="detail-box">
-    <h2 id="detail-name"></h2>
-    <div class="cat" id="detail-cat"></div>
-    <p style="color:#aaa">이 AI에 대한 상세 설명 / 가격 / 가성비 점수 들어갈 자리</p>
+  <div class="detail-wrap">
+    <div class="detail-header">
+      <div class="detail-img" id="d-img">🤖</div>
+      <div class="detail-title">
+        <h1 id="d-name"></h1>
+        <div class="badge" id="d-cat"></div>
+      </div>
+    </div>
 
-    <div class="back-btn" onclick="showAI()">← 목록으로</div>
+    <div class="price" id="d-price"></div>
+
+    <div class="box">
+      <h3>📝 설명</h3>
+      <p id="d-desc" style="color:#bbb"></p>
+    </div>
+
+    <div class="box">
+      <h3>👍 장점</h3>
+      <ul id="d-pros"></ul>
+    </div>
+
+    <div class="box">
+      <h3>👎 단점</h3>
+      <ul id="d-cons"></ul>
+    </div>
+
+    <div class="box">
+      <h3>📺 리뷰 영상</h3>
+      <iframe id="d-video" allowfullscreen></iframe>
+    </div>
+
+    <div class="back" onclick="showAI()">← 목록으로</div>
   </div>
 </section>
 
 <section id="review">
-  <h2>📺 AI 리뷰 영상</h2>
-  <iframe width="100%" height="480" src="https://www.youtube.com/embed/SmLeEUzo0aA" allowfullscreen></iframe>
-</section>
-
-<section id="search">
-  <h2>🔍 검색</h2>
-  <p style="color:#aaa">검색 기능 준비 중</p>
+  <h2>AI 리뷰 모음</h2>
 </section>
 
 </main>
 
 <script>
 const aiData = [
-  {name:"ChatGPT (챗지피티)",cat:"글쓰기"},
-  {name:"Claude (클로드)",cat:"글쓰기"},
-  {name:"Wrtn (뤼튼)",cat:"글쓰기"},
-  {name:"Midjourney (미드저니)",cat:"디자인"},
-  {name:"DALL·E (달리)",cat:"디자인"},
-  {name:"Suno (수노)",cat:"비디오"},
-  {name:"GitHub Copilot (깃허브 코파일럿)",cat:"개발"},
-  {name:"Replit (레플릿)",cat:"개발"},
-  {name:"Perplexity AI (퍼플렉시티)",cat:"검색"},
-  {name:"Gemini (제미나이)",cat:"검색"}
+{
+  name:"ChatGPT (챗지피티)",
+  cat:"글쓰기",
+  price:"무료 / Plus $20",
+  desc:"대화, 글쓰기, 코딩까지 가능한 범용 AI",
+  pros:["한국어 매우 강함","생태계 큼","다용도"],
+  cons:["무료는 GPT-3.5","실시간 정보 제한"],
+  video:"https://www.youtube.com/embed/SmLeEUzo0aA"
+},
+{
+  name:"Midjourney (미드저니)",
+  cat:"디자인",
+  price:"$10~",
+  desc:"최상급 AI 이미지 생성 도구",
+  pros:["퀄리티 최상","예술적 결과"],
+  cons:["디스코드 필수","한글 약함"],
+  video:"https://www.youtube.com/embed/SmLeEUzo0aA"
+}
 ];
 
 const list = document.getElementById("ai-list");
 
-function renderAI(){
-  list.innerHTML = "";
-  aiData.forEach(ai=>{
-    list.innerHTML += `
-      <div class="ai-card" data-category="${ai.cat}"
-        onclick="openDetail('${ai.name}','${ai.cat}')">
-        <div class="ai-logo">🤖</div>
-        <div class="ai-text"><h3>${ai.name}</h3></div>
-      </div>`;
-  });
+aiData.forEach(ai=>{
+  list.innerHTML += `
+    <div class="ai-card" onclick="openDetail(${aiData.indexOf(ai)})">
+      <div class="ai-logo">🤖</div>
+      <div>${ai.name}</div>
+    </div>`;
+});
+
+function openDetail(i){
+  const ai = aiData[i];
+  hideAll(); detail.style.display="block";
+  d-name.innerText = ai.name;
+  d-cat.innerText = ai.cat;
+  d-price.innerText = "💰 " + ai.price;
+  d-desc.innerText = ai.desc;
+  d-pros.innerHTML = ai.pros.map(p=>`<li>${p}</li>`).join("");
+  d-cons.innerHTML = ai.cons.map(c=>`<li>${c}</li>`).join("");
+  d-video.src = ai.video;
 }
 
-function openDetail(name,cat){
-  hideAll();
-  detail.style.display="block";
-  document.getElementById("detail-name").innerText = name;
-  document.getElementById("detail-cat").innerText = cat;
-}
-
-function hideAll(){
-  document.querySelectorAll("section").forEach(s=>s.style.display="none");
-}
+function hideAll(){document.querySelectorAll("section").forEach(s=>s.style.display="none")}
 function showHome(){hideAll();home.style.display="block"}
 function showAI(){hideAll();ai.style.display="block"}
 function showReview(){hideAll();review.style.display="block"}
-function showSearch(){hideAll();search.style.display="block"}
 
-function filterAI(cat){
-  document.querySelectorAll(".ai-card").forEach(card=>{
-    card.style.display =
-      cat==="전체"||card.dataset.category===cat?"flex":"none";
-  });
-}
-
-renderAI();
 showHome();
 </script>
 
