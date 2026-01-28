@@ -11,6 +11,7 @@
   box-sizing: border-box;
   font-family: Pretendard, Arial, sans-serif;
 }
+
 body {
   background: #0e0e0e;
   color: white;
@@ -25,12 +26,14 @@ header {
   padding: 0 40px;
   border-bottom: 1px solid #222;
 }
+
 .logo {
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
 }
+
 .logo-icon {
   width: 36px;
   height: 36px;
@@ -42,20 +45,24 @@ header {
   font-weight: 900;
   color: black;
 }
+
 .logo-text {
   font-size: 24px;
   font-weight: 900;
 }
+
 nav {
   display: flex;
   gap: 40px;
 }
+
 nav span {
   font-size: 18px;
   font-weight: 700;
   cursor: pointer;
   opacity: .8;
 }
+
 nav span:hover { opacity: 1; }
 
 /* LAYOUT */
@@ -69,6 +76,7 @@ section { display: none; }
   margin: 30px 0;
   flex-wrap: wrap;
 }
+
 .category {
   background: #151515;
   padding: 14px 22px;
@@ -76,6 +84,7 @@ section { display: none; }
   cursor: pointer;
   font-weight: 700;
 }
+
 .category:hover { background: #1d1d1d; }
 
 /* AI LIST */
@@ -88,6 +97,7 @@ section { display: none; }
   border-radius: 14px;
   margin-bottom: 14px;
 }
+
 .ai-logo {
   width: 56px;
   height: 56px;
@@ -99,6 +109,7 @@ section { display: none; }
   font-weight: 900;
   color: black;
 }
+
 .ai-text h3 { font-size: 18px; }
 .ai-text p { font-size: 14px; color: #aaa; }
 
@@ -119,6 +130,7 @@ iframe {
     <div class="logo-icon">V</div>
     <div class="logo-text">VRANK</div>
   </div>
+
   <nav>
     <span onclick="showAI()">AI</span>
     <span onclick="showReview()">리뷰</span>
@@ -133,9 +145,10 @@ iframe {
 </section>
 
 <section id="ai">
-  <h2>AI 목록</h2>
+  <h2>AI 카테고리</h2>
 
   <div class="category-grid">
+    <div class="category" onclick="filterAI('전체')">전체</div>
     <div class="category" onclick="filterAI('글쓰기')">✍ 글쓰기</div>
     <div class="category" onclick="filterAI('디자인')">🎨 디자인</div>
     <div class="category" onclick="filterAI('비디오')">🎬 비디오/오디오</div>
@@ -148,31 +161,27 @@ iframe {
 
     <!-- 글쓰기 / 범용 -->
     <div class="ai-card" data-category="글쓰기"><div class="ai-logo">AI</div><div class="ai-text"><h3>ChatGPT</h3><p>범용 AI</p></div></div>
-    <div class="ai-card" data-category="글쓰기"><div class="ai-logo">AI</div><div class="ai-text"><h3>Claude</h3><p>문서·글쓰기</p></div></div>
+    <div class="ai-card" data-category="글쓰기"><div class="ai-logo">AI</div><div class="ai-text"><h3>Claude</h3><p>문서 · 글쓰기</p></div></div>
     <div class="ai-card" data-category="글쓰기"><div class="ai-logo">AI</div><div class="ai-text"><h3>Wrtn</h3><p>한국형 글쓰기</p></div></div>
-    <div class="ai-card" data-category="글쓰기"><div class="ai-logo">AI</div><div class="ai-text"><h3>Quillbot</h3><p>패러프레이징</p></div></div>
-    <div class="ai-card" data-category="글쓰기"><div class="ai-logo">AI</div><div class="ai-text"><h3>CopyAI</h3><p>마케팅 카피</p></div></div>
+    <div class="ai-card" data-category="글쓰기"><div class="ai-logo">AI</div><div class="ai-text"><h3>QuillBot</h3><p>문장 교정</p></div></div>
 
     <!-- 디자인 -->
     <div class="ai-card" data-category="디자인"><div class="ai-logo">AI</div><div class="ai-text"><h3>Midjourney</h3><p>이미지 생성</p></div></div>
     <div class="ai-card" data-category="디자인"><div class="ai-logo">AI</div><div class="ai-text"><h3>DALL·E</h3><p>이미지 생성</p></div></div>
     <div class="ai-card" data-category="디자인"><div class="ai-logo">AI</div><div class="ai-text"><h3>Leonardo AI</h3><p>아트 생성</p></div></div>
-    <div class="ai-card" data-category="디자인"><div class="ai-logo">AI</div><div class="ai-text"><h3>Ideogram</h3><p>텍스트 이미지</p></div></div>
 
     <!-- 비디오 / 오디오 -->
     <div class="ai-card" data-category="비디오"><div class="ai-logo">AI</div><div class="ai-text"><h3>Suno</h3><p>AI 음악</p></div></div>
     <div class="ai-card" data-category="비디오"><div class="ai-logo">AI</div><div class="ai-text"><h3>Synthesia</h3><p>AI 영상</p></div></div>
-    <div class="ai-card" data-category="비디오"><div class="ai-logo">AI</div><div class="ai-text"><h3>Pictory</h3><p>영상 자동 생성</p></div></div>
     <div class="ai-card" data-category="비디오"><div class="ai-logo">AI</div><div class="ai-text"><h3>Vrew</h3><p>자막 영상</p></div></div>
 
     <!-- 개발 -->
     <div class="ai-card" data-category="개발"><div class="ai-logo">AI</div><div class="ai-text"><h3>GitHub Copilot</h3><p>코딩 보조</p></div></div>
-    <div class="ai-card" data-category="개발"><div class="ai-logo">AI</div><div class="ai-text"><h3>Replit</h3><p>온라인 개발</p></div></div>
-    <div class="ai-card" data-category="개발"><div class="ai-logo">AI</div><div class="ai-text"><h3>Tabnine</h3><p>AI 자동완성</p></div></div>
+    <div class="ai-card" data-category="개발"><div class="ai-logo">AI</div><div class="ai-text"><h3>Replit</h3><p>웹 개발</p></div></div>
 
     <!-- 검색 -->
     <div class="ai-card" data-category="검색"><div class="ai-logo">AI</div><div class="ai-text"><h3>Perplexity AI</h3><p>리서치 검색</p></div></div>
-    <div class="ai-card" data-category="검색"><div class="ai-logo">AI</div><div class="ai-text"><h3>Gemini</h3><p>구글 AI</p></div></div>
+    <div class="ai-card" data-category="검색"><div class="ai-logo">AI</div><div class="ai-text"><h3>Gemini</h3><p>Google AI</p></div></div>
 
   </div>
 </section>
@@ -193,15 +202,21 @@ iframe {
 function hideAll() {
   document.querySelectorAll("section").forEach(s => s.style.display = "none");
 }
+
 function showHome() { hideAll(); home.style.display = "block"; }
 function showAI() { hideAll(); ai.style.display = "block"; }
 function showReview() { hideAll(); review.style.display = "block"; }
 function showSearch() { hideAll(); search.style.display = "block"; }
-function filterAI(cat) {
+
+function filterAI(category) {
   document.querySelectorAll(".ai-card").forEach(card => {
-    card.style.display = card.dataset.category === cat ? "flex" : "none";
+    card.style.display =
+      category === "전체" || card.dataset.category === category
+        ? "flex"
+        : "none";
   });
 }
+
 showHome();
 </script>
 
