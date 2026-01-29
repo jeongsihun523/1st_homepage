@@ -55,16 +55,15 @@ section{display:none}
 
 /* DETAIL */
 .detail-box{
-  max-width:720px;background:#151515;
-  padding:32px;border-radius:18px
+  max-width:700px;background:#151515;
+  padding:30px;border-radius:16px
 }
 .detail-box h2{font-size:26px;margin-bottom:6px}
-.detail-box .cat{color:#8fd3ff;margin-bottom:16px}
-.detail-box .price{margin:14px 0;font-weight:700}
-.detail-box .desc{color:#bbb;line-height:1.6}
-
+.detail-box .cat{color:#8fd3ff;margin-bottom:12px}
+.detail-box .price{color:#6cffb1;margin-bottom:14px;font-weight:700}
+.detail-box p{color:#aaa;line-height:1.6}
 .back-btn{
-  margin-top:26px;display:inline-block;
+  margin-top:30px;display:inline-block;
   padding:12px 20px;background:#222;
   border-radius:10px;cursor:pointer;font-weight:700
 }
@@ -114,7 +113,7 @@ iframe{width:100%;height:480px;border:none;border-radius:12px}
     <h2 id="detail-name"></h2>
     <div class="cat" id="detail-cat"></div>
     <div class="price" id="detail-price"></div>
-    <div class="desc" id="detail-desc"></div>
+    <p id="detail-desc"></p>
     <div class="back-btn" onclick="showAI()">← 목록으로</div>
   </div>
 </section>
@@ -133,146 +132,52 @@ iframe{width:100%;height:480px;border:none;border-radius:12px}
 
 <script>
 const aiData = [
-  {
-    name:"ChatGPT (챗지피티)",
-    cat:"글쓰기",
-    img:"https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
-    price:"무료 / Plus $20",
-    desc:"글쓰기, 요약, 번역, 아이디어 생성까지 가능한 대표적인 범용 AI"
-  },
-  {
-    name:"Claude (클로드)",
-    cat:"글쓰기",
-    img:"https://upload.wikimedia.org/wikipedia/commons/8/8a/Anthropic_logo.svg",
-    price:"무료 / Pro $20",
-    desc:"긴 문서 이해와 논리적인 답변에 강한 AI"
-  },
-  {
-    name:"Wrtn (뤼튼)",
-    cat:"글쓰기",
-    img:"https://wrtn.ai/favicon.ico",
-    price:"무료 / 일부 유료",
-    desc:"한국어 특화 글쓰기·마케팅·과제용 AI"
-  },
-  {
-    name:"QuillBot (퀼봇)",
-    cat:"글쓰기",
-    img:"https://upload.wikimedia.org/wikipedia/commons/3/35/QuillBot_logo.png",
-    price:"무료 / Premium $19.95",
-    desc:"문장 재작성, 패러프레이징 특화 AI"
-  },
-  {
-    name:"Midjourney (미드저니)",
-    cat:"디자인",
-    img:"https://upload.wikimedia.org/wikipedia/commons/e/e6/Midjourney_Emblem.png",
-    price:"월 $10~",
-    desc:"최고 퀄리티 이미지 생성 AI (디스코드 기반)"
-  },
-  {
-    name:"DALL·E (달리)",
-    cat:"디자인",
-    img:"https://upload.wikimedia.org/wikipedia/commons/4/4f/OpenAI_Logo.svg",
-    price:"사용량 기반 과금",
-    desc:"OpenAI 이미지 생성 AI, 직관적이고 안정적"
-  },
-  {
-    name:"Leonardo AI (레오나르도)",
-    cat:"디자인",
-    img:"https://leonardo.ai/favicon.ico",
-    price:"무료 / 유료 플랜",
-    desc:"게임·일러스트 특화 이미지 생성 AI"
-  },
-  {
-    name:"Suno (수노)",
-    cat:"비디오",
-    img:"https://suno.ai/favicon.ico",
-    price:"무료 / Pro $10",
-    desc:"텍스트로 노래와 음악을 만드는 AI"
-  },
-  {
-    name:"Synthesia (신세시아)",
-    cat:"비디오",
-    img:"https://www.synthesia.io/favicon.ico",
-    price:"월 $22~",
-    desc:"AI 아바타 기반 영상 생성 플랫폼"
-  },
-  {
-    name:"Vrew (브루)",
-    cat:"비디오",
-    img:"https://vrew.ai/favicon.ico",
-    price:"무료 / 유료",
-    desc:"자막 자동 생성·영상 편집 AI"
-  },
-  {
-    name:"GitHub Copilot (깃허브 코파일럿)",
-    cat:"개발",
-    img:"https://avatars.githubusercontent.com/u/126759922",
-    price:"월 $10",
-    desc:"코드 자동완성·추천 AI (개발자 필수템)"
-  },
-  {
-    name:"Replit (레플릿)",
-    cat:"개발",
-    img:"https://upload.wikimedia.org/wikipedia/commons/b/b2/Repl.it_logo.svg",
-    price:"무료 / Pro $20",
-    desc:"웹에서 바로 개발 가능한 AI 코딩 환경"
-  },
-  {
-    name:"Microsoft Copilot (마이크로소프트)",
-    cat:"개발",
-    img:"https://upload.wikimedia.org/wikipedia/commons/9/9c/Microsoft_Copilot_Logo.svg",
-    price:"무료 / Pro $20",
-    desc:"오피스·윈도우 연동 AI 비서"
-  },
-  {
-    name:"Perplexity AI (퍼플렉시티)",
-    cat:"검색",
-    img:"https://upload.wikimedia.org/wikipedia/commons/9/92/Perplexity_AI_logo.svg",
-    price:"무료 / Pro $20",
-    desc:"출처 기반 AI 검색 엔진"
-  },
-  {
-    name:"Gemini (제미나이)",
-    cat:"검색",
-    img:"https://upload.wikimedia.org/wikipedia/commons/8/8f/Google-gemini-icon.svg",
-    price:"무료 / Advanced $19.99",
-    desc:"구글 기반 멀티모달 AI"
-  }
+  {name:"ChatGPT",cat:"글쓰기",img:"https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",price:"무료 / Plus $20",desc:"글쓰기, 요약, 번역, 아이디어 생성까지 가능한 대표적인 범용 AI"},
+  {name:"Claude",cat:"글쓰기",img:"https://upload.wikimedia.org/wikipedia/commons/8/8a/Anthropic_logo.svg",price:"무료 / Pro $20",desc:"긴 문서 이해와 논리적인 답변에 강한 AI"},
+  {name:"Wrtn",cat:"글쓰기",img:"https://wrtn.ai/favicon.ico",price:"무료 / 일부 유료",desc:"한국어 특화 글쓰기·마케팅·과제용 AI"},
+  {name:"QuillBot",cat:"글쓰기",img:"https://upload.wikimedia.org/wikipedia/commons/3/35/QuillBot_logo.png",price:"무료 / Premium $19.95",desc:"문장 재작성 특화 AI"},
+  {name:"Midjourney",cat:"디자인",img:"https://upload.wikimedia.org/wikipedia/commons/e/e6/Midjourney_Emblem.png",price:"월 $10~",desc:"최고 퀄리티 이미지 생성 AI"},
+  {name:"DALL·E",cat:"디자인",img:"https://upload.wikimedia.org/wikipedia/commons/4/4f/OpenAI_Logo.svg",price:"사용량 기반",desc:"OpenAI 이미지 생성 AI"},
+  {name:"Leonardo AI",cat:"디자인",img:"https://leonardo.ai/favicon.ico",price:"무료 / 유료",desc:"게임·일러스트 특화"},
+  {name:"Suno",cat:"비디오",img:"https://suno.ai/favicon.ico",price:"무료 / Pro $10",desc:"AI 음악 생성"},
+  {name:"Synthesia",cat:"비디오",img:"https://www.synthesia.io/favicon.ico",price:"월 $22~",desc:"AI 아바타 영상"},
+  {name:"Vrew",cat:"비디오",img:"https://vrew.ai/favicon.ico",price:"무료 / 유료",desc:"자막 자동화"},
+  {name:"GitHub Copilot",cat:"개발",img:"https://avatars.githubusercontent.com/u/126759922",price:"월 $10",desc:"AI 코드 자동완성"},
+  {name:"Replit",cat:"개발",img:"https://upload.wikimedia.org/wikipedia/commons/b/b2/Repl.it_logo.svg",price:"무료 / Pro $20",desc:"웹 기반 개발 환경"},
+  {name:"Microsoft Copilot",cat:"개발",img:"https://upload.wikimedia.org/wikipedia/commons/9/9c/Microsoft_Copilot_Logo.svg",price:"무료 / Pro $20",desc:"MS 통합 AI"},
+  {name:"Perplexity AI",cat:"검색",img:"https://upload.wikimedia.org/wikipedia/commons/9/92/Perplexity_AI_logo.svg",price:"무료 / Pro $20",desc:"출처 기반 AI 검색"},
+  {name:"Gemini",cat:"검색",img:"https://upload.wikimedia.org/wikipedia/commons/8/8f/Google-gemini-icon.svg",price:"무료 / Advanced $19.99",desc:"구글 멀티모달 AI"}
 ];
 
+const sections = document.querySelectorAll("section");
 const list = document.getElementById("ai-list");
+
+function hideAll(){sections.forEach(s=>s.style.display="none")}
+function showHome(){hideAll();document.getElementById("home").style.display="block"}
+function showAI(){hideAll();document.getElementById("ai").style.display="block"}
+function showReview(){hideAll();document.getElementById("review").style.display="block"}
+function showSearch(){hideAll();document.getElementById("search").style.display="block"}
 
 function renderAI(){
   list.innerHTML="";
-  aiData.forEach(ai=>{
+  aiData.forEach((ai,i)=>{
     list.innerHTML+=`
-      <div class="ai-card" data-category="${ai.cat}"
-        onclick="openDetail('${ai.name}')">
+      <div class="ai-card" data-category="${ai.cat}" onclick="openDetail(${i})">
         <img class="ai-logo" src="${ai.img}">
         <div class="ai-text"><h3>${ai.name}</h3></div>
       </div>`;
   });
 }
 
-function openDetail(name){
-  const ai = aiData.find(a => a.name === name);
-  if(!ai) return;
-
+function openDetail(i){
+  const ai = aiData[i];
   hideAll();
   document.getElementById("detail-name").innerText = ai.name;
   document.getElementById("detail-cat").innerText = ai.cat;
-  document.getElementById("detail-price").innerText = "💰 가격: " + ai.price;
+  document.getElementById("detail-price").innerText = ai.price;
   document.getElementById("detail-desc").innerText = ai.desc;
   document.getElementById("detail").style.display="block";
 }
-
-function hideAll(){
-  document.querySelectorAll("section").forEach(s=>s.style.display="none")
-}
-function showHome(){hideAll();document.getElementById("home").style.display="block"}
-function showAI(){hideAll();document.getElementById("ai").style.display="block"}
-function showReview(){hideAll();document.getElementById("review").style.display="block"}
-function showSearch(){hideAll();document.getElementById("search").style.display="block"}
 
 function filterAI(cat){
   document.querySelectorAll(".ai-card").forEach(card=>{
