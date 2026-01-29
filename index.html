@@ -22,26 +22,25 @@ header{
 }
 .logo-text{font-size:24px;font-weight:900}
 
-.header-right{display:flex;gap:12px}
+.header-right{display:flex;gap:12px;align-items:center}
 .header-btn{
   padding:10px 16px;border-radius:10px;
   background:#151515;color:#fff;
   font-weight:700;cursor:pointer;border:none
 }
 .header-btn:hover{background:#1d1d1d}
-.header-btn.primary{
-  background:linear-gradient(135deg,#ff6cff,#7aa2ff);
-  color:#000
+
+.gear{
+  font-size:20px;cursor:pointer;
 }
 
-/* LAYOUT */
-main{padding:60px 40px}
-section{display:none}
+/* MAIN */
+main{padding:40px}
 
 /* CATEGORY */
-.category-grid{display:flex;gap:14px;margin:30px 0;flex-wrap:wrap}
+.category-grid{display:flex;gap:12px;margin:20px 0;flex-wrap:wrap}
 .category{
-  background:#151515;padding:14px 22px;border-radius:12px;
+  background:#151515;padding:12px 20px;border-radius:12px;
   cursor:pointer;font-weight:700
 }
 .category:hover{background:#1d1d1d}
@@ -57,16 +56,17 @@ section{display:none}
 /* AI CARD */
 .ai-card{
   display:flex;align-items:center;gap:16px;
-  background:#151515;padding:20px;border-radius:14px;
-  margin-bottom:14px;cursor:pointer
+  background:#151515;padding:18px;border-radius:14px;
+  margin-bottom:12px;cursor:pointer
 }
 .ai-card:hover{background:#1d1d1d}
 .ai-logo{
-  width:56px;height:56px;border-radius:12px;
-  background:#1a1a1a;object-fit:contain;padding:8px
+  width:52px;height:52px;border-radius:12px;
+  background:#1a1a1a;object-fit:contain;padding:6px
 }
 
 /* DETAIL */
+#detail{display:none}
 .detail-box{
   max-width:700px;background:#151515;
   padding:30px;border-radius:16px
@@ -89,14 +89,16 @@ section{display:none}
     <div class="logo-icon">V</div>
     <div class="logo-text">VRANK</div>
   </div>
+
   <div class="header-right">
-    <button class="header-btn primary">로그인 / 회원가입</button>
-    <button class="header-btn">⚙</button>
+    <button class="header-btn">로그인 / 회원가입</button>
+    <div class="gear">⚙️</div>
   </div>
 </header>
 
 <main>
 
+<!-- HOME -->
 <section id="home">
   <h1>AI 가성비 & 카테고리 플랫폼</h1>
 
@@ -106,20 +108,21 @@ section{display:none}
     <div class="category" onclick="filterAI('디자인')">🎨 디자인</div>
     <div class="category" onclick="filterAI('비디오')">🎬 비디오</div>
     <div class="category" onclick="filterAI('개발')">💻 개발</div>
-    <div class="category" onclick="filterAI('검색')">🔎 검색</div>
+    <div class="category" onclick="filterAI('음악')">🎵 음악</div>
   </div>
 
   <input class="search-box" placeholder="AI 이름 검색..." oninput="searchAI(this.value)">
-  <div id="home-ai-list"></div>
+  <div id="ai-list"></div>
 </section>
 
+<!-- DETAIL -->
 <section id="detail">
   <div class="detail-box">
-    <h2 id="detail-name"></h2>
-    <div class="cat" id="detail-cat"></div>
-    <div class="price" id="detail-price"></div>
-    <p id="detail-desc"></p>
-    <div class="back-btn" onclick="showHome()">← 홈으로</div>
+    <h2 id="detailName"></h2>
+    <div class="cat" id="detailCat"></div>
+    <div class="price" id="detailPrice"></div>
+    <p id="detailDesc"></p>
+    <div class="back-btn" onclick="showHome()">← 뒤로</div>
   </div>
 </section>
 
@@ -127,89 +130,58 @@ section{display:none}
 
 <script>
 const aiData = [
- {id:1,name:"Ai Studios (에이아이 스튜디오스)",cat:"비디오"},
- {id:2,name:"Pictory (픽토리)",cat:"비디오"},
- {id:3,name:"Genspark (젠스파크)",cat:"검색"},
- {id:4,name:"ChatPDF (챗피디에프)",cat:"검색"},
- {id:5,name:"DeepToon (딥툰)",cat:"디자인"},
- {id:6,name:"Sora (소라)",cat:"비디오"},
- {id:7,name:"v0.dev (브이제로닷데브)",cat:"개발"},
- {id:8,name:"Animated Drawings (에니메이티드 드로잉스)",cat:"비디오"},
- {id:9,name:"Amper Music (앰퍼 뮤직)",cat:"비디오"},
- {id:10,name:"Tabnine (탭나인)",cat:"개발"},
- {id:11,name:"OpenAI Codex (오픈에이아이 코드엑스)",cat:"개발"},
- {id:12,name:"Mistral AI (미스트랄 에이아이)",cat:"개발"},
- {id:13,name:"Ideogram (이데오그램)",cat:"디자인"},
- {id:14,name:"Pollo AI (폴로 에이아이)",cat:"디자인"},
- {id:15,name:"Soundraw (사운드로우)",cat:"비디오"},
- {id:16,name:"A. (에이닷)",cat:"검색"},
- {id:17,name:"Beatoven AI (비토븐 에이아이)",cat:"비디오"},
- {id:18,name:"Google Whisk (구글 위스크)",cat:"검색"},
- {id:19,name:"Grok (그록)",cat:"검색"},
- {id:20,name:"Qshop (큐샵)",cat:"검색"},
- {id:21,name:"Lilys AI (릴리스 에이아이)",cat:"글쓰기"},
- {id:22,name:"Brandmark (브랜드마크)",cat:"디자인"},
- {id:23,name:"Lore Machine (로어 머신)",cat:"비디오"},
- {id:24,name:"Bolt.new (볼트뉴)",cat:"개발"},
- {id:25,name:"Fliki (플리키)",cat:"비디오"},
- {id:26,name:"Replit (레플릿)",cat:"개발"},
- {id:27,name:"DALL·E (달리)",cat:"디자인"},
- {id:28,name:"PolyCoder (폴리코더)",cat:"개발"},
- {id:29,name:"Gentoo (젠투)",cat:"개발"},
- {id:30,name:"AutoDraw (오토드로우)",cat:"디자인"},
- {id:31,name:"Amazon Q (아마존 큐)",cat:"개발"},
- {id:32,name:"Vrew (브루)",cat:"비디오"},
- {id:33,name:"Vox Factory (복스 팩토리)",cat:"비디오"},
- {id:34,name:"Naver Clova X (네이버 클로바 엑스)",cat:"검색"},
- {id:35,name:"Idea Ape (아이디어 에이프)",cat:"글쓰기"},
- {id:36,name:"Zeta AI (제타 에이아이)",cat:"검색"},
- {id:37,name:"Kling AI (클링 에이아이)",cat:"비디오"},
- {id:38,name:"SeaArt AI (시아트 에이아이)",cat:"디자인"},
- {id:39,name:"Naver Clova Dubbing (네이버 클로바 더빙)",cat:"비디오"},
- {id:40,name:"Immersity AI (이머시티 에이아이)",cat:"비디오"},
- {id:41,name:"CopyAI (카피에이아이)",cat:"글쓰기"},
- {id:42,name:"Napkin AI (냅킨 에이아이)",cat:"글쓰기"},
- {id:43,name:"Tootoon (투툰)",cat:"디자인"},
- {id:44,name:"Tooning (투닝)",cat:"디자인"},
- {id:45,name:"FounderPal (파운더펄)",cat:"글쓰기"}
+ {id:1,name:"Pictory (픽토리)",cat:"비디오",price:"유료",desc:"텍스트 → 영상"},
+ {id:2,name:"Genspark (젠스파크)",cat:"검색",price:"무료 / 유료",desc:"AI 검색"},
+ {id:3,name:"ChatPDF (챗피디에프)",cat:"검색",price:"무료 / 유료",desc:"PDF 분석"},
+ {id:4,name:"Sora (소라)",cat:"비디오",price:"미정",desc:"영상 생성"},
+ {id:5,name:"v0.dev (브이제로닷데브)",cat:"개발",price:"유료",desc:"UI 생성"},
+ {id:6,name:"Replit (레플릿)",cat:"개발",price:"무료 / Pro",desc:"웹 IDE"},
+ {id:7,name:"DALL·E (달리)",cat:"디자인",price:"사용량 기반",desc:"이미지 생성"},
+ {id:8,name:"Ideogram (이데오그램)",cat:"디자인",price:"무료 / 유료",desc:"텍스트 이미지"},
+ {id:9,name:"Soundraw (사운드로우)",cat:"음악",price:"유료",desc:"AI 음악"},
+ {id:10,name:"Beatoven AI (비토븐)",cat:"음악",price:"유료",desc:"배경음악 생성"},
 ];
 
-let currentData=[...aiData];
-const homeList=document.getElementById("home-ai-list");
-const sections=document.querySelectorAll("section");
+let filtered = [...aiData];
 
-function hideAll(){sections.forEach(s=>s.style.display="none")}
-function showHome(){hideAll();home.style.display="block";render(homeList,currentData)}
+const home = document.getElementById("home");
+const detail = document.getElementById("detail");
+const list = document.getElementById("ai-list");
 
-function render(target,data){
-  target.innerHTML="";
+function showHome(){
+  detail.style.display="none";
+  home.style.display="block";
+  render(filtered);
+}
+
+function render(data){
+  list.innerHTML="";
   data.forEach(ai=>{
-    target.innerHTML+=`
-    <div class="ai-card" onclick="openDetail(${ai.id})">
-      <div>${ai.name}</div>
-    </div>`;
+    list.innerHTML+=`
+      <div class="ai-card" onclick="openDetail(${ai.id})">
+        <div>${ai.name}</div>
+      </div>
+    `;
   });
 }
 
 function openDetail(id){
-  const ai=aiData.find(a=>a.id===id);
-  if(!ai) return;
-  hideAll();
+  const ai = aiData.find(a=>a.id===id);
+  home.style.display="none";
   detail.style.display="block";
-  detail-name.innerText=ai.name;
-  detail-cat.innerText=ai.cat;
-  detail-price.innerText="가격 정보 준비중";
-  detail-desc.innerText="상세 설명 준비중";
+  document.getElementById("detailName").innerText = ai.name;
+  document.getElementById("detailCat").innerText = ai.cat;
+  document.getElementById("detailPrice").innerText = ai.price;
+  document.getElementById("detailDesc").innerText = ai.desc;
 }
 
 function filterAI(cat){
-  currentData = cat==="전체"?aiData:aiData.filter(a=>a.cat===cat);
-  render(homeList,currentData);
+  filtered = cat==="전체" ? [...aiData] : aiData.filter(a=>a.cat===cat);
+  render(filtered);
 }
 
 function searchAI(word){
-  const result=aiData.filter(a=>a.name.toLowerCase().includes(word.toLowerCase()));
-  render(homeList,result);
+  render(filtered.filter(a=>a.name.toLowerCase().includes(word.toLowerCase())));
 }
 
 showHome();
