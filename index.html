@@ -132,7 +132,7 @@ section{display:none}
 </main>
 
 <script>
-const aiData = [
+const aiData = [/* 👈 네 aiData 그대로, 수정 없음 */ 
  {id:1,name:"ChatGPT (챗지피티)",cat:"글쓰기",img:"https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",price:"무료 / Plus $20",desc:"범용 AI"},
  {id:2,name:"Claude (클로드)",cat:"글쓰기",img:"https://upload.wikimedia.org/wikipedia/commons/8/8a/Anthropic_logo.svg",price:"무료 / Pro $20",desc:"논리 특화"},
  {id:3,name:"Wrtn (뤼튼)",cat:"글쓰기",img:"https://wrtn.ai/favicon.ico",price:"무료 / 일부 유료",desc:"한국어 특화"},
@@ -157,10 +157,28 @@ const list=document.getElementById("ai-list");
 const searchList=document.getElementById("ai-list-search");
 
 function hideAll(){sections.forEach(s=>s.style.display="none")}
-function showHome(){hideAll();home.style.display="block"}
-function showAI(){hideAll();ai.style.display="block";render(list,currentData)}
-function showSearch(){hideAll();search.style.display="block";render(searchList,currentData)}
-function showReview(){hideAll();review.style.display="block"}
+
+function showHome(){
+  hideAll();
+  document.getElementById("home").style.display="block";
+}
+
+function showAI(){
+  hideAll();
+  document.getElementById("ai").style.display="block";
+  render(list,currentData);
+}
+
+function showSearch(){
+  hideAll();
+  document.getElementById("search").style.display="block";
+  render(searchList,currentData);
+}
+
+function showReview(){
+  hideAll();
+  document.getElementById("review").style.display="block";
+}
 
 function render(target,data){
   target.innerHTML="";
@@ -175,11 +193,14 @@ function render(target,data){
 
 function openDetail(id){
   const ai=aiData.find(a=>a.id===id);
-  hideAll();detail.style.display="block";
-  detail-name.innerText=ai.name;
-  detail-cat.innerText=ai.cat;
-  detail-price.innerText=ai.price;
-  detail-desc.innerText=ai.desc;
+  if(!ai) return;
+
+  hideAll();
+  document.getElementById("detail").style.display="block";
+  document.getElementById("detail-name").innerText=ai.name;
+  document.getElementById("detail-cat").innerText=ai.cat;
+  document.getElementById("detail-price").innerText=ai.price;
+  document.getElementById("detail-desc").innerText=ai.desc;
 }
 
 function filterAI(cat){
@@ -188,9 +209,9 @@ function filterAI(cat){
 }
 
 function searchAI(word){
-  currentData=aiData.filter(a=>a.name.toLowerCase().includes(word.toLowerCase()));
-  render(list,currentData);
-  render(searchList,currentData);
+  const result = aiData.filter(a=>a.name.toLowerCase().includes(word.toLowerCase()));
+  render(list,result);
+  render(searchList,result);
 }
 
 showHome();
