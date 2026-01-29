@@ -22,22 +22,14 @@ header{
 }
 .logo-text{font-size:24px;font-weight:900}
 
-.header-right{
-  display:flex;align-items:center;gap:14px
-}
-.icon-btn{
-  font-size:20px;cursor:pointer;
-  padding:10px;border-radius:10px;
-  background:#151515
-}
-.icon-btn:hover{background:#1d1d1d}
-.auth-btn{
+.header-right{display:flex;gap:12px}
+.header-btn{
   padding:10px 16px;border-radius:10px;
-  background:#151515;border:none;
-  color:#fff;font-weight:700;cursor:pointer
+  background:#151515;color:#fff;
+  font-weight:700;cursor:pointer;border:none
 }
-.auth-btn:hover{background:#1d1d1d}
-.auth-btn.signup{
+.header-btn:hover{background:#1d1d1d}
+.header-btn.primary{
   background:linear-gradient(135deg,#ff6cff,#7aa2ff);
   color:#000
 }
@@ -87,23 +79,6 @@ section{display:none}
   padding:12px 20px;background:#222;
   border-radius:10px;cursor:pointer;font-weight:700
 }
-
-/* MODAL */
-.modal{
-  position:fixed;inset:0;
-  background:rgba(0,0,0,.6);
-  display:none;align-items:center;justify-content:center;
-  z-index:1000
-}
-.modal-box{
-  background:#151515;padding:30px;
-  border-radius:16px;width:320px;text-align:center
-}
-.close-btn{
-  margin-top:20px;padding:10px;
-  background:#222;border-radius:10px;
-  cursor:pointer
-}
 </style>
 </head>
 
@@ -115,9 +90,11 @@ section{display:none}
     <div class="logo-text">VRANK</div>
   </div>
   <div class="header-right">
-    <div class="icon-btn" onclick="openSettings()">⚙️</div>
-    <button class="auth-btn" onclick="openLogin()">로그인</button>
-    <button class="auth-btn signup" onclick="openSignup()">회원가입</button>
+    <button class="header-btn" onclick="showAI()">AI</button>
+    <button class="header-btn" onclick="showSearch()">검색</button>
+    <button class="header-btn" onclick="showReview()">리뷰</button>
+    <button class="header-btn">로그인</button>
+    <button class="header-btn primary">회원가입</button>
   </div>
 </header>
 
@@ -129,6 +106,7 @@ section{display:none}
 
 <section id="ai">
   <h2>AI 카테고리</h2>
+
   <div class="category-grid">
     <div class="category" onclick="filterAI('전체')">전체</div>
     <div class="category" onclick="filterAI('글쓰기')">✍ 글쓰기</div>
@@ -137,6 +115,7 @@ section{display:none}
     <div class="category" onclick="filterAI('개발')">💻 개발</div>
     <div class="category" onclick="filterAI('검색')">🔎 검색</div>
   </div>
+
   <input class="search-box" placeholder="AI 이름 검색..." oninput="searchAI(this.value)">
   <div id="ai-list"></div>
 </section>
@@ -151,58 +130,45 @@ section{display:none}
   </div>
 </section>
 
-<section id="review">
-  <h2>📺 AI 리뷰 영상</h2>
-</section>
-
 <section id="search">
   <h2>🔍 AI 빠른 검색</h2>
-  <input class="search-box" oninput="searchAI(this.value)">
+  <input class="search-box" placeholder="AI 검색..." oninput="searchAI(this.value)">
   <div id="ai-list-search"></div>
+</section>
+
+<section id="review">
+  <h2>📺 AI 리뷰 (준비중)</h2>
 </section>
 
 </main>
 
-<div id="modal" class="modal">
-  <div class="modal-box">
-    <h2 id="modal-title"></h2>
-    <p id="modal-desc"></p>
-    <div class="close-btn" onclick="closeModal()">닫기</div>
-  </div>
-</div>
-
 <script>
-/* ===== AI DATA (네가 준 그대로 유지) ===== */
-const aiData = [...]; // ⚠️ 여기엔 네가 준 aiData 그대로 두면 됨 (너무 길어서 생략)
+const aiData = [
+ {id:1,name:"ChatGPT (챗지피티)",cat:"글쓰기",img:"https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",price:"무료 / Plus $20",desc:"범용 AI"},
+ {id:2,name:"Claude (클로드)",cat:"글쓰기",img:"https://upload.wikimedia.org/wikipedia/commons/8/8a/Anthropic_logo.svg",price:"무료 / Pro $20",desc:"논리 특화"},
+ {id:3,name:"Midjourney (미드저니)",cat:"디자인",img:"https://upload.wikimedia.org/wikipedia/commons/e/e6/Midjourney_Emblem.png",price:"월 $10~",desc:"이미지 생성"},
+ {id:4,name:"DALL·E (달리)",cat:"디자인",img:"https://upload.wikimedia.org/wikipedia/commons/4/4f/OpenAI_Logo.svg",price:"사용량 기반",desc:"이미지 생성"},
+ {id:5,name:"Pictory (픽토리)",cat:"비디오",img:"https://pictory.ai/favicon.ico",price:"유료",desc:"텍스트 → 영상"},
+ {id:6,name:"Sora (소라)",cat:"비디오",img:"https://openai.com/favicon.ico",price:"미정",desc:"OpenAI 영상 AI"},
+ {id:7,name:"Replit (레플릿)",cat:"개발",img:"https://upload.wikimedia.org/wikipedia/commons/b/b2/Repl.it_logo.svg",price:"무료 / Pro $20",desc:"웹 IDE"},
+ {id:8,name:"v0.dev (브이제로닷데브)",cat:"개발",img:"https://v0.dev/favicon.ico",price:"유료",desc:"UI 자동 생성"},
+ {id:9,name:"Genspark (젠스파크)",cat:"검색",img:"https://genspark.ai/favicon.ico",price:"무료 / 유료",desc:"AI 검색"},
+ {id:10,name:"ChatPDF (챗피디에프)",cat:"검색",img:"https://www.chatpdf.com/favicon.ico",price:"무료 / 유료",desc:"PDF 분석"}
+];
 
-/* ===== STATE ===== */
-let currentSection = "home";
 let filteredData = [...aiData];
+let currentSection = "home";
 
-const sections=document.querySelectorAll("section");
-const list=document.getElementById("ai-list");
-const searchList=document.getElementById("ai-list-search");
+const sections = document.querySelectorAll("section");
+const list = document.getElementById("ai-list");
+const searchList = document.getElementById("ai-list-search");
 
 function hideAll(){sections.forEach(s=>s.style.display="none")}
 
-function showHome(){
-  hideAll();currentSection="home";
-  home.style.display="block";
-}
-function showAI(){
-  hideAll();currentSection="ai";
-  ai.style.display="block";
-  render(list,filteredData);
-}
-function showSearch(){
-  hideAll();currentSection="search";
-  search.style.display="block";
-  render(searchList,filteredData);
-}
-function showReview(){
-  hideAll();currentSection="review";
-  review.style.display="block";
-}
+function showHome(){hideAll();home.style.display="block";currentSection="home"}
+function showAI(){hideAll();ai.style.display="block";currentSection="ai";render(list,filteredData)}
+function showSearch(){hideAll();search.style.display="block";currentSection="search";render(searchList,filteredData)}
+function showReview(){hideAll();review.style.display="block"}
 
 function render(target,data){
   target.innerHTML="";
@@ -216,38 +182,25 @@ function render(target,data){
 }
 
 function openDetail(id){
-  const ai=aiData.find(a=>a.id===id);
+  const ai = aiData.find(a=>a.id===id);
   if(!ai) return;
   hideAll();
   detail.style.display="block";
-  detail-name.innerText=ai.name;
-  detail-cat.innerText=ai.cat;
-  detail-price.innerText=ai.price;
-  detail-desc.innerText=ai.desc;
+  detail-name.innerText = ai.name;
+  detail-cat.innerText = ai.cat;
+  detail-price.innerText = ai.price;
+  detail-desc.innerText = ai.desc;
 }
 
 function filterAI(cat){
-  filteredData = cat==="전체"? [...aiData] : aiData.filter(a=>a.cat===cat);
+  filteredData = cat==="전체" ? [...aiData] : aiData.filter(a=>a.cat===cat);
   render(list,filteredData);
 }
 
 function searchAI(word){
   const result = filteredData.filter(a=>a.name.toLowerCase().includes(word.toLowerCase()));
-  currentSection==="search"
-    ? render(searchList,result)
-    : render(list,result);
+  currentSection==="search" ? render(searchList,result) : render(list,result);
 }
-
-/* MODAL */
-function openSettings(){openModal("설정","기능 준비 중")}
-function openLogin(){openModal("로그인","기능 준비 중")}
-function openSignup(){openModal("회원가입","기능 준비 중")}
-function openModal(t,d){
-  modal-title.innerText=t;
-  modal-desc.innerText=d;
-  modal.style.display="flex";
-}
-function closeModal(){modal.style.display="none"}
 
 showHome();
 </script>
