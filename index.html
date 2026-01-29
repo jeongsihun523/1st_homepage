@@ -30,9 +30,7 @@ main{padding:60px 40px}
 section{display:none}
 
 /* CATEGORY */
-.category-grid{
-  display:flex;gap:14px;margin:30px 0;flex-wrap:wrap
-}
+.category-grid{display:flex;gap:14px;margin:30px 0;flex-wrap:wrap}
 .category{
   background:#151515;padding:14px 22px;border-radius:12px;
   cursor:pointer;font-weight:700
@@ -41,7 +39,7 @@ section{display:none}
 
 /* SEARCH */
 .search-box{
-  width:100%;max-width:400px;
+  width:100%;max-width:420px;
   padding:14px 18px;border-radius:12px;
   background:#151515;border:none;color:#fff;
   margin:20px 0;font-size:16px
@@ -56,10 +54,8 @@ section{display:none}
 .ai-card:hover{background:#1d1d1d}
 .ai-logo{
   width:56px;height:56px;border-radius:12px;
-  background:#1a1a1a;
-  object-fit:contain;padding:8px
+  background:#1a1a1a;object-fit:contain;padding:8px
 }
-.ai-text h3{font-size:18px}
 
 /* DETAIL */
 .detail-box{
@@ -67,17 +63,13 @@ section{display:none}
   padding:30px;border-radius:16px
 }
 .detail-box h2{font-size:26px;margin-bottom:6px}
-.detail-box .cat{color:#8fd3ff;margin-bottom:12px}
-.detail-box .price{color:#6cffb1;margin-bottom:14px;font-weight:700}
-.detail-box p{color:#aaa;line-height:1.6}
+.cat{color:#8fd3ff;margin-bottom:10px}
+.price{color:#6cffb1;margin-bottom:14px;font-weight:700}
 .back-btn{
   margin-top:30px;display:inline-block;
   padding:12px 20px;background:#222;
   border-radius:10px;cursor:pointer;font-weight:700
 }
-.back-btn:hover{background:#2a2a2a}
-
-iframe{width:100%;height:480px;border:none;border-radius:12px}
 </style>
 </head>
 
@@ -114,7 +106,6 @@ iframe{width:100%;height:480px;border:none;border-radius:12px}
   </div>
 
   <input class="search-box" placeholder="AI 이름 검색..." oninput="searchAI(this.value)">
-
   <div id="ai-list"></div>
 </section>
 
@@ -130,12 +121,11 @@ iframe{width:100%;height:480px;border:none;border-radius:12px}
 
 <section id="review">
   <h2>📺 AI 리뷰 영상</h2>
-  <iframe src="https://www.youtube.com/embed/SmLeEUzo0aA" allowfullscreen></iframe>
 </section>
 
 <section id="search">
   <h2>🔍 AI 빠른 검색</h2>
-  <input class="search-box" placeholder="ChatGPT, Midjourney..." oninput="searchAI(this.value)">
+  <input class="search-box" oninput="searchAI(this.value)">
   <div id="ai-list-search"></div>
 </section>
 
@@ -143,10 +133,24 @@ iframe{width:100%;height:480px;border:none;border-radius:12px}
 
 <script>
 const aiData = [
- {name:"ChatGPT (챗지피티)",cat:"글쓰기",img:"https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",price:"무료 / Plus $20",desc:"범용 AI"},
- {name:"Claude (클로드)",cat:"글쓰기",img:"https://upload.wikimedia.org/wikipedia/commons/8/8a/Anthropic_logo.svg",price:"무료 / Pro $20",desc:"논리 특화"},
- {name:"Midjourney (미드저니)",cat:"디자인",img:"https://upload.wikimedia.org/wikipedia/commons/e/e6/Midjourney_Emblem.png",price:"월 $10~",desc:"이미지 생성"}
+ {id:1,name:"ChatGPT (챗지피티)",cat:"글쓰기",img:"https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",price:"무료 / Plus $20",desc:"범용 AI"},
+ {id:2,name:"Claude (클로드)",cat:"글쓰기",img:"https://upload.wikimedia.org/wikipedia/commons/8/8a/Anthropic_logo.svg",price:"무료 / Pro $20",desc:"논리 특화"},
+ {id:3,name:"Wrtn (뤼튼)",cat:"글쓰기",img:"https://wrtn.ai/favicon.ico",price:"무료 / 일부 유료",desc:"한국어 특화"},
+ {id:4,name:"QuillBot (퀼봇)",cat:"글쓰기",img:"https://upload.wikimedia.org/wikipedia/commons/3/35/QuillBot_logo.png",price:"무료 / Premium $19.95",desc:"패러프레이징"},
+ {id:5,name:"Midjourney (미드저니)",cat:"디자인",img:"https://upload.wikimedia.org/wikipedia/commons/e/e6/Midjourney_Emblem.png",price:"월 $10~",desc:"이미지 생성"},
+ {id:6,name:"DALL·E (달리)",cat:"디자인",img:"https://upload.wikimedia.org/wikipedia/commons/4/4f/OpenAI_Logo.svg",price:"사용량 기반",desc:"OpenAI 이미지"},
+ {id:7,name:"Leonardo AI",cat:"디자인",img:"https://leonardo.ai/favicon.ico",price:"무료 / 유료",desc:"일러스트"},
+ {id:8,name:"Suno",cat:"비디오",img:"https://suno.ai/favicon.ico",price:"무료 / Pro $10",desc:"AI 음악"},
+ {id:9,name:"Synthesia",cat:"비디오",img:"https://www.synthesia.io/favicon.ico",price:"월 $22~",desc:"AI 아바타"},
+ {id:10,name:"Vrew",cat:"비디오",img:"https://vrew.ai/favicon.ico",price:"무료 / 유료",desc:"자막 자동화"},
+ {id:11,name:"GitHub Copilot",cat:"개발",img:"https://avatars.githubusercontent.com/u/126759922",price:"월 $10",desc:"코딩 AI"},
+ {id:12,name:"Replit",cat:"개발",img:"https://upload.wikimedia.org/wikipedia/commons/b/b2/Repl.it_logo.svg",price:"무료 / Pro $20",desc:"웹 IDE"},
+ {id:13,name:"Microsoft Copilot",cat:"개발",img:"https://upload.wikimedia.org/wikipedia/commons/9/9c/Microsoft_Copilot_Logo.svg",price:"무료 / Pro $20",desc:"MS AI"},
+ {id:14,name:"Perplexity AI",cat:"검색",img:"https://upload.wikimedia.org/wikipedia/commons/9/92/Perplexity_AI_logo.svg",price:"무료 / Pro $20",desc:"출처 기반 검색"},
+ {id:15,name:"Gemini",cat:"검색",img:"https://upload.wikimedia.org/wikipedia/commons/8/8f/Google-gemini-icon.svg",price:"무료 / Advanced $19.99",desc:"구글 AI"}
 ];
+
+let currentData=[...aiData];
 
 const sections=document.querySelectorAll("section");
 const list=document.getElementById("ai-list");
@@ -154,26 +158,23 @@ const searchList=document.getElementById("ai-list-search");
 
 function hideAll(){sections.forEach(s=>s.style.display="none")}
 function showHome(){hideAll();home.style.display="block"}
-function showAI(){hideAll();ai.style.display="block"}
+function showAI(){hideAll();ai.style.display="block";render(list,currentData)}
+function showSearch(){hideAll();search.style.display="block";render(searchList,currentData)}
 function showReview(){hideAll();review.style.display="block"}
-function showSearch(){hideAll();search.style.display="block";renderSearch(aiData)}
 
-function render(listEl,data){
-  listEl.innerHTML="";
-  data.forEach((ai,i)=>{
-    listEl.innerHTML+=`
-    <div class="ai-card" onclick="openDetail(${i})">
+function render(target,data){
+  target.innerHTML="";
+  data.forEach(ai=>{
+    target.innerHTML+=`
+    <div class="ai-card" onclick="openDetail(${ai.id})">
       <img class="ai-logo" src="${ai.img}">
-      <div class="ai-text"><h3>${ai.name}</h3></div>
+      <div>${ai.name}</div>
     </div>`;
   });
 }
 
-function renderAI(){render(list,aiData)}
-function renderSearch(data){render(searchList,data)}
-
-function openDetail(i){
-  const ai=aiData[i];
+function openDetail(id){
+  const ai=aiData.find(a=>a.id===id);
   hideAll();detail.style.display="block";
   detail-name.innerText=ai.name;
   detail-cat.innerText=ai.cat;
@@ -182,16 +183,16 @@ function openDetail(i){
 }
 
 function filterAI(cat){
-  render(list,cat==="전체"?aiData:aiData.filter(a=>a.cat===cat));
+  currentData = cat==="전체"?aiData:aiData.filter(a=>a.cat===cat);
+  render(list,currentData);
 }
 
 function searchAI(word){
-  const result=aiData.filter(a=>a.name.toLowerCase().includes(word.toLowerCase()));
-  render(list,result);
-  render(searchList,result);
+  currentData=aiData.filter(a=>a.name.toLowerCase().includes(word.toLowerCase()));
+  render(list,currentData);
+  render(searchList,currentData);
 }
 
-renderAI();
 showHome();
 </script>
 
