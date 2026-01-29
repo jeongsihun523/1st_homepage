@@ -29,7 +29,6 @@ header{
   font-weight:700;cursor:pointer;border:none
 }
 .header-btn:hover{background:#1d1d1d}
-.gear{font-size:20px;cursor:pointer}
 
 /* MAIN */
 main{padding:40px}
@@ -52,10 +51,15 @@ main{padding:40px}
 
 /* AI CARD */
 .ai-card{
-  background:#151515;padding:18px;border-radius:14px;
-  margin-bottom:12px;cursor:pointer
+  background:#151515;padding:16px;border-radius:14px;
+  margin-bottom:12px;cursor:pointer;
+  display:flex;gap:14px;align-items:center
 }
 .ai-card:hover{background:#1d1d1d}
+.ai-card img{
+  width:52px;height:52px;border-radius:12px;
+  background:#222;object-fit:cover
+}
 
 /* DETAIL */
 #detail{display:none}
@@ -80,40 +84,32 @@ main{padding:40px}
     <div class="logo-icon">V</div>
     <div class="logo-text">VRANK</div>
   </div>
-
   <div class="header-right">
     <button class="header-btn">로그인 / 회원가입</button>
-    <div class="gear">⚙️</div>
   </div>
 </header>
 
 <main>
 
-<!-- HOME -->
 <section id="home">
   <h1>AI 가성비 & 카테고리 플랫폼</h1>
 
-  <!-- SEARCH -->
   <input class="search-box" placeholder="AI 이름 검색..." oninput="searchAI(this.value)">
 
-  <!-- CATEGORY -->
   <div class="category-grid">
     <div class="category" onclick="filterAI('전체')">전체</div>
-    <div class="category" onclick="filterAI('글쓰기')">✍ 글쓰기/컨텐츠</div>
-    <div class="category" onclick="filterAI('디자인')">🎨 디자인/아트</div>
-    <div class="category" onclick="filterAI('비디오')">🎬 비디오/오디오</div>
-    <div class="category" onclick="filterAI('개발')">💻 개발/프로그래밍</div>
-    <div class="category" onclick="filterAI('음악')">🎵 노래/음악</div>
-    <div class="category" onclick="filterAI('생산형')">📝 생산형/협업도구</div>
-    <div class="category" onclick="filterAI('엔터테이먼트')">🏢 엔터테이먼트/기타</div>
-    <div class="category" onclick="filterAI('게임')">🕹️ 게임</div>
-    <div class="category" onclick="filterAI('검색')">🔎 검색/데이터</div>
+    <div class="category" onclick="filterAI('글쓰기')">✍ 글쓰기</div>
+    <div class="category" onclick="filterAI('디자인')">🎨 디자인</div>
+    <div class="category" onclick="filterAI('비디오')">🎬 비디오</div>
+    <div class="category" onclick="filterAI('개발')">💻 개발</div>
+    <div class="category" onclick="filterAI('음악')">🎵 음악</div>
+    <div class="category" onclick="filterAI('검색')">🔎 검색</div>
+    <div class="category" onclick="filterAI('기타')">🏢 기타</div>
   </div>
 
   <div id="ai-list"></div>
 </section>
 
-<!-- DETAIL -->
 <section id="detail">
   <div class="detail-box">
     <h2 id="detailName"></h2>
@@ -127,30 +123,35 @@ main{padding:40px}
 </main>
 
 <script>
+const img = "https://via.placeholder.com/80?text=AI";
+
 const aiData = [
- {id:1,name:"Ai Studios (에이아이 스튜디오스)",cat:"비디오",price:"유료",desc:"AI 영상 생성"},
- {id:2,name:"Pictory (픽토리)",cat:"비디오",price:"유료",desc:"텍스트 → 영상"},
- {id:3,name:"Genspark (젠스파크)",cat:"검색",price:"무료 / 유료",desc:"AI 검색"},
- {id:4,name:"ChatPDF (챗피디에프)",cat:"검색",price:"무료 / 유료",desc:"PDF 분석"},
- {id:5,name:"DeepToon (딥툰)",cat:"디자인",price:"유료",desc:"웹툰 제작"},
- {id:6,name:"Sora (소라)",cat:"비디오",price:"미정",desc:"OpenAI 영상 AI"},
- {id:7,name:"v0.dev (브이제로닷데브)",cat:"개발",price:"유료",desc:"UI 자동 생성"},
- {id:8,name:"Animated Drawings (에니메이티드 드로잉스)",cat:"비디오",price:"무료",desc:"그림 애니메이션"},
- {id:9,name:"Amper Music (앰퍼 뮤직)",cat:"음악",price:"유료",desc:"AI 작곡"},
- {id:10,name:"Tabnine (탭나인)",cat:"개발",price:"유료",desc:"코드 자동완성"},
- {id:11,name:"Mistral AI (미스트랄 에이아이)",cat:"개발",price:"무료 / 유료",desc:"오픈 LLM"},
- {id:12,name:"Ideogram (이데오그램)",cat:"디자인",price:"무료 / 유료",desc:"텍스트 이미지"},
- {id:13,name:"Soundraw (사운드로우)",cat:"음악",price:"유료",desc:"AI 음악"},
- {id:14,name:"Beatoven AI (비토븐)",cat:"음악",price:"유료",desc:"배경음악"},
- {id:15,name:"Replit (레플릿)",cat:"개발",price:"무료 / Pro",desc:"웹 IDE"},
- {id:16,name:"DALL·E (달리)",cat:"디자인",price:"사용량 기반",desc:"이미지 생성"},
+ {id:1,name:"Ai Studios (에이아이 스튜디오스)",cat:"비디오",price:"유료",desc:"AI 영상 생성",img},
+ {id:2,name:"Pictory (픽토리)",cat:"비디오",price:"유료",desc:"텍스트 → 영상",img},
+ {id:3,name:"Genspark (젠스파크)",cat:"검색",price:"무료/유료",desc:"AI 검색",img},
+ {id:4,name:"ChatPDF (챗피디에프)",cat:"검색",price:"무료/유료",desc:"PDF 분석",img},
+ {id:5,name:"DeepToon (딥툰)",cat:"디자인",price:"유료",desc:"웹툰 제작",img},
+ {id:6,name:"Sora (소라)",cat:"비디오",price:"미정",desc:"OpenAI 영상 AI",img},
+ {id:7,name:"v0.dev (브이제로닷데브)",cat:"개발",price:"유료",desc:"UI 생성",img},
+ {id:8,name:"Slid (슬리드)",cat:"기타",price:"유료",desc:"슬라이드 자동화",img},
+ {id:9,name:"Animated Drawings (에니메이티드 드로잉스)",cat:"비디오",price:"무료",desc:"그림 애니메이션",img},
+ {id:10,name:"Amper Music (앰퍼 뮤직)",cat:"음악",price:"유료",desc:"AI 작곡",img},
+ {id:11,name:"Tabnine (탭나인)",cat:"개발",price:"유료",desc:"코드 자동완성",img},
+ {id:12,name:"OpenAI Codex (오픈에이아이 코드엑스)",cat:"개발",price:"유료",desc:"코딩 AI",img},
+ {id:13,name:"Mistral AI (미스트랄 에이아이)",cat:"개발",price:"무료/유료",desc:"LLM",img},
+ {id:14,name:"Ideogram (이데오그램)",cat:"디자인",price:"무료/유료",desc:"텍스트 이미지",img},
+ {id:15,name:"Replit (레플릿)",cat:"개발",price:"무료/Pro",desc:"웹 IDE",img},
+ {id:16,name:"DALL·E (달리)",cat:"디자인",price:"사용량 기반",desc:"이미지 생성",img},
+ {id:17,name:"CopyAI (카피에이아이)",cat:"글쓰기",price:"유료",desc:"마케팅 글쓰기",img},
+ {id:18,name:"AutoDraw (오토드로우)",cat:"디자인",price:"무료",desc:"자동 드로잉",img},
+ {id:19,name:"Vrew (브루)",cat:"비디오",price:"유료",desc:"AI 영상 편집",img},
+ {id:20,name:"FounderPal (파운더펄)",cat:"기타",price:"유료",desc:"창업 아이디어",img},
 ];
 
-let filtered = [...aiData];
-
-const home = document.getElementById("home");
-const detail = document.getElementById("detail");
-const list = document.getElementById("ai-list");
+let filtered=[...aiData];
+const home=document.getElementById("home");
+const detail=document.getElementById("detail");
+const list=document.getElementById("ai-list");
 
 function showHome(){
   detail.style.display="none";
@@ -163,20 +164,20 @@ function render(data){
   data.forEach(ai=>{
     list.innerHTML+=`
       <div class="ai-card" onclick="openDetail(${ai.id})">
+        <img src="${ai.img}">
         <strong>${ai.name}</strong>
-      </div>
-    `;
+      </div>`;
   });
 }
 
 function openDetail(id){
-  const ai = aiData.find(a=>a.id===id);
+  const ai=aiData.find(a=>a.id===id);
   home.style.display="none";
   detail.style.display="block";
-  detailName.innerText = ai.name;
-  detailCat.innerText = ai.cat;
-  detailPrice.innerText = ai.price;
-  detailDesc.innerText = ai.desc;
+  detailName.innerText=ai.name;
+  detailCat.innerText=ai.cat;
+  detailPrice.innerText=ai.price;
+  detailDesc.innerText=ai.desc;
 }
 
 function filterAI(cat){
