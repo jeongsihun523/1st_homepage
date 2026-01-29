@@ -29,10 +29,7 @@ header{
   font-weight:700;cursor:pointer;border:none
 }
 .header-btn:hover{background:#1d1d1d}
-.gear{
-  font-size:20px;cursor:pointer;
-  padding:8px;border-radius:8px
-}
+.gear{font-size:20px;cursor:pointer;padding:8px;border-radius:8px}
 .gear:hover{background:#1d1d1d}
 
 /* MAIN */
@@ -61,13 +58,9 @@ main{padding:40px}
   display:flex;gap:14px;align-items:center
 }
 .ai-card:hover{background:#1d1d1d}
-
-.ai-img{
+.ai-card img{
   width:52px;height:52px;border-radius:12px;
-  background:linear-gradient(135deg,#6cffb1,#3aa0ff);
-  display:flex;align-items:center;justify-content:center;
-  font-weight:900;color:#000;font-size:20px;
-  flex-shrink:0
+  background:#222;object-fit:contain;padding:6px
 }
 
 /* DETAIL */
@@ -133,6 +126,36 @@ main{padding:40px}
 </main>
 
 <script>
+const fallbackImg = "https://via.placeholder.com/80?text=AI";
+
+const aiImageMap = {
+  "Ai Studios":"https://aistudios.com/favicon.ico",
+  "Pictory":"https://pictory.ai/favicon.ico",
+  "Genspark":"https://genspark.ai/favicon.ico",
+  "ChatPDF":"https://www.chatpdf.com/favicon.ico",
+  "DeepToon":"https://deeptoon.ai/favicon.ico",
+  "Sora":"https://openai.com/favicon.ico",
+  "v0.dev":"https://v0.dev/favicon.ico",
+  "Slid":"https://slid.cc/favicon.ico",
+  "Animated Drawings":"https://sketch.metademolab.com/favicon.ico",
+  "Amper Music":"https://www.ampermusic.com/favicon.ico",
+  "Tabnine":"https://www.tabnine.com/favicon.ico",
+  "OpenAI Codex":"https://openai.com/favicon.ico",
+  "Mistral AI":"https://mistral.ai/favicon.ico",
+  "Ideogram":"https://ideogram.ai/favicon.ico",
+  "Replit":"https://replit.com/favicon.ico",
+  "DALL·E":"https://openai.com/favicon.ico",
+  "CopyAI":"https://www.copy.ai/favicon.ico",
+  "AutoDraw":"https://www.autodraw.com/favicon.ico",
+  "Vrew":"https://vrew.voyagerx.com/favicon.ico",
+  "FounderPal":"https://founderpal.ai/favicon.ico"
+};
+
+function getImg(name){
+  const key = Object.keys(aiImageMap).find(k => name.startsWith(k));
+  return aiImageMap[key] || fallbackImg;
+}
+
 const aiData = [
  {id:1,name:"Ai Studios (에이아이 스튜디오스)",cat:"비디오",price:"유료",desc:"AI 영상 생성"},
  {id:2,name:"Pictory (픽토리)",cat:"비디오",price:"유료",desc:"텍스트 → 영상"},
@@ -154,7 +177,7 @@ const aiData = [
  {id:18,name:"AutoDraw (오토드로우)",cat:"디자인",price:"무료",desc:"자동 드로잉"},
  {id:19,name:"Vrew (브루)",cat:"비디오",price:"유료",desc:"AI 영상 편집"},
  {id:20,name:"FounderPal (파운더펄)",cat:"기타",price:"유료",desc:"창업 아이디어"},
-];
+].map(ai => ({...ai, img:getImg(ai.name)}));
 
 let filtered=[...aiData];
 const home=document.getElementById("home");
@@ -172,7 +195,7 @@ function render(data){
   data.forEach(ai=>{
     list.innerHTML+=`
       <div class="ai-card" onclick="openDetail(${ai.id})">
-        <div class="ai-img">${ai.name[0]}</div>
+        <img src="${ai.img}" onerror="this.src='${fallbackImg}'">
         <strong>${ai.name}</strong>
       </div>`;
   });
